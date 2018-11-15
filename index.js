@@ -44,7 +44,7 @@ pipeArr[0] = {
 let score = 0;
 let xPosition = 35;
 let yPosition = 150;
-let gravitation = 1.4;
+let gravitation = 1.3;
 let gap = 90;
 
 function gameWorld() {
@@ -52,18 +52,16 @@ function gameWorld() {
 	yPosition += gravitation;
 
  	context.drawImage(bg, 0, 0);
-	 	for(let i = 0; i < pipeArr.length; i++) {
+	 	for(let i = 0; i < pipeArr.length; i+=1) {
 		context.drawImage(pipe1, pipeArr[i].x, pipeArr[i].y);
 		context.drawImage(pipe2, pipeArr[i].x, pipeArr[i].y + pipe1.height + gap);
 
-		pipeArr[i].x--;
+		pipeArr[i].x -= 1;
 
-		if(pipeArr[i].x == 125) {
-			pipeArr.push({
-			x : cvs.width,
-			y : Math.floor(Math.random() * pipe1.height) - pipe1.height
-			});
-	}
+		if(pipeArr[i].x == 115) {
+			pipeArr.push({x : cvs.width, y : Math.floor(Math.random() * pipe1.height) - pipe1.height });
+		}
+
 		if(xPosition + bird.width >= pipeArr[i].x && xPosition <= pipeArr[i].x + pipe1.width && (yPosition <= pipeArr[i].y + pipe1.height 
 		|| yPosition + bird.height >= pipeArr[i].y + pipe1.height + gap) 
 		|| yPosition + bird.height >= cvs.height - fg.height) {
@@ -73,12 +71,12 @@ function gameWorld() {
 			pipe2.src = "img/pipeBottomNull.png";
 			yPosition = 820;
 			failSound.play();
-			setTimeout('alert(`Вы проиграли, ваш счет: ${score}`)', 100);
+			// setTimeout('alert(`Вы проиграли, ваш счет: ${score}`)', 100);
 			setTimeout('location.reload()',101);
 		}
 
-		if(pipeArr[i].x == 5) {
-			score++;
+		if(pipeArr[i].x === 5) {
+			score+=1;
 			plusScoreSound.play();
 		}
 }
