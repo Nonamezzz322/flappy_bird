@@ -1,0 +1,30 @@
+.wrapper {
+	position: relative;
+	width: 288px;
+	height: 512px;
+}
+
+#start {
+	display: none;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 40%;
+	left: 30%;
+	background: url("./img/media_player_button_21-512.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
+
+#pause {
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	background: url("./img/media_player_button_21-512.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
