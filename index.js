@@ -1,4 +1,4 @@
-const cvs = document.getElementById("game");
+let cvs = document.getElementById("game");
 let context = cvs.getContext("2d");
 
 let bird = new Image();
@@ -35,16 +35,19 @@ function moveUp(e) {
 	}
 }
 
+
 let pipeArr = [];
 pipeArr[0] = {
  x : cvs.width,
  y : 0
 }
-
+let pauseBtn = document.getElementById('pause');
+let startBtn = document.getElementById('start');
+let pause = '';
 let score = 0;
 let xPosition = 35;
 let yPosition = 150;
-let gravitation = 1.4;
+let gravitation = 1.5;
 let gap = 90;
 
 function gameWorld() {
@@ -52,13 +55,12 @@ function gameWorld() {
 	yPosition += gravitation;
 
  	context.drawImage(bg, 0, 0);
-	 	for(let i = 0; i < pipeArr.length; i++) {
-		context.drawImage(pipe1, pipeArr[i].x, pipeArr[i].y);
-		context.drawImage(pipe2, pipeArr[i].x, pipeArr[i].y + pipe1.height + gap);
+	for(let i = 0; i < pipeArr.length; i++) {
+	context.drawImage(pipe1, pipeArr[i].x, pipeArr[i].y);
+	context.drawImage(pipe2, pipeArr[i].x, pipeArr[i].y + pipe1.height + gap)
 
-		pipeArr[i].x--;
-
-		if(pipeArr[i].x == 125) {
+		pipeArr[i].x-=1;
+		if(pipeArr[i].x == 110) {
 			pipeArr.push({
 			x : cvs.width,
 			y : Math.floor(Math.random() * pipe1.height) - pipe1.height
@@ -73,15 +75,14 @@ function gameWorld() {
 			pipe2.src = "img/pipeBottomNull.png";
 			yPosition = 820;
 			failSound.play();
-			setTimeout('alert(`Вы проиграли, ваш счет: ${score}`)', 100);
-			setTimeout('location.reload()',101);
+			// setTimeout('alert(`Вы проиграли, ваш счет: ${score}`)', 100);
+			location.reload();
 		}
-
 		if(pipeArr[i].x == 5) {
 			score++;
 			plusScoreSound.play();
 		}
-}
+	}
 
  context.drawImage(fg, 0, cvs.height - fg.height);
  context.drawImage(bird, xPosition, yPosition);
@@ -90,10 +91,29 @@ function gameWorld() {
 
 context.fillStyle = "white";
 context.font = "24px Arial";
-context.fillText("Счет: " + score, 10, 20);
+context.fillText("Счет: " + score, 10, cvs.height - 20);
 
-requestAnimationFrame(gameWorld);
+pause = requestAnimationFrame(gameWorld);
 }
 
 pipe2.onload = gameWorld;
 document.addEventListener("keydown", moveUp);
+pauseBtn.addEventListener("click", sleep);
+startBtn.addEventListener("click", start);
+
+function sleep() {
+		cancelAnimationFrame(pause)
+		startBtn.style.display = 'block'
+		pauseBtn.style.display = 'none'
+		flySound.src = "";
+		document.addEventListener("keydown", ()=>{ yPosition += 40; });
+}
+
+
+function start() {
+		requestAnimationFrame(gameWorld)
+		startBtn.style.display = 'none'
+		pauseBtn.style.display = 'block'
+		flySound.src = "audio/fly.mp3";
+		document.addEventListener("keydown", ()=>{ yPosition -= 40; });
+	}
