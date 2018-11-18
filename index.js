@@ -1,119 +1,119 @@
-let cvs = document.getElementById("game");
-let context = cvs.getContext("2d");
+const cvs = document.getElementById("game");
+const ctx = cvs.getContext("2d");
+let pauseBtn = document.getElementById('pause');
+let startBtn = document.getElementById('start');
 
 let bird = new Image();
 let bg = new Image();
 let fg = new Image();
-let pipe1 = new Image();
-let pipe2 = new Image();
+let pipeUp = new Image();
+let pipeBottom = new Image();
 
 bird.src = "img/bird.png";
 bg.src = "img/bg.png";
 fg.src = "img/fg.png";
-pipe1.src = "img/pipeUp.png";
-pipe2.src = "img/pipeBottom.png";
+pipeUp.src = "img/pipeUp.png";
+pipeBottom.src = "img/pipeBottom.png";
 
-
-let flySound = new Audio();
-let plusScoreSound = new Audio();
+let fly = new Audio();
+let score_audio = new Audio();
 let failSound = new Audio();
 
-flySound.src = "audio/fly.mp3";
+fly.src = "audio/fly.mp3";
+score_audio.src = "audio/score.mp3";
 failSound.src = "audio/fail.mp3";
-plusScoreSound.src = "audio/score.mp3";
+
+let pipe = [];
+pipe[0] = {
+	x : cvs.width,
+	y : 0
+}
+
+let pause = '';
+let gap = 90;
+let score = 0;
+let xPos = 10;
+let yPos = 150;
+let grav = 1.5;
 
 function moveUp(e) {
-	if (e.keyCode === 49) {
+	if (e.keyCode === 32 && yPos > 30) {
+		yPos -= 30;
+		fly.play();
+	} else if (e.keyCode === 49) {
 		bird.src = "img/bird.png";
 	} else if (e.keyCode === 50) {
 		bird.src = "img/bird2.png";
 	} else if (e.keyCode === 51) {
 		bird.src = "img/bird3.png";
-	} else {
-		yPosition -= 40;
-		flySound.play();
 	}
 }
 
+function draw() {
+	ctx.drawImage(bg, 0, 0);
 
-let pipeArr = [];
-pipeArr[0] = {
- x : cvs.width,
- y : 0
-}
-let pauseBtn = document.getElementById('pause');
-let startBtn = document.getElementById('start');
-let pause = '';
-let score = 0;
-let xPosition = 35;
-let yPosition = 150;
-let gravitation = 1.5;
-let gap = 90;
+	for (let i = 0; i < pipe.length; i += 1) {
+		ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
+		ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
 
-function gameWorld() {
+		pipe[i].x -= 1;
 
-	yPosition += gravitation;
-
- 	context.drawImage(bg, 0, 0);
-	for(let i = 0; i < pipeArr.length; i++) {
-	context.drawImage(pipe1, pipeArr[i].x, pipeArr[i].y);
-	context.drawImage(pipe2, pipeArr[i].x, pipeArr[i].y + pipe1.height + gap)
-
-		pipeArr[i].x-=1;
-		if(pipeArr[i].x == 110) {
-			pipeArr.push({
+		if (pipe[i].x == 115) {
+			pipe.push({
 			x : cvs.width,
-			y : Math.floor(Math.random() * pipe1.height) - pipe1.height
+			y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
 			});
-	}
-		if(xPosition + bird.width >= pipeArr[i].x && xPosition <= pipeArr[i].x + pipe1.width && (yPosition <= pipeArr[i].y + pipe1.height 
-		|| yPosition + bird.height >= pipeArr[i].y + pipe1.height + gap) 
-		|| yPosition + bird.height >= cvs.height - fg.height) {
+		}
 
-			bg.src = "img/gameOwer.png";
-			pipe1.src = "img/pipeUpNull.png";
-			pipe2.src = "img/pipeBottomNull.png";
-			yPosition = 820;
-			failSound.play();
-			// setTimeout('alert(`Вы проиграли, ваш счет: ${score}`)', 100);
+		if (xPos + bird.width >= pipe[i].x
+			&& xPos <= pipe[i].x + pipeUp.width
+			&& (yPos <= pipe[i].y + pipeUp.height
+			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
+			|| yPos + bird.height >= cvs.height - fg.height) {
+
+			// bg.src = "img/gameOwer.png";
+			// pipe1.src = "img/pipeUpNull.png";
+			// pipe2.src = "img/pipeBottomNull.png";
+			// yPosition = 820;
+			// failSound.play();
 			location.reload();
 		}
-		if(pipeArr[i].x == 5) {
-			score++;
-			plusScoreSound.play();
+
+		if (pipe[i].x == 5) {
+			score += 1;
+			score_audio.play();
 		}
 	}
 
- context.drawImage(fg, 0, cvs.height - fg.height);
- context.drawImage(bird, xPosition, yPosition);
+	ctx.drawImage(fg, 0, cvs.height - fg.height);
+	ctx.drawImage(bird, xPos, yPos);
 
+	yPos += grav;
 
+	ctx.fillStyle = "#000";
+	ctx.font = "24px Verdana";
+	ctx.fillText("Score: " + score, 10, cvs.height - 20);
 
-context.fillStyle = "white";
-context.font = "24px Arial";
-context.fillText("Счет: " + score, 10, cvs.height - 20);
-
-pause = requestAnimationFrame(gameWorld);
+	animations = requestAnimationFrame(draw);
 }
 
-pipe2.onload = gameWorld;
+pipeBottom.onload = draw;
+
 document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
 
 function sleep() {
-		cancelAnimationFrame(pause)
-		startBtn.style.display = 'block'
-		pauseBtn.style.display = 'none'
-		flySound.src = "";
-		document.addEventListener("keydown", ()=>{ yPosition += 40; });
+	cancelAnimationFrame(animations)
+	startBtn.style.display = 'block';
+	pauseBtn.style.display = 'none';
+	document.removeEventListener("keydown", moveUp);
 }
 
 
 function start() {
-		requestAnimationFrame(gameWorld)
-		startBtn.style.display = 'none'
-		pauseBtn.style.display = 'block'
-		flySound.src = "audio/fly.mp3";
-		document.addEventListener("keydown", ()=>{ yPosition -= 40; });
-	}
+	requestAnimationFrame(draw)
+	startBtn.style.display = 'none';
+	pauseBtn.style.display = 'block';
+	document.addEventListener("keydown", moveUp);
+}
