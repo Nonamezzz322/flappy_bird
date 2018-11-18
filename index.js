@@ -2,6 +2,7 @@ const cvs = document.getElementById("game");
 const ctx = cvs.getContext("2d");
 let pauseBtn = document.getElementById('pause');
 let startBtn = document.getElementById('start');
+let reloadBtn = document.getElementById('reload');
 
 let bird = new Image();
 let bg = new Image();
@@ -35,6 +36,7 @@ let score = 0;
 let xPos = 10;
 let yPos = 150;
 let grav = 1.5;
+let leadArr = []; // массив лидерборда
 
 function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
@@ -71,12 +73,14 @@ function draw() {
 			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
 			|| yPos + bird.height >= cvs.height - fg.height) {
 
-			// bg.src = "img/gameOwer.png";
-			// pipe1.src = "img/pipeUpNull.png";
-			// pipe2.src = "img/pipeBottomNull.png";
-			// yPosition = 820;
-			// failSound.play();
+			bg.src = "img/gameOwer.png";
+			pipeUp.src = "img/pipeUpNull.png";
+			pipeBottom.src = "img/pipeBottomNull.png";
+			yPos = 820;
+			failSound.play();
+			// checkLocalStorage()
 			location.reload();
+	
 		}
 
 		if (pipe[i].x == 5) {
@@ -102,6 +106,7 @@ pipeBottom.onload = draw;
 document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
+reloadBtn.addEventListener("click", reload); //reload button
 
 function sleep() {
 	cancelAnimationFrame(animations)
@@ -116,4 +121,57 @@ function start() {
 	startBtn.style.display = 'none';
 	pauseBtn.style.display = 'block';
 	document.addEventListener("keydown", moveUp);
+}
+
+
+function reload() {  //функция перезагрузки мира по кнопке 
+	reloadBtn.style.display = 'none';
+	pauseBtn.style.display = 'block';
+	location.reload();
+}
+
+
+// таблица лидеров (в работе)
+const nickname = document.getElementById('name');
+nickname.addEventListener("change", pushNick);
+
+function pushNick(){ //добавляет ник в LocalStorage 
+
+	localStorage.setItem('name', nickname.value);
+}
+
+
+function leadTablePush(){  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
+	let blaBla = localStorage.getItem('leadArr');
+	leadArr = JSON.parse(blaBla);
+	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
+	leadArr.push(scoreObj)
+	let promise = new Promise(function(res,rej){
+		res(leadArr)
+	}) 
+		.then(res => JSON.stringify(res))
+		.then(res => localStorage.setItem('leadArr', res))
+		.then(res => localStorage.getItem('leadArr'))
+		.then(res => JSON.parse(res))
+		.then(res => console.log(res))
+}
+
+
+function leadTableNew(){ // если в LocalStorage нет ключа 'leadArr' - создает его с текущими данными
+	
+	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
+	leadArr.push(scoreObj)
+	let promise = new Promise(function(res,rej){
+		res(leadArr)
+	}) 
+		.then(res => JSON.stringify(res))
+		.then(res => localStorage.setItem('leadArr', res))
+	}
+
+function checkLocalStorage(){ // проверяет LocalStorage на наличие нужного ключа.
+	if (localStorage.getItem('leadArr') !== null) {
+		leadTablePush();
+	} else {
+		leadTableNew();
+	}
 }

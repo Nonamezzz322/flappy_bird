@@ -31,3 +31,11 @@
 	right: 5%;
 	width: 70px;
 }
+
+#reload {
+	display: none;
+	position: absolute;
+	bottom: 40%;
+	right: 40%;
+	width: 70px;
+}
