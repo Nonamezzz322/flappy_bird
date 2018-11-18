@@ -1,0 +1,33 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+    padding: 0;
+}
+
+/* стили для страницы */
+
+
+
+/* стили для игры */
+
+.game_block {
+	position: relative;
+	width: 288px;
+	height: 512px;
+}
+
+#start {
+	display: none;
+	position: absolute;
+	width: 120px;
+	height: 48px;
+	top: calc(50% - 24px);
+	left: calc(50% - 60px);
+}
+
+#pause {
+	position: absolute;
+	bottom: 3%;
+	right: 5%;
+	width: 70px;
+}
