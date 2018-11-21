@@ -3,6 +3,8 @@ const ctx = cvs.getContext("2d");
 let pauseBtn = document.getElementById('pause');
 let startBtn = document.getElementById('start');
 let reloadBtn = document.getElementById('reload');
+let setToScoreList = document.getElementById('set_to_score_list');
+let showTable = document.getElementById('show_lead_table');
 
 let bird = new Image();
 let bg = new Image();
@@ -33,10 +35,13 @@ pipe[0] = {
 let pause = '';
 let gap = 90;
 let score = 0;
+let bestScore = 0; //нужна для вывода highScore
 let xPos = 10;
 let yPos = 150;
 let grav = 1.5;
 let leadArr = []; // массив лидерборда
+
+getBestScore();
 
 function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
@@ -78,13 +83,15 @@ function draw() {
 			pipeBottom.src = "img/pipeBottomNull.png";
 			yPos = 820;
 			failSound.play();
-			// checkLocalStorage()
 			location.reload();
 	
 		}
 
 		if (pipe[i].x == 5) {
 			score += 1;
+			setScoreObj()
+			setBestScore()
+			getBestScore()
 			score_audio.play();
 		}
 	}
@@ -97,6 +104,7 @@ function draw() {
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
 	ctx.fillText("Score: " + score, 10, cvs.height - 20);
+	ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
 
 	animations = requestAnimationFrame(draw);
 }
@@ -107,6 +115,8 @@ document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
 reloadBtn.addEventListener("click", reload); //reload button
+setToScoreList.addEventListener("click", checkLocalStorage);
+showTable.addEventListener("click", createTable);
 
 function sleep() {
 	cancelAnimationFrame(animations)
@@ -141,6 +151,38 @@ function pushNick(){ //добавляет ник в LocalStorage
 }
 
 
+function setScoreObj(){ //обновляет объект в LocalStorage при изменении счета 
+	
+	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
+	let promise = new Promise(function(res,rej){
+		res(scoreObj)
+	}) 
+		.then(res => JSON.stringify(res))
+		.then(res => localStorage.setItem('scoreObj', res))
+	}
+
+
+
+function setBestScore(){ // добавляет highScore
+	let storage = localStorage.getItem("highScore");
+    if (storage) {
+       if (score > storage) {
+        	localStorage.setItem("highScore", score);
+        }
+    } else {
+        localStorage.setItem("highScore", 0);
+    }
+}	
+
+function getBestScore(){ //выводит счетчик highScore
+	let storage = localStorage.getItem("highScore");
+    if (storage) {
+      bestScore = storage;
+    } else {
+        bestScore = 0;
+    }
+}
+
 function leadTablePush(){  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
 	let blaBla = localStorage.getItem('leadArr');
 	leadArr = JSON.parse(blaBla);
@@ -174,4 +216,18 @@ function checkLocalStorage(){ // проверяет LocalStorage на налич
 	} else {
 		leadTableNew();
 	}
+}
+
+
+function createTable(){
+	let data = JSON.parse(localStorage.getItem('leadArr'));
+    let table = '<tbody>'
+    for(i = 0;i < data.length; i++){
+        table+= '<tr>';
+        table+= '<td>' + data[i].name + '</td>';
+        table+= '<td>' + data[i].score + '</td>';
+        table+= '</tr>';
+   	}
+    table+='</tbody>';
+    document.getElementById('tableData').innerHTML = table;
 }
