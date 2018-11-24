@@ -183,19 +183,33 @@ function getBestScore(){ //выводит счетчик highScore
     }
 }
 
+
+
 function leadTablePush(){  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
-	let blaBla = localStorage.getItem('leadArr');
-	leadArr = JSON.parse(blaBla);
+	sortArray(leadArr);
+
+	leadArr = JSON.parse(localStorage.getItem('leadArr'));
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	leadArr.push(scoreObj)
-	let promise = new Promise(function(res,rej){
-		res(leadArr)
-	}) 
-		.then(res => JSON.stringify(res))
-		.then(res => localStorage.setItem('leadArr', res))
-		.then(res => localStorage.getItem('leadArr'))
-		.then(res => JSON.parse(res))
-		.then(res => console.log(res))
+	if(score > 0 && leadArr.length <= 10){
+		leadArr.push(scoreObj)
+		localStorage.setItem('leadArr', JSON.stringify(leadArr))
+	} else if (score > 0 && leadArr.length > 10){
+		return console.log('превышен лимит по длине')
+	} else {
+		return console.log('you are not worthy to get on the leaderboard')
+	}
+	sortArray();
+}
+
+
+function sortArray(leadArr){  //сортировщик по значению
+
+	leadArr = JSON.parse(localStorage.getItem('leadArr'));
+	
+	leadArr.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0))
+	let leadTableArr = leadArr.reverse();
+	console.log(leadTableArr)
+	localStorage.setItem('leadArr', JSON.stringify(leadTableArr))
 }
 
 
