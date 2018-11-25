@@ -54,7 +54,8 @@ header {
   background-size: cover;
   overflow: auto;
   height: 100vh;
-  text-align: center; }
+  text-align: center; 
+}
 
 .flappy-icon {
   width: 30%;

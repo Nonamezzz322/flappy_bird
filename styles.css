@@ -6,11 +6,198 @@
 
 /* стили для страницы */
 
+.wrapper {
+	font-family: "Karla", sans-serif;
+	text-align: center;
+}
 
+/* первый блок */
+
+header {
+	background: url("./img/flappy-background_lg.png") no-repeat 50% 50% /cover;
+	padding: 10% 0;
+}
+	@media screen and (max-width: 567px) {
+		header {
+			height: 100vh;
+			padding: 35% 0;
+		}
+	}
+
+.flappy_icon {
+	display: inline-block;
+	opacity: 0.8;
+	width: 15%;
+}
+	@media screen and (max-width: 1024px) {
+		.flappy_icon {
+			width: 20%;
+		} 
+	}
+	@media screen and (max-width: 768px) {
+		.flappy_icon {
+			width: 30%;
+		} 
+	}	
+	
+
+
+.flappy_logo {
+	display: inline-block;
+	width: 50%; 
+}	
+	@media screen and (max-width: 1024px) {
+		.flappy_logo {
+			width: 60%; 
+		} 
+	}
+	@media screen and (max-width: 768px) {
+		.flappy_logo {
+			width: 70%; 
+		} 
+	}
+	
+
+
+.by_line {
+	padding: 1rem;
+	font-weight: bolder;
+	font-style: italic;
+	color: #FDFFFA; 
+	font-size: 1.5rem;
+}	
+	@media screen and (max-width: 768px) {
+		.by_line {
+			font-size: 1rem; 
+		} 
+	}
+
+
+.play_now {
+	font-family: "Karla", sans-serif;
+	letter-spacing: 0.1rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #EC6548;
+	margin: 1rem;
+	width: 20%;
+	padding: 1.25rem 1rem 1rem 1rem;
+	background-color: #F9F130;
+	border: none;
+	border-radius: 30px;
+	box-shadow: 0 8px #E0D829;
+	cursor: pointer; 
+}
+
+.play_now:active {
+    background-color: #F9F130;
+    box-shadow: 0 2px #F9F130;
+    transform: translateY(10px); 
+}
+
+.play_now:focus {
+    outline: 0; 
+}
+	@media screen and (max-width: 1024px) {
+	.play_now {
+		width: 30%; 
+	} 
+	@media screen and (max-width: 768px) {
+		.play_now {
+			width: 60%; 
+		} 
+	}
+}
+	
+
+a {
+  text-decoration: none;
+  color: inherit; 
+}
+
+a:hover {
+    color: #EC6548; 
+}
+
+.learn_more {
+	font-size: 1.25rem;
+	color: #533846;
+	font-weight: bold; 
+}
+
+/* второй блок */
+
+.features {
+	background-color: #F9F130; 
+}
+
+.features_title {
+	font-size: 2.5rem;
+	color: #EC6548;
+	font-weight: bolder;
+	padding: 2rem; 
+}
+	@media screen and (max-width: 768px) {
+		.features_title {
+			font-size: 1.5rem;
+		}
+	}
+
+.features_element {
+	padding: 2rem; 
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+}
+	@media screen and (max-width: 1024px) {
+		.features_element {
+			display: block;
+			width: 100%;
+		}
+	}
+
+.small_flappy_icon {
+	width: 80%; 
+}
+	@media screen and (max-width: 1024px) {
+		.small_flappy_icon {
+			width: 40%; 
+		} 
+	}
+	@media screen and (max-width: 768px) {
+		.small_flappy_icon {
+			width: 50%; 
+		} 
+	}
+	
+
+.sub_title {
+	font-size: 1.5rem;
+	color: #533846;
+	font-style: italic;
+	font-weight: bolder; 
+}
+	
+.sub_description {
+	color: #313131; 
+}
+
+/* третий блок */
+
+footer {
+	background-color: #533846;
+	color: #FDFFFA;
+	padding: 1rem; 
+}
+
+._blank {
+	display: inline-block;
+}
 
 /* стили для игры */
 
-.game_block {
+#game_block {
 	position: relative;
 	width: 288px;
 	height: 512px;

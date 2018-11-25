@@ -2,14 +2,75 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="description" content="Flappy Bird Game Clone Landing Page">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- <link rel="shortcut icon" href="img/flappy_fav.ico" type="image/x-icon">
+	<link rel="icon" href="img/flappy_fav.ico" type="image/x-icon"> -->
+	<link href="https://fonts.googleapis.com/css?family=Karla:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="./styles.css">
-	<title>Flappy Bird!</title>
+	<title>Flappy Bird Clone Landing Page</title>
 </head>
 <body>
-<div class="wrapper">
-	<div class="game_block">
+	<div class="wrapper">
+		<header>
+			<div>
+				<img src="img/flappy-icon.png" alt="Flappy Bird Icon" class="flappy_icon">
+			</div>
+			<div>
+				<img src="img/flappy-bird-logo.png" alt="Flappy Bird Logo" class="flappy_logo">
+			</div>
+			<p class="by_line">"The most addictive game of the 21st century!"</p>
+			<div>
+				<button class="play_now">Play Now!</button>
+			</div>
+			<div class="learn_more_block">
+				<a href="#features" class="learn_more">Or learn more</a>
+			</div>
+		</header>
+		<section id="features" class="features">
+			<h2 class="features_title">What Can Flappy Bird Do?</h2>
+			<div class="features_items">
+				<div class="features_element">
+					<img src="img/dodge-screenshot.png" alt="Flappy Bird Icon" class="small_flappy_icon" >
+					<h2 class="sub_title">Fly around!</h2>
+					<p class="sub_description">Dodge with Flappy Bird using easy controls.</p>
+				</div>
+				<div class="features_element">
+					<img src="img/score-screenshot.png" alt="Flappy Bird Icon" class="small_flappy_icon">
+					<h2 class="sub_title">Get a high score!</h2>
+					<p class="sub_description">Play and play and play to master the game.</p>
+				</div>
+				<div class="features_element">
+					<img src="img/share-screenshot.png" alt="Flappy Bird Icon" class="small_flappy_icon">
+					<h2 class="sub_title">Share your score!</h2>
+					<p class="sub_description">Show your friends how good you are at Flappy Bird.</p>
+				</div>
+			</div>			
+		</section>
+		<footer>
+			<div class="social">
+				<h4>Share Flappy Bird on Social Media!</h4>
+				<div class="social-icons">
+					<a target="_blank" >
+						<img src="" alt="">
+					</a>
+					<a target="_blank" >
+						<img src="" alt="">
+					</a>
+					<a target="_blank" >
+						<img src="" alt="">
+					</a>
+				</div>
+			</div>
+			<p class="copy">© 2018 Vovchok A. and Titov A.<br>
+			</p>
+			<!-- href="https://twitter.com/share?url=http://jasonwalkow.github.io/flappy-bird-clone/build/index.html&amp;text=Flappy%20Bird%20Clone&amp;hashtags=flappybird"
+			href="http://www.facebook.com/sharer.php?u=http://jasonwalkow.github.io/flappy-bird-clone/build/index.html"
+			href="https://plus.google.com/share?url=http://jasonwalkow.github.io/flappy-bird-clone/build/index.html" -->
+		</footer>
+	</div>
+	<div id="game_block" class="none" style="display: block">
 		<canvas id="game" width="288" height="512"></canvas>
 		<img id ="start" src="./img/play.png">
 		<img id ="pause" src="./img/pause.png">
@@ -18,13 +79,9 @@
 		<button id="set_to_score_list">set score</button>
 		<button id="show_lead_table">show lead table</button>
 	</div>
-	<br>
-	<br>
-<table>
-    <tbody id="tableData"></tbody>
-</table>
-	
-</div>
+	<table>
+   		<tbody id="tableData"></tbody>
+	</table>
 <script src="./index.js"></script>
 </body>
 </html>
