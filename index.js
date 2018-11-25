@@ -190,11 +190,13 @@ function leadTablePush(){  // если в LocalStorage есть ключ 'leadAr
 
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	if(score > 0 && leadArr.length <= 10){
+	if(score > 0 && leadArr.length <= 9){
 		leadArr.push(scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
-	} else if (score > 0 && leadArr.length > 10){
-		return console.log('превышен лимит по длине')
+	} else if (score > leadArr[9].score && leadArr.length > 9 ){
+
+		leadArr.splice(9, 1, scoreObj)
+		localStorage.setItem('leadArr', JSON.stringify(leadArr))
 	} else {
 		return console.log('you are not worthy to get on the leaderboard')
 	}
@@ -208,7 +210,6 @@ function sortArray(leadArr){  //сортировщик по значению
 	
 	leadArr.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0))
 	let leadTableArr = leadArr.reverse();
-	console.log(leadTableArr)
 	localStorage.setItem('leadArr', JSON.stringify(leadTableArr))
 }
 
