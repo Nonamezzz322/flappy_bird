@@ -5,6 +5,7 @@ let startBtn = document.getElementById('start');
 let reloadBtn = document.getElementById('reload');
 let setToScoreList = document.getElementById('set_to_score_list');
 let showTable = document.getElementById('show_lead_table');
+const canvasGame = document.getElementById("canvas_game");
 
 let bird = new Image();
 let bg = new Image();
@@ -40,6 +41,8 @@ let xPos = 10;
 let yPos = 150;
 let grav = 1.5;
 let leadArr = []; // массив лидерборда
+
+if (canvasGame.className === "draw") {
 
 getBestScore();
 
@@ -210,6 +213,7 @@ function sortArray(leadArr){  //сортировщик по значению
 	
 	leadArr.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0))
 	let leadTableArr = leadArr.reverse();
+	console.log(leadTableArr)
 	localStorage.setItem('leadArr', JSON.stringify(leadTableArr))
 }
 
@@ -246,3 +250,11 @@ function createTable(){
     table+='</tbody>';
     document.getElementById('tableData').innerHTML = table;
 }
+
+}
+
+document.onkeydown = function(e){ // убирает скролл страницы при нажатии на пробел.
+	let keyCode = e.keyCode || e.charCode;
+	if (keyCode == 32) 
+	e.preventDefault();
+};
