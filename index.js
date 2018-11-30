@@ -53,8 +53,6 @@ let yPos = 150;
 let grav = 1.5;
 let leadArr = []; // массив лидерборда
 
-
-
 getBestScore();
 
 function moveUp(e) {
@@ -71,62 +69,57 @@ function moveUp(e) {
 }
 
 function draw() {
-	if (canvasGame.className === "draw") {
-		ctx.drawImage(bg, 0, 0);
+	ctx.drawImage(bg, 0, 0);
 
-		for (let i = 0; i < pipe.length; i += 1) {
-			ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
-			ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
+	for (let i = 0; i < pipe.length; i += 1) {
+		ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
+		ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
 
-			pipe[i].x -= 1;
+		pipe[i].x -= 1;
 
-			if (pipe[i].x == 115) {
-				pipe.push({
-				x : cvs.width,
-				y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
-				});
-			}
-
-			if (xPos + bird.width >= pipe[i].x
-				&& xPos <= pipe[i].x + pipeUp.width
-				&& (yPos <= pipe[i].y + pipeUp.height
-				|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
-				|| yPos + bird.height >= cvs.height - fg.height) {
-
-				bg.src = "img/gameOwer.png";
-				pipeUp.src = "img/pipeUpNull.png";
-				pipeBottom.src = "img/pipeBottomNull.png";
-				yPos = 820;
-				failSound.play();
-				location.reload();
-		
-			}
-
-			if (pipe[i].x == 5) {
-				score += 1;
-				setScoreObj()
-				setBestScore()
-				getBestScore()
-				score_audio.play();
-			}
+		if (pipe[i].x == 115) {
+			pipe.push({
+			x : cvs.width,
+			y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+			});
 		}
-		
 
-		ctx.drawImage(fg, 0, cvs.height - fg.height);
-		ctx.drawImage(bird, xPos, yPos);
+		if (xPos + bird.width >= pipe[i].x
+			&& xPos <= pipe[i].x + pipeUp.width
+			&& (yPos <= pipe[i].y + pipeUp.height
+			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
+			|| yPos + bird.height >= cvs.height - fg.height) {
 
-		yPos += grav;
+			bg.src = "img/gameOwer.png";
+			pipeUp.src = "img/pipeUpNull.png";
+			pipeBottom.src = "img/pipeBottomNull.png";
+			yPos = 820;
+			failSound.play();
+			location.reload();
+	
+		}
 
-		ctx.fillStyle = "#000";
-		ctx.font = "24px Verdana";
-		ctx.fillText("Score: " + score, 10, cvs.height - 20);
-		ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
-
-		animations = requestAnimationFrame(draw);
+		if (pipe[i].x == 5) {
+			score += 1;
+			setScoreObj()
+			setBestScore()
+			getBestScore()
+			score_audio.play();
+		}
 	}
-}
 
-pipeBottom.onload = draw;
+	ctx.drawImage(fg, 0, cvs.height - fg.height);
+	ctx.drawImage(bird, xPos, yPos);
+
+	yPos += grav;
+
+	ctx.fillStyle = "#000";
+	ctx.font = "24px Verdana";
+	ctx.fillText("Score: " + score, 10, cvs.height - 20);
+	ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
+
+	animations = requestAnimationFrame(draw);
+}
 
 document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
@@ -167,26 +160,25 @@ function pushNick() { //добавляет ник в LocalStorage
 
 
 function setScoreObj() { //обновляет объект в LocalStorage при изменении счета 
-	
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	let promise = new Promise(function(res, rej){
+	let promise = new Promise(function(res,rej){
 		res(scoreObj)
 	}) 
 		.then(res => JSON.stringify(res))
 		.then(res => localStorage.setItem('scoreObj', res))
-	}
+}
 
 
 
 function setBestScore() { // добавляет highScore
 	let storage = localStorage.getItem("highScore");
-    if (storage) {
-       if (score > storage) {
-        	localStorage.setItem("highScore", score);
-        }
-    } else {
-        localStorage.setItem("highScore", 0);
-    }
+	if (storage) {
+			if (score > storage) {
+				localStorage.setItem("highScore", score);
+			}
+	} else {
+			localStorage.setItem("highScore", 0);
+	}
 }	
 
 function getBestScore() { //выводит счетчик highScore
@@ -209,7 +201,6 @@ function leadTablePush() {  // если в LocalStorage есть ключ 'leadA
 		leadArr.push(scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
 	} else if (score > leadArr[9].score && leadArr.length > 9 ){
-
 		leadArr.splice(9, 1, scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
 	} else {
@@ -220,9 +211,7 @@ function leadTablePush() {  // если в LocalStorage есть ключ 'leadA
 
 
 function sortArray(leadArr) {  //сортировщик по значению
-
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
-	
 	leadArr.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0))
 	let leadTableArr = leadArr.reverse();
 	console.log(leadTableArr)
@@ -231,15 +220,14 @@ function sortArray(leadArr) {  //сортировщик по значению
 
 
 function leadTableNew() { // если в LocalStorage нет ключа 'leadArr' - создает его с текущими данными
-	
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
 	leadArr.push(scoreObj)
-	let promise = new Promise(function(res,rej){
+	let promise = new Promise(function(res, rej) {
 		res(leadArr)
 	}) 
 		.then(res => JSON.stringify(res))
 		.then(res => localStorage.setItem('leadArr', res))
-	}
+}
 
 function checkLocalStorage() { // проверяет LocalStorage на наличие нужного ключа.
 	if (localStorage.getItem('leadArr') !== null) {
@@ -252,15 +240,15 @@ function checkLocalStorage() { // проверяет LocalStorage на нали�
 
 function createTable() {
 	let data = JSON.parse(localStorage.getItem('leadArr'));
-    let table = '<tbody>'
-    for(i = 0;i < data.length; i++){
-        table+= '<tr>';
-        table+= '<td>' + data[i].name + '</td>';
-        table+= '<td>' + data[i].score + '</td>';
-        table+= '</tr>';
-   	}
-    table+='</tbody>';
-    document.getElementById('tableData').innerHTML = table;
+	let table = '<tbody>'
+	for(i = 0;i < data.length; i++){
+			table+= '<tr>';
+			table+= '<td>' + data[i].name + '</td>';
+			table+= '<td>' + data[i].score + '</td>';
+			table+= '</tr>';
+	}
+	table+='</tbody>';
+	document.getElementById('tableData').innerHTML = table;
 }
 
 document.onkeydown = function(e){ // убирает скролл страницы при нажатии на пробел.
@@ -313,7 +301,6 @@ name.addEventListener('keydown', (e) => {
 	if (e.keyCode === 13) {
 		menuBlock.style = "display: none";
 		canvasGame.style = "display: block";
-		canvasGame.className = "draw";
 		requestAnimationFrame(draw);
 	}
 });
