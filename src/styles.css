@@ -1,0 +1,338 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+    padding: 0;
+}
+
+html {
+	position: relative;
+}
+
+/* стили для страницы */
+
+.wrapper {
+	font-family: "Karla", sans-serif;
+	text-align: center;
+}
+
+/* первый блок */
+
+.header {
+	background: url("./img/flappy-background_lg.png") no-repeat 50% 50% /cover;
+	padding: 10% 0;
+}
+	@media screen and (max-width: 567px) {
+		.header {
+			padding: 35% 0;
+			height: 100vh;
+		}
+	}
+
+.flappy_icon {
+	display: inline-block;
+	opacity: 0.8;
+	width: 15%;
+}
+	@media screen and (max-width: 1024px) {
+		.flappy_icon {
+			width: 20%;
+		} 
+	}
+	@media screen and (max-width: 768px) {
+		.flappy_icon {
+			width: 30%;
+		} 
+	}	
+	
+
+
+.flappy_logo {
+	display: inline-block;
+	width: 50%; 
+}	
+	@media screen and (max-width: 1024px) {
+		.flappy_logo {
+			width: 60%; 
+		} 
+	}
+	@media screen and (max-width: 768px) {
+		.flappy_logo {
+			width: 70%; 
+		} 
+	}
+	
+
+
+.by_line {
+	padding: 1rem;
+	font-weight: bolder;
+	font-style: italic;
+	color: #FDFFFA; 
+	font-size: 1.5rem;
+}	
+	@media screen and (max-width: 768px) {
+		.by_line {
+			font-size: 1rem; 
+		} 
+	}
+
+
+.play_now {
+	font-family: "Karla", sans-serif;
+	letter-spacing: 0.1rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #EC6548;
+	margin: 1rem;
+	width: 20%;
+	padding: 1.25rem 1rem 1rem 1rem;
+	background-color: #F9F130;
+	border: none;
+	border-radius: 30px;
+	box-shadow: 0 8px #E0D829;
+	cursor: pointer; 
+}
+	@media screen and (max-width: 1024px) {
+		.play_now {
+			width: 30%; 
+		}
+	}
+	@media screen and (max-width: 768px) {
+		.play_now {
+			width: 60%; 
+		} 
+	}
+
+
+.play_now:active {
+    background-color: #F9F130;
+    box-shadow: 0 2px #F9F130;
+    transform: translateY(10px); 
+}
+
+.play_now:focus {
+    outline: 0; 
+}
+
+a {
+  text-decoration: none;
+  color: inherit; 
+}
+
+a:hover {
+    color: #EC6548; 
+}
+
+.learn_more {
+	font-size: 1.25rem;
+	color: #533846;
+	font-weight: bold; 
+}
+
+/* второй блок */
+
+.features {
+	background-color: #F9F130; 
+	padding-bottom: 2rem;
+}
+
+.features_title {
+	font-size: 2.5rem;
+	color: #EC6548;
+	font-weight: bolder;
+	padding: 2rem; 
+}
+	@media screen and (max-width: 768px) {
+		.features_title {
+			font-size: 1.5rem;
+		}
+	}
+
+.features_element {
+	padding: 2rem; 
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+}
+	@media screen and (max-width: 1024px) {
+		.features_element {
+			display: block;
+			width: 100%;
+		}
+	}
+
+.small_flappy_icon {
+	width: 80%; 
+}
+	@media screen and (max-width: 1024px) {
+		.small_flappy_icon {
+			width: 40%; 
+		} 
+	}
+	@media screen and (max-width: 768px) {
+		.small_flappy_icon {
+			width: 50%; 
+		} 
+	}
+	
+
+.sub_title {
+	font-size: 1.5rem;
+	color: #533846;
+	font-style: italic;
+	font-weight: bolder; 
+}
+	
+.sub_description {
+	color: #313131; 
+}
+
+/* третий блок */
+
+.footer {
+	background-color: #533846;
+	color: #FDFFFA;
+	padding: 1rem; 
+}
+
+.blank {
+	display: inline-block;
+	font-size: 0;
+	margin: 1rem 0.5rem;
+}
+
+.blank_image {
+	width: 40px;
+	height: 40px;
+}
+
+/* стили для игры */
+
+#game_block {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(39, 34, 34, 0.8); 
+}
+
+#game_border {
+	position: fixed;
+	left: calc(50% - 164px);
+	top: calc(50% - 337px);
+	width: 328px;
+	height: 674px;
+	background: url('./img/phone.png') no-repeat 50% 50%;
+}
+
+#game_content {
+	position: fixed;
+	left: calc(50% - 144px);
+	top: calc(50% - 256px);
+	width: 288px;
+	height: 512px;
+}
+
+#menu_block {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: url('./img/bg.png') no-repeat 50% 50%;
+}
+	#menu_logo {
+		position: absolute;
+		width: 70%;
+		left: 15%;
+		top: 10%;
+	}
+
+	#menu_play {
+		position: absolute;
+		left: calc(50% - 58px);
+		top: 40%;
+		cursor: pointer;
+	}
+
+	#menu_skins {
+		position: absolute;
+		left: calc(50% - 58px);
+		top: 52%; 
+		cursor: pointer;
+	}
+
+	#menu_leaders {
+		position: absolute;
+		left: calc(50% - 58px);
+		top: 64%; 
+		cursor: pointer;
+	}
+
+	#menu_exit {
+		position: absolute;
+		left: calc(50% - 58px);
+		top: 76%;
+		cursor: pointer;
+	}
+
+	#menu_enter_name {
+		position: absolute;
+		left: calc(50% - 110px);
+		top: 50%;
+		background: url('./img/input.png') no-repeat 50% 50%;
+		width: 220px;
+		height: 45px;
+		padding: 7px 16px;
+		
+	}
+
+	#name {
+		font-family: "Caveat";
+		font-size: 1.5rem;
+		border: none;
+		background: none;
+		outline: none;
+		padding: 0;
+		text-align: center;
+		height: 31px;
+		width: 188px;
+		cursor: pointer;
+  }
+  
+  #back_menu {
+    position: absolute;
+		left: calc(50% - 58px);
+		top: 76%;
+		cursor: pointer;
+  }
+  
+
+#start {
+	display: none;
+	position: absolute;
+	width: 120px;
+	height: 48px;
+	top: calc(50% - 24px);
+	left: calc(50% - 60px);
+	cursor: pointer;
+}
+
+#pause {
+	position: absolute;
+	bottom: 3%;
+	right: 5%;
+	width: 70px;
+	cursor: pointer;
+}
+
+#reload {
+	display: none;
+	position: absolute;
+	bottom: 40%;
+	right: 40%;
+	width: 70px;
+	cursor: pointer;
+}
