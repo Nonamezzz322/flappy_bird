@@ -4,10 +4,14 @@
   "description": "This is clone FlappyBird game!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel ./index.html",
+    "build": "parcel build ./index.html --public-url /flappy_bird",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
-    "parcel":"^1.10.3"
+    "cssnano": "^4.1.7",
+    "gh-pages": "^2.0.1",
+    "parcel": "^1.10.3"
   },
   "repository": {
     "type": "git",
@@ -16,7 +20,10 @@
   "keywords": [
     "game"
   ],
-  "contributors": ["Nonamezzz", "Antonster"],
+  "contributors": [
+    "Nonamezzz",
+    "Antonster"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Nonamezzz322/flappy_bird/issues"
