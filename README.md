@@ -1,4 +1,4 @@
-# flappy_bird
+# This is clone FlappyBird game!
 
 To run the project, clone the repository and run index.html in your browser.
 
