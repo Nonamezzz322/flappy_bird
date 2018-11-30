@@ -23,7 +23,7 @@
 			</div>
 			<p class="by_line">"The most addictive game of the 21st century!"</p>
 			<div>
-				<button class="play_now">Play Now!</button>
+				<button id="play_now" class="play_now">Play Now!</button>
 			</div>
 			<div class="learn_more_block">
 				<a href="#features" class="learn_more">Or learn more</a>
@@ -78,22 +78,26 @@
 					<img id="menu_logo" src="./img/flappy-bird-logo.png" alt="">
 					<img id="menu_play" src="./img/play.png" alt="">
 					<img id="menu_skins" src="./img/skins.png" alt="">
+					<img id="menu_leaders" src="./img/leaders.png" alt="">
 					<img id="menu_exit" src="./img/exit.png" alt="">
 					<div id="menu_enter_name" style="display: none">
 						<input type="text" id="name" placeholder="Enter your nickname">
 					</div>
+					<img id="back_menu" src="./img/back.png" style="display: none"></img>
+					<button id="set_to_score_list" style="display: none">set score</button>
+					<button id="show_lead_table" style="display: none">show lead table</button>
 				</div>
 				<div id="canvas_game" class="none" style="display: none">
 					<canvas id="game" width="288" height="512"></canvas>
 					<img id ="start" src="./img/play.png">
 					<img id ="pause" src="./img/pause.png">
 					<img id ="reload" src="./img/pause.png">
-					<button id="set_to_score_list">set score</button>
-					<button id="show_lead_table">show lead table</button>
 				</div>
-				<table style="display: none">
-					<tbody id="tableData"></tbody>
-				</table>
+				<div id="after_game" style="display: none">
+					<table style="display: none">
+						<tbody id="tableData"></tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

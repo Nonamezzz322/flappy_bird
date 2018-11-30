@@ -253,21 +253,28 @@ a:hover {
 	#menu_play {
 		position: absolute;
 		left: calc(50% - 58px);
-		top: 45%;
+		top: 40%;
 		cursor: pointer;
 	}
 
 	#menu_skins {
 		position: absolute;
 		left: calc(50% - 58px);
-		top: 60%; 
+		top: 52%; 
+		cursor: pointer;
+	}
+
+	#menu_leaders {
+		position: absolute;
+		left: calc(50% - 58px);
+		top: 64%; 
 		cursor: pointer;
 	}
 
 	#menu_exit {
 		position: absolute;
 		left: calc(50% - 58px);
-		top: 75%;
+		top: 76%;
 		cursor: pointer;
 	}
 
@@ -293,7 +300,15 @@ a:hover {
 		height: 31px;
 		width: 188px;
 		cursor: pointer;
-	}
+  }
+  
+  #back_menu {
+    position: absolute;
+		left: calc(50% - 58px);
+		top: 76%;
+		cursor: pointer;
+  }
+  
 
 #start {
 	display: none;
