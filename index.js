@@ -53,122 +53,123 @@ let yPos = 150;
 let grav = 1.5;
 let leadArr = []; // массив лидерборда
 
-if (canvasGame.className === "draw") {
 
-  getBestScore();
 
-  function moveUp(e) {
-    if (e.keyCode === 32 && yPos > 30) {
-      yPos -= 30;
-      fly.play();
-    } else if (e.keyCode === 49) {
-      bird.src = "img/bird.png";
-    } else if (e.keyCode === 50) {
-      bird.src = "img/bird2.png";
-    } else if (e.keyCode === 51) {
-      bird.src = "img/bird3.png";
-    }
-  }
+getBestScore();
 
-  function draw() {
-    ctx.drawImage(bg, 0, 0);
+function moveUp(e) {
+	if (e.keyCode === 32 && yPos > 30) {
+		yPos -= 30;
+		fly.play();
+	} else if (e.keyCode === 49) {
+		bird.src = "img/bird.png";
+	} else if (e.keyCode === 50) {
+		bird.src = "img/bird2.png";
+	} else if (e.keyCode === 51) {
+		bird.src = "img/bird3.png";
+	}
+}
 
-    for (let i = 0; i < pipe.length; i += 1) {
-      ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
-      ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
+function draw() {
+	if (canvasGame.className === "draw") {
+		ctx.drawImage(bg, 0, 0);
 
-      pipe[i].x -= 1;
+		for (let i = 0; i < pipe.length; i += 1) {
+			ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
+			ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
 
-      if (pipe[i].x == 115) {
-        pipe.push({
-        x : cvs.width,
-        y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
-        });
-      }
+			pipe[i].x -= 1;
 
-      if (xPos + bird.width >= pipe[i].x
-        && xPos <= pipe[i].x + pipeUp.width
-        && (yPos <= pipe[i].y + pipeUp.height
-        || yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
-        || yPos + bird.height >= cvs.height - fg.height) {
+			if (pipe[i].x == 115) {
+				pipe.push({
+				x : cvs.width,
+				y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+				});
+			}
 
-        bg.src = "img/gameOwer.png";
-        pipeUp.src = "img/pipeUpNull.png";
-        pipeBottom.src = "img/pipeBottomNull.png";
-        yPos = 820;
-        failSound.play();
-        location.reload();
-    
-      }
+			if (xPos + bird.width >= pipe[i].x
+				&& xPos <= pipe[i].x + pipeUp.width
+				&& (yPos <= pipe[i].y + pipeUp.height
+				|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
+				|| yPos + bird.height >= cvs.height - fg.height) {
 
-      if (pipe[i].x == 5) {
-        score += 1;
-        setScoreObj()
-        setBestScore()
-        getBestScore()
-        score_audio.play();
-      }
-    }
+				bg.src = "img/gameOwer.png";
+				pipeUp.src = "img/pipeUpNull.png";
+				pipeBottom.src = "img/pipeBottomNull.png";
+				yPos = 820;
+				failSound.play();
+				location.reload();
+		
+			}
 
-    ctx.drawImage(fg, 0, cvs.height - fg.height);
-    ctx.drawImage(bird, xPos, yPos);
+			if (pipe[i].x == 5) {
+				score += 1;
+				setScoreObj()
+				setBestScore()
+				getBestScore()
+				score_audio.play();
+			}
+		}
+		
 
-    yPos += grav;
+		ctx.drawImage(fg, 0, cvs.height - fg.height);
+		ctx.drawImage(bird, xPos, yPos);
 
-    ctx.fillStyle = "#000";
-    ctx.font = "24px Verdana";
-    ctx.fillText("Score: " + score, 10, cvs.height - 20);
-    ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
+		yPos += grav;
 
-    animations = requestAnimationFrame(draw);
-  }
+		ctx.fillStyle = "#000";
+		ctx.font = "24px Verdana";
+		ctx.fillText("Score: " + score, 10, cvs.height - 20);
+		ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
 
-	pipeBottom.onload = draw;
+		animations = requestAnimationFrame(draw);
+	}
+}
 
+pipeBottom.onload = draw;
+
+document.addEventListener("keydown", moveUp);
+pauseBtn.addEventListener("click", sleep);
+startBtn.addEventListener("click", start);
+reloadBtn.addEventListener("click", reload); //reload button
+setToScoreList.addEventListener("click", checkLocalStorage);
+showTable.addEventListener("click", createTable);
+
+function sleep() {
+	cancelAnimationFrame(animations);
+	startBtn.style.display = 'block';
+	pauseBtn.style.display = 'none';
+	document.removeEventListener("keydown", moveUp);
+}
+
+
+function start() {
+	requestAnimationFrame(draw);
+	startBtn.style.display = 'none';
+	pauseBtn.style.display = 'block';
 	document.addEventListener("keydown", moveUp);
-	pauseBtn.addEventListener("click", sleep);
-	startBtn.addEventListener("click", start);
-	reloadBtn.addEventListener("click", reload); //reload button
-	setToScoreList.addEventListener("click", checkLocalStorage);
-	showTable.addEventListener("click", createTable);
-
-	function sleep() {
-		cancelAnimationFrame(animations)
-		startBtn.style.display = 'block';
-		pauseBtn.style.display = 'none';
-		document.removeEventListener("keydown", moveUp);
-	}
+}
 
 
-	function start() {
-		requestAnimationFrame(draw)
-		startBtn.style.display = 'none';
-		pauseBtn.style.display = 'block';
-		document.addEventListener("keydown", moveUp);
-	}
-
-
-	function reload() {  //функция перезагрузки мира по кнопке 
-		reloadBtn.style.display = 'none';
-		pauseBtn.style.display = 'block';
-		location.reload();
-	}
+function reload() {  //функция перезагрузки мира по кнопке 
+	reloadBtn.style.display = 'none';
+	pauseBtn.style.display = 'block';
+	location.reload();
 }
 
 // таблица лидеров (в работе)
 const nickname = document.getElementById('name');
 nickname.addEventListener("change", pushNick);
 
-function pushNick(){ //добавляет ник в LocalStorage 
-
+function pushNick() { //добавляет ник в LocalStorage 
 	localStorage.setItem('name', nickname.value);
 }
 
 
-function setScoreObj(){ //обновляет объект в LocalStorage при изменении счета 
+function setScoreObj() { //обновляет объект в LocalStorage при изменении счета 
 	
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	let promise = new Promise(function(res,rej){
+	let promise = new Promise(function(res, rej){
 		res(scoreObj)
 	}) 
 		.then(res => JSON.stringify(res))
@@ -177,7 +178,7 @@ function setScoreObj(){ //обновляет объект в LocalStorage при
 
 
 
-function setBestScore(){ // добавляет highScore
+function setBestScore() { // добавляет highScore
 	let storage = localStorage.getItem("highScore");
     if (storage) {
        if (score > storage) {
@@ -188,7 +189,7 @@ function setBestScore(){ // добавляет highScore
     }
 }	
 
-function getBestScore(){ //выводит счетчик highScore
+function getBestScore() { //выводит счетчик highScore
 	let storage = localStorage.getItem("highScore");
     if (storage) {
       bestScore = storage;
@@ -199,7 +200,7 @@ function getBestScore(){ //выводит счетчик highScore
 
 
 
-function leadTablePush(){  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
+function leadTablePush() {  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
 	sortArray(leadArr);
 
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
@@ -218,7 +219,7 @@ function leadTablePush(){  // если в LocalStorage есть ключ 'leadAr
 }
 
 
-function sortArray(leadArr){  //сортировщик по значению
+function sortArray(leadArr) {  //сортировщик по значению
 
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
 	
@@ -229,7 +230,7 @@ function sortArray(leadArr){  //сортировщик по значению
 }
 
 
-function leadTableNew(){ // если в LocalStorage нет ключа 'leadArr' - создает его с текущими данными
+function leadTableNew() { // если в LocalStorage нет ключа 'leadArr' - создает его с текущими данными
 	
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
 	leadArr.push(scoreObj)
@@ -240,7 +241,7 @@ function leadTableNew(){ // если в LocalStorage нет ключа 'leadArr'
 		.then(res => localStorage.setItem('leadArr', res))
 	}
 
-function checkLocalStorage(){ // проверяет LocalStorage на наличие нужного ключа.
+function checkLocalStorage() { // проверяет LocalStorage на наличие нужного ключа.
 	if (localStorage.getItem('leadArr') !== null) {
 		leadTablePush();
 	} else {
@@ -249,7 +250,7 @@ function checkLocalStorage(){ // проверяет LocalStorage на налич
 }
 
 
-function createTable(){
+function createTable() {
 	let data = JSON.parse(localStorage.getItem('leadArr'));
     let table = '<tbody>'
     for(i = 0;i < data.length; i++){
@@ -266,7 +267,7 @@ document.onkeydown = function(e){ // убирает скролл страниц�
 	let keyCode = e.keyCode || e.charCode;
 	if (keyCode == 32) 
 	e.preventDefault();
-};
+}
 
 // слушатели на кнопки
 function openMenu() {
@@ -313,5 +314,6 @@ name.addEventListener('keydown', (e) => {
 		menuBlock.style = "display: none";
 		canvasGame.style = "display: block";
 		canvasGame.className = "draw";
+		requestAnimationFrame(draw);
 	}
 });
