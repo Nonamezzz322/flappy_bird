@@ -71,7 +71,7 @@
 			href="https://plus.google.com/share?url=http://jasonwalkow.github.io/flappy-bird-clone/build/index.html" -->
 		</footer>
 	</div>
-	<div id="game_block" style="display: block">
+	<div id="game_block" style="display: none">
 		<div id="game_border">
 			<div id="game_content">
 				<div id="menu_block" style="display: block">
@@ -86,17 +86,43 @@
 					<img id="back_menu" src="./img/back.png" style="display: none"></img>
 					<button id="set_to_score_list" style="display: none">set score</button>
 					<button id="show_lead_table" style="display: none">show lead table</button>
+					<table id="menu_leaders_table" style="display: none">
+						<tbody id="tableData">
+							<tr>
+								<th>Name</th>
+								<th>Score</th>
+							</tr>
+							<tr>
+								<td>Vasa</td>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>Gala</td>
+								<td>145</td>
+							</tr>
+							<tr>
+								<td>Petro</td>
+								<td>555</td>
+							</tr>
+							<tr>
+								<td>Perda</td>
+								<td>545</td>
+							</tr>
+							<tr>
+								<td>Roma</td>
+								<td>2343</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<div id="canvas_game" class="none" style="display: none">
+				<div id="canvas_game" style="display: none">
 					<canvas id="game" width="288" height="512"></canvas>
 					<img id ="start" src="./img/play.png">
 					<img id ="pause" src="./img/pause.png">
 					<img id ="reload" src="./img/pause.png">
 				</div>
 				<div id="after_game" style="display: none">
-					<table style="display: none">
-						<tbody id="tableData"></tbody>
-					</table>
+					
 				</div>
 			</div>
 		</div>
