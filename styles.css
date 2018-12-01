@@ -329,10 +329,14 @@ a:hover {
 }
 
 #reload {
-	display: none;
 	position: absolute;
-	bottom: 40%;
 	right: 40%;
-	width: 70px;
+	cursor: pointer;
+}
+
+#set_to_score_list {
+	position: absolute;
+	top: 0;
+	left: 0;
 	cursor: pointer;
 }

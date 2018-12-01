@@ -90,12 +90,9 @@ function draw() {
 			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
 			|| yPos + bird.height >= cvs.height - fg.height) {
 
+			// failSound.play();
 			bg.src = "img/gameOwer.png";
-			pipeUp.src = "img/pipeUpNull.png";
-			pipeBottom.src = "img/pipeBottomNull.png";
-			yPos = 820;
-			failSound.play();
-			location.reload();
+			requestAnimationFrame(gameOver);
 	
 		}
 
@@ -115,9 +112,8 @@ function draw() {
 
 	ctx.fillStyle = "#000";
 	ctx.font = "24px Verdana";
-	ctx.fillText("Score: " + score, 10, cvs.height - 20);
-	ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
-
+	ctx.strokeText("Score: " + score, 10, cvs.height - 20);
+	
 	animations = requestAnimationFrame(draw);
 }
 
@@ -144,11 +140,27 @@ function start() {
 }
 
 
-function reload() {  //функция перезагрузки мира по кнопке 
-	reloadBtn.style.display = 'none';
-	pauseBtn.style.display = 'block';
-	location.reload();
+function gameOver() {  //функция вызываемая после столкновения
+	cancelAnimationFrame(animations);
+	ctx.clearRect(0, 0, cvs.width, cvs.height);
+	ctx.drawImage(bg, 0, 0);
+	ctx.fillText("Best score: " + bestScore, 35, cvs.height - 90);
+	ctxScore =  ctx.fillText("Score: " + score, 10, cvs.height - 50);
+	reloadBtn.style.display = 'block';
+	pauseBtn.style.display = 'none';
+	startBtn.style.display = 'none';
+	document.removeEventListener("keydown", moveUp);
 }
+
+function reload() { //должна перезагружать страницу
+	reloadBtn.style.display = 'block';
+	pauseBtn.style.display = 'none';
+	startBtn.style.display = 'none';
+	ctx.clearRect(0, 0, cvs.width, cvs.height);
+	
+}
+
+
 
 // таблица лидеров (в работе)
 const nickname = document.getElementById('name');

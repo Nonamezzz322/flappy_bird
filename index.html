@@ -71,7 +71,7 @@
 			href="https://plus.google.com/share?url=http://jasonwalkow.github.io/flappy-bird-clone/build/index.html" -->
 		</footer>
 	</div>
-	<div id="game_block" style="display: none">
+	<div id="game_block" style="display: block">
 		<div id="game_border">
 			<div id="game_content">
 				<div id="menu_block" style="display: block">
@@ -84,14 +84,14 @@
 						<input type="text" id="name" placeholder="Enter your nickname">
 					</div>
 					<img id="back_menu" src="./img/back.png" style="display: none"></img>
-					<button id="set_to_score_list" style="display: none">set score</button>
 					<button id="show_lead_table" style="display: none">show lead table</button>
 				</div>
 				<div id="canvas_game" style="display: none">
 					<canvas id="game" width="288" height="512"></canvas>
 					<img id ="start" src="./img/play.png">
 					<img id ="pause" src="./img/pause.png">
-					<img id ="reload" src="./img/pause.png">
+					<button id="reload" style="display: none">reload</button>
+					<button id="set_to_score_list" style="display: none">set score</button>
 				</div>
 				<div id="after_game" style="display: none">
 					<table style="display: none">
