@@ -3,7 +3,6 @@ const ctx = cvs.getContext("2d");
 const pauseBtn = document.getElementById('pause');
 const startBtn = document.getElementById('start');
 const reloadBtn = document.getElementById('reload');
-const showTable = document.getElementById('show_lead_table');
 const canvasGame = document.getElementById("canvas_game");
 const gameBlock = document.getElementById("game_block");
 const menuBlock = document.getElementById("menu_block");
@@ -19,6 +18,7 @@ const name = document.getElementById("name");
 const afterGame = document.getElementById("after_game");
 const scoreAfterDiv = document.getElementById("score_after");
 const highscoreDiv = document.getElementById("highscore");
+const tableData = document.getElementById("table_data");
 
 
 let bird = new Image();
@@ -123,7 +123,6 @@ document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
 reloadBtn.addEventListener("click", reload); //reload button
-showTable.addEventListener("click", createTable);
 
 function sleep() {
 	cancelAnimationFrame(animations);
@@ -143,7 +142,9 @@ function start() {
 
 function gameOver() {  //функция вызываемая после столкновения
 	cancelAnimationFrame(animations);
-	checkLocalStorage();
+	if(score > 0){
+		checkLocalStorage();
+	}	
 	canvasGame.style = "display: none";
 	afterGame.style = "display: block";
 	scoreAfterDiv.innerText = `Score: ${score}`;
@@ -250,16 +251,13 @@ function checkLocalStorage() { // проверяет LocalStorage на нали�
 
 
 function createTable() {
-	let data = JSON.parse(localStorage.getItem('leadArr'));
-	let table = '<tbody>'
-	for(i = 0;i < data.length; i++){
-			table+= '<tr>';
-			table+= '<td>' + data[i].name + '</td>';
-			table+= '<td>' + data[i].score + '</td>';
-			table+= '</tr>';
+	leadArr = JSON.parse(localStorage.getItem('leadArr'));
+	if(leadArr){	
+		for (let i = 0; i < leadArr.length; i += 1){
+			tableData.rows[i+1].cells[0].innerText = leadArr[i].name;
+			tableData.rows[i+1].cells[1].innerText = leadArr[i].score;
+		}
 	}
-	table+='</tbody>';
-	document.getElementById('tableData').innerHTML = table;
 }
 
 document.onkeydown = function(e){ // убирает скролл страницы при нажатии на пробел.
@@ -311,6 +309,7 @@ function leadersMenu() {
 	menuExit.style = "display: none";
 	menuBack.style = "display: block";
 	menuLeadersTable.style = "display: block";
+	createTable();
 }
 
 playNow.addEventListener('click', openMenu);
