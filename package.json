@@ -1,0 +1,32 @@
+{
+  "name": "flappy_bird",
+  "version": "0.3.5",
+  "description": "This is clone FlappyBird game!",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./index.html",
+    "build": "parcel build ./src/index.html --public-url /flappy_bird && workbox generateSW workbox-config.js && cp dist/index.html dist/404.html",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.7",
+    "gh-pages": "^2.0.1",
+    "parcel": "^1.10.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nonamezzz322/flappy_bird.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "contributors": [
+    "Nonamezzz",
+    "Antonster"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nonamezzz322/flappy_bird/issues"
+  },
+  "homepage": "https://github.com/Nonamezzz322/flappy_bird#readme"
+}
