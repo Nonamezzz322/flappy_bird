@@ -71,7 +71,6 @@ function moveUp(e) {
 
 function draw() {
 	ctx.drawImage(bg, 0, 0);
-<<<<<<< HEAD
 
 	for (let i = 0; i < pipe.length; i += 1) {
 		ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
@@ -123,59 +122,6 @@ function draw() {
 	animations = requestAnimationFrame(draw);
 }
 
-=======
-
-	for (let i = 0; i < pipe.length; i += 1) {
-		ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
-		ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
-
-		pipe[i].x -= 1;
-
-		if (pipe[i].x == 115) {
-			pipe.push({
-			x : cvs.width,
-			y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
-			});
-		}
-
-		if (xPos + bird.width >= pipe[i].x
-			&& xPos <= pipe[i].x + pipeUp.width
-			&& (yPos <= pipe[i].y + pipeUp.height
-			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
-			|| yPos + bird.height >= cvs.height - fg.height) {
-
-			bg.src = "img/gameOwer.png";
-			pipeUp.src = "img/pipeUpNull.png";
-			pipeBottom.src = "img/pipeBottomNull.png";
-			yPos = 820;
-			failSound.play();
-			location.reload();
-	
-		}
-
-		if (pipe[i].x == 5) {
-			score += 1;
-			setScoreObj()
-			setBestScore()
-			getBestScore()
-			score_audio.play();
-		}
-	}
-
-	ctx.drawImage(fg, 0, cvs.height - fg.height);
-	ctx.drawImage(bird, xPos, yPos);
-
-	yPos += grav;
-
-	ctx.fillStyle = "#000";
-	ctx.font = "24px Verdana";
-	ctx.fillText("Score: " + score, 10, cvs.height - 20);
-	ctx.fillText("Best score: " + bestScore, 10, cvs.height - 40);
-
-	animations = requestAnimationFrame(draw);
-}
-
->>>>>>> 5600ef1e98780e528a57f7b697de44000aa5ab62
 document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
@@ -220,11 +166,7 @@ function setScoreObj() { //обновляет объект в LocalStorage пр�
 		res(scoreObj)
 	}) 
 		.then(res => JSON.stringify(res))
-<<<<<<< HEAD
 		.then(res => localStorage.setItem('scoreObj', res));
-=======
-		.then(res => localStorage.setItem('scoreObj', res))
->>>>>>> 5600ef1e98780e528a57f7b697de44000aa5ab62
 }
 
 
@@ -232,15 +174,9 @@ function setScoreObj() { //обновляет объект в LocalStorage пр�
 function setBestScore() { // добавляет highScore
 	let storage = localStorage.getItem("highScore");
 	if (storage) {
-<<<<<<< HEAD
 		if (score > storage) {
 			localStorage.setItem("highScore", score);
 		}
-=======
-			if (score > storage) {
-				localStorage.setItem("highScore", score);
-			}
->>>>>>> 5600ef1e98780e528a57f7b697de44000aa5ab62
 	} else {
 			localStorage.setItem("highScore", 0);
 	}
