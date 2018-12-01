@@ -252,41 +252,74 @@ a:hover {
 
 	#menu_play {
 		position: absolute;
-		left: calc(50% - 58px);
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
 		top: 40%;
 		cursor: pointer;
 	}
 
 	#menu_skins {
 		position: absolute;
-		left: calc(50% - 58px);
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
 		top: 52%; 
 		cursor: pointer;
 	}
 
 	#menu_leaders {
 		position: absolute;
-		left: calc(50% - 58px);
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
 		top: 64%; 
 		cursor: pointer;
 	}
+		#menu_leaders_table {
+			position: absolute;
+			left: calc(50% - 7rem);
+			top: 25%;
+			width: 14rem;
+			height: 14rem;
+			background: url('./img/table.png') no-repeat 50% 50% /cover;
+			color: #675353;
+			font-family: "Caveat";
+			font-size: 1.5rem;
+			border-collapse: collapse;
+			padding: 0.5rem 0.2rem;
+		}
+			#menu_leaders_table td,
+			#menu_leaders_table th {
+				border-bottom: 2px solid #675353;
+			}
+			#menu_leaders_table td:not(:last-child),
+			#menu_leaders_table th:not(:last-child) {
+				border-right: 2px solid #675353;
+			}
+			#menu_leaders_table tr:last-child td {
+				border-bottom: none;
+			}
+			#menu_leaders_table td {
+				width: 6.8rem;
+				height: 2.2rem;
+				text-align: center;
+				font-size: 1rem;
+			}
 
 	#menu_exit {
 		position: absolute;
-		left: calc(50% - 58px);
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
 		top: 76%;
 		cursor: pointer;
 	}
 
 	#menu_enter_name {
 		position: absolute;
-		left: calc(50% - 110px);
+		left: calc(50% - 7rem);
 		top: 50%;
 		background: url('./img/input.png') no-repeat 50% 50%;
-		width: 220px;
-		height: 45px;
-		padding: 7px 16px;
-		
+		width: 14rem;
+		height: 3rem;
+		padding: 0.5rem 1rem;
 	}
 
 	#name {
@@ -297,14 +330,16 @@ a:hover {
 		outline: none;
 		padding: 0;
 		text-align: center;
-		height: 31px;
-		width: 188px;
+		height: 2rem;
+		width: 12rem;
 		cursor: pointer;
+		color: #675353;
   }
   
   #back_menu {
     position: absolute;
-		left: calc(50% - 58px);
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
 		top: 76%;
 		cursor: pointer;
   }
@@ -313,10 +348,10 @@ a:hover {
 #start {
 	display: none;
 	position: absolute;
-	width: 120px;
-	height: 48px;
-	top: calc(50% - 24px);
-	left: calc(50% - 60px);
+	width: 7.6rem;
+	height: 3rem;
+	top: calc(50% - 1.5rem);
+	left: calc(50% - 3.8rem);
 	cursor: pointer;
 }
 
@@ -324,13 +359,14 @@ a:hover {
 	position: absolute;
 	bottom: 3%;
 	right: 5%;
-	width: 70px;
+	width: 4.4rem;
 	cursor: pointer;
 }
 
 #reload {
 	position: absolute;
 	right: 40%;
+	width: 4.4rem;
 	cursor: pointer;
 }
 
@@ -339,4 +375,8 @@ a:hover {
 	top: 0;
 	left: 0;
 	cursor: pointer;
+}
+#score_block {
+	font-size: 25px;
+	color: #F9F130; 
 }

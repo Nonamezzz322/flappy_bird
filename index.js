@@ -3,7 +3,6 @@ const ctx = cvs.getContext("2d");
 const pauseBtn = document.getElementById('pause');
 const startBtn = document.getElementById('start');
 const reloadBtn = document.getElementById('reload');
-const setToScoreList = document.getElementById('set_to_score_list');
 const showTable = document.getElementById('show_lead_table');
 const canvasGame = document.getElementById("canvas_game");
 const gameBlock = document.getElementById("game_block");
@@ -12,10 +11,14 @@ const playNow = document.getElementById("play_now");
 const menuPlay = document.getElementById("menu_play");
 const menuSkins = document.getElementById("menu_skins");
 const menuLeaders = document.getElementById("menu_leaders");
+const menuLeadersTable = document.getElementById("menu_leaders_table");
 const menuExit = document.getElementById("menu_exit");
 const menuEnterGame = document.getElementById("menu_enter_name");
 const menuBack = document.getElementById("back_menu");
 const name = document.getElementById("name");
+const afterGame = document.getElementById("after_game");
+const scoreAfterDiv = document.getElementById("score_after");
+const highscoreDiv = document.getElementById("highscore");
 
 
 let bird = new Image();
@@ -91,7 +94,6 @@ function draw() {
 			|| yPos + bird.height >= cvs.height - fg.height) {
 
 			// failSound.play();
-			bg.src = "img/gameOwer.png";
 			requestAnimationFrame(gameOver);
 	
 		}
@@ -121,7 +123,6 @@ document.addEventListener("keydown", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
 reloadBtn.addEventListener("click", reload); //reload button
-setToScoreList.addEventListener("click", checkLocalStorage);
 showTable.addEventListener("click", createTable);
 
 function sleep() {
@@ -142,13 +143,12 @@ function start() {
 
 function gameOver() {  //функция вызываемая после столкновения
 	cancelAnimationFrame(animations);
-	ctx.clearRect(0, 0, cvs.width, cvs.height);
-	ctx.drawImage(bg, 0, 0);
-	ctx.fillText("Best score: " + bestScore, 35, cvs.height - 90);
-	ctxScore =  ctx.fillText("Score: " + score, 10, cvs.height - 50);
-	reloadBtn.style.display = 'block';
-	pauseBtn.style.display = 'none';
-	startBtn.style.display = 'none';
+	checkLocalStorage();
+	canvasGame.style = "display: none";
+	afterGame.style = "display: block";
+	scoreAfterDiv.innerText = `Score: ${score}`;
+	highscoreDiv.innerText = `Best score: ${bestScore}`;
+
 	document.removeEventListener("keydown", moveUp);
 }
 
@@ -177,7 +177,7 @@ function setScoreObj() { //обновляет объект в LocalStorage пр�
 		res(scoreObj)
 	}) 
 		.then(res => JSON.stringify(res))
-		.then(res => localStorage.setItem('scoreObj', res))
+		.then(res => localStorage.setItem('scoreObj', res));
 }
 
 
@@ -185,9 +185,9 @@ function setScoreObj() { //обновляет объект в LocalStorage пр�
 function setBestScore() { // добавляет highScore
 	let storage = localStorage.getItem("highScore");
 	if (storage) {
-			if (score > storage) {
-				localStorage.setItem("highScore", score);
-			}
+		if (score > storage) {
+			localStorage.setItem("highScore", score);
+		}
 	} else {
 			localStorage.setItem("highScore", 0);
 	}
@@ -198,7 +198,7 @@ function getBestScore() { //выводит счетчик highScore
     if (storage) {
       bestScore = storage;
     } else {
-        bestScore = 0;
+      bestScore = 0;
     }
 }
 
@@ -209,11 +209,11 @@ function leadTablePush() {  // если в LocalStorage есть ключ 'leadA
 
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	if(score > 0 && leadArr.length <= 9){
+	if(score > 0 && leadArr.length <= 4){
 		leadArr.push(scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
-	} else if (score > leadArr[9].score && leadArr.length > 9 ){
-		leadArr.splice(9, 1, scoreObj)
+	} else if (score > leadArr[4].score && leadArr.length > 4 ){
+		leadArr.splice(4, 1, scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
 	} else {
 		return console.log('you are not worthy to get on the leaderboard')
@@ -226,7 +226,6 @@ function sortArray(leadArr) {  //сортировщик по значению
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
 	leadArr.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0))
 	let leadTableArr = leadArr.reverse();
-	console.log(leadTableArr)
 	localStorage.setItem('leadArr', JSON.stringify(leadTableArr))
 }
 
@@ -302,11 +301,22 @@ function backMenu() {
 	menuExit.style = "display: block";
 	menuEnterGame.style = "display: none";
 	menuBack.style = "display: none";
+	menuLeadersTable.style = "display: none";
+}
+
+function leadersMenu() {
+	menuPlay.style = "display: none";
+	menuSkins.style = "display: none";
+	menuLeaders.style = "display: none";
+	menuExit.style = "display: none";
+	menuBack.style = "display: block";
+	menuLeadersTable.style = "display: block";
 }
 
 playNow.addEventListener('click', openMenu);
 menuPlay.addEventListener('click', playMenu);
 menuSkins.addEventListener('click', skinsMenu);
+menuLeaders.addEventListener('click', leadersMenu);
 menuExit.addEventListener('click', exitMenu);
 menuBack.addEventListener('click', backMenu);
 name.addEventListener('keydown', (e) => {

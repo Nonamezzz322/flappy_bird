@@ -85,18 +85,46 @@
 					</div>
 					<img id="back_menu" src="./img/back.png" style="display: none"></img>
 					<button id="show_lead_table" style="display: none">show lead table</button>
+					<table id="menu_leaders_table" style="display: none">
+						<tbody id="tableData">
+							<tr>
+								<th>Name</th>
+								<th>Score</th>
+							</tr>
+							<tr>
+								<td>Vasa</td>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>Gala</td>
+								<td>145</td>
+							</tr>
+							<tr>
+								<td>Petro</td>
+								<td>555</td>
+							</tr>
+							<tr>
+								<td>Perda</td>
+								<td>545</td>
+							</tr>
+							<tr>
+								<td>Roma</td>
+								<td>2343</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div id="canvas_game" style="display: none">
 					<canvas id="game" width="288" height="512"></canvas>
 					<img id ="start" src="./img/play.png">
 					<img id ="pause" src="./img/pause.png">
-					<button id="reload" style="display: none">reload</button>
-					<button id="set_to_score_list" style="display: none">set score</button>
 				</div>
 				<div id="after_game" style="display: none">
-					<table style="display: none">
-						<tbody id="tableData"></tbody>
-					</table>
+					<button id="reload" style="display: block">reload</button>
+					<div id="score_block">
+						<div id="score_after"></div>
+						<div id="highscore"></div>
+					</div>
 				</div>
 			</div>
 		</div>
