@@ -132,14 +132,12 @@ function sleep() {
 	document.removeEventListener("keydown", moveUp);
 }
 
-
 function start() {
 	requestAnimationFrame(draw);
 	startBtn.style.display = 'none';
 	pauseBtn.style.display = 'block';
 	document.addEventListener("keydown", moveUp);
 }
-
 
 function gameOver() {  //функция вызываемая после столкновения
 	cancelAnimationFrame(animations);
@@ -153,14 +151,22 @@ function gameOver() {  //функция вызываемая после стол
 }
 
 function reload() { //должна перезагружать страницу
-	reloadBtn.style.display = 'block';
-	pauseBtn.style.display = 'none';
-	startBtn.style.display = 'none';
-	ctx.clearRect(0, 0, cvs.width, cvs.height);
-	
+	pipe = [];
+	pipe[0] = {
+		x : cvs.width,
+		y : 0
+	}
+	score = 0;
+	xPos = 10;
+	yPos = 150;
+
+	canvasGame.style = "display: block";
+	afterGame.style = "display: none";
+	pauseBtn.style = "display: block";
+	startBtn.style = "display: none";
+	requestAnimationFrame(draw);
+	document.addEventListener("keydown", moveUp);
 }
-
-
 
 // таблица лидеров (в работе)
 const nickname = document.getElementById('name');
@@ -179,8 +185,6 @@ function setScoreObj() { //обновляет объект в LocalStorage пр�
 		.then(res => JSON.stringify(res))
 		.then(res => localStorage.setItem('scoreObj', res));
 }
-
-
 
 function setBestScore() { // добавляет highScore
 	let storage = localStorage.getItem("highScore");
@@ -201,8 +205,6 @@ function getBestScore() { //выводит счетчик highScore
       bestScore = 0;
     }
 }
-
-
 
 function leadTablePush() {  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
 	sortArray(leadArr);
