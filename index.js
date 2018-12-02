@@ -56,6 +56,7 @@ let xPos = 10;
 let yPos = 150;
 let grav = 1.5;
 let leadArr = []; // массив лидерборда
+let birdLive = true; //проверяет мертва ли птичка сейчас
 
 getBestScore();
 
@@ -96,6 +97,7 @@ function draw() {
 			|| yPos + bird.height >= cvs.height - fg.height) {
 
 			// failSound.play();
+			birdLive = false;
 			requestAnimationFrame(gameOver);
 	
 		}
@@ -285,10 +287,16 @@ function playMenu() {
 	menuLeaders.style = "display: none";
 	menuExit.style = "display: none";
 	if(localStorage.getItem('name')){
+		if(birdLive === true) {
+			requestAnimationFrame(draw);
+		}
 		enterGame();
 	} else {
 		menuEnterGame.style = "display: block";
 		menuBack.style = "display: block";
+	}
+	if(birdLive === false){
+		reload();
 	}
 }
 
@@ -333,6 +341,7 @@ backToMenu.addEventListener('click', backMenu);
 name.addEventListener('keydown', (e) => {
 	if (e.keyCode === 13) {
 		enterGame();
+		requestAnimationFrame(draw);
 	}
 });
 
@@ -341,5 +350,4 @@ function enterGame() {
 	menuBlock.style = "display: none";
 	canvasGame.style = "display: block";
 	afterGame.style =  "display: none";
-	requestAnimationFrame(draw);
 }
