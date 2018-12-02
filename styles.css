@@ -378,16 +378,11 @@ a:hover {
 		#highscore {
 			position: absolute;
 			width: 100%;
-			top: 67%;
+			top: 45%;
 			text-align: center;
+			line-height: 33px;
 		}
-			#highscore::before {
-				content: "Best:";
-				position: absolute;
-				top: -70%;
-				left: 25%;
-			}
-	
+		
 	#game_over {
 		position: absolute;
 		width: 70%;
