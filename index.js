@@ -153,8 +153,8 @@ function gameOver() {  //функция вызываемая после стол
 	}	
 	canvasGame.style = "display: none";
 	afterGame.style = "display: block";
-	scoreAfterDiv.innerText = `Score: ${score}`;
-	highscoreDiv.innerText = `Best score: ${bestScore}`;
+	scoreAfterDiv.innerText = `${score}`;
+	highscoreDiv.innerText = `${bestScore}`;
 
 	document.removeEventListener("keydown", moveUp);
 }
@@ -335,6 +335,12 @@ function leadersMenu() {
 	createTable();
 }
 
+function enterGame() {
+	menuBlock.style = "display: none";
+	canvasGame.style = "display: block";
+	afterGame.style =  "display: none";
+}
+
 playNow.addEventListener('click', openMenu);
 menuPlay.addEventListener('click', playMenu);
 menuSkins.addEventListener('click', skinsMenu);
@@ -350,8 +356,3 @@ name.addEventListener('keydown', (e) => {
 });
 
 
-function enterGame() {
-	menuBlock.style = "display: none";
-	canvasGame.style = "display: block";
-	afterGame.style =  "display: none";
-}

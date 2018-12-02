@@ -241,7 +241,7 @@ a:hover {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: url('./img/bg.png') no-repeat 50% 50%;
+	background: url('./img/bg.png') no-repeat 50% 50% /cover;
 }
 	#menu_logo {
 		position: absolute;
@@ -344,6 +344,72 @@ a:hover {
 		cursor: pointer;
   }
   
+#after_game {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: url('./img/bg.png') no-repeat 50% 50% /cover;
+}
+	#score_block {
+		position: absolute;
+		left: calc(50% - 4rem);
+		top: 30%;
+		width: 8rem;
+		height: 8rem;
+		background: url('./img/table.png') no-repeat 50% 50% /cover;
+		font-size: 2rem;
+		color: #675353; 
+		font-family: "Caveat";
+	}
+		#score_after {
+			position: absolute;
+			width: 100%;
+			top: 22%;
+			text-align: center;
+		}
+			#score_after::before {
+				content: "Score:";
+				position: absolute;
+				top: -70%;
+				left: 22%;	
+			}
+		#highscore {
+			position: absolute;
+			width: 100%;
+			top: 67%;
+			text-align: center;
+		}
+			#highscore::before {
+				content: "Best:";
+				position: absolute;
+				top: -70%;
+				left: 25%;
+			}
+	
+	#game_over {
+		position: absolute;
+		width: 70%;
+		left: 15%;
+		top: 10%;
+	}
+
+	#back_to_menu {
+		position: absolute;
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
+		top: 76%;
+		cursor: pointer;
+	}
+
+	#reload {
+		position: absolute;
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
+		top: 64%; 
+		cursor: pointer;
+	}
 
 #start {
 	display: none;
@@ -361,30 +427,4 @@ a:hover {
 	right: 5%;
 	width: 4.4rem;
 	cursor: pointer;
-}
-
-#reload {
-	position: absolute;
-	right: 40%;
-	width: 4.4rem;
-	cursor: pointer;
-}
-
-#back_to_menu {
-	position: absolute;
-	right: 0%;
-	width: 4.4rem;
-	cursor: pointer;	
-}
-
-#set_to_score_list {
-	position: absolute;
-	top: 0;
-	left: 0;
-	cursor: pointer;
-}
-
-#score_block {
-	font-size: 25px;
-	color: #F9F130; 
 }
