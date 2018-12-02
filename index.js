@@ -48,6 +48,7 @@ pipe[0] = {
 	y : 0
 }
 
+
 let pause = '';
 let gap = 90;
 let score = 0;
@@ -63,8 +64,11 @@ getBestScore();
 function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
 		fly.currentTime = 0;
-		yPos -= 30;
 		fly.play();
+		let moveUpBird = setInterval(() => yPos -= grav + 1 , 1) //плавная анимация птички
+		setTimeout(() => clearInterval(moveUpBird), 35)	
+		bird.style.transform = "rotate(45deg)";
+
 	}
 	//  else if (e.keyCode === 49) {
 	// 	bird.src = "img/bird.png";
