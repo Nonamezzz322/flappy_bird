@@ -19,6 +19,7 @@ const afterGame = document.getElementById("after_game");
 const scoreAfterDiv = document.getElementById("score_after");
 const highscoreDiv = document.getElementById("highscore");
 const tableData = document.getElementById("table_data");
+const backToMenu = document.getElementById("back_to_menu");
 
 
 let bird = new Image();
@@ -62,13 +63,14 @@ function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
 		yPos -= 30;
 		fly.play();
-	} else if (e.keyCode === 49) {
-		bird.src = "img/bird.png";
-	} else if (e.keyCode === 50) {
-		bird.src = "img/bird2.png";
-	} else if (e.keyCode === 51) {
-		bird.src = "img/bird3.png";
 	}
+	//  else if (e.keyCode === 49) {
+	// 	bird.src = "img/bird.png";
+	// } else if (e.keyCode === 50) {
+	// 	bird.src = "img/bird2.png";
+	// } else if (e.keyCode === 51) {
+	// 	bird.src = "img/bird3.png";
+	// }
 }
 
 function draw() {
@@ -282,8 +284,12 @@ function playMenu() {
 	menuSkins.style = "display: none";
 	menuLeaders.style = "display: none";
 	menuExit.style = "display: none";
-	menuEnterGame.style = "display: block";
-	menuBack.style = "display: block";
+	if(localStorage.getItem('name')){
+		enterGame();
+	} else {
+		menuEnterGame.style = "display: block";
+		menuBack.style = "display: block";
+	}
 }
 
 function skinsMenu() {
@@ -302,6 +308,9 @@ function backMenu() {
 	menuEnterGame.style = "display: none";
 	menuBack.style = "display: none";
 	menuLeadersTable.style = "display: none";
+	menuBlock.style = "display: block";
+	canvasGame.style = "display: none";
+	afterGame.style =  "display: none";
 }
 
 function leadersMenu() {
@@ -320,10 +329,17 @@ menuSkins.addEventListener('click', skinsMenu);
 menuLeaders.addEventListener('click', leadersMenu);
 menuExit.addEventListener('click', exitMenu);
 menuBack.addEventListener('click', backMenu);
+backToMenu.addEventListener('click', backMenu);
 name.addEventListener('keydown', (e) => {
 	if (e.keyCode === 13) {
-		menuBlock.style = "display: none";
-		canvasGame.style = "display: block";
-		requestAnimationFrame(draw);
+		enterGame();
 	}
 });
+
+
+function enterGame() {
+	menuBlock.style = "display: none";
+	canvasGame.style = "display: block";
+	afterGame.style =  "display: none";
+	requestAnimationFrame(draw);
+}

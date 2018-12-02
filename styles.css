@@ -370,6 +370,13 @@ a:hover {
 	cursor: pointer;
 }
 
+#back_to_menu {
+	position: absolute;
+	right: 0%;
+	width: 4.4rem;
+	cursor: pointer;	
+}
+
 #set_to_score_list {
 	position: absolute;
 	top: 0;
