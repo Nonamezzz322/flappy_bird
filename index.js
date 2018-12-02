@@ -65,9 +65,8 @@ function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
 		fly.currentTime = 0;
 		fly.play();
-		let moveUpBird = setInterval(() => yPos -= grav + 1 , 1) //плавная анимация птички
-		setTimeout(() => clearInterval(moveUpBird), 35)	
-
+		let moveUpBird = setInterval(() => yPos -= grav + 2.5 , 1) //плавная анимация птички
+		setTimeout(() => clearInterval(moveUpBird), 30)
 	}
 	//  else if (e.keyCode === 49) {
 	// 	bird.src = "img/bird.png";
