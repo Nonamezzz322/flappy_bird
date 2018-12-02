@@ -153,12 +153,18 @@ function gameOver() {  //функция вызываемая после стол
 	}	
 	canvasGame.style = "display: none";
 	afterGame.style = "display: block";
+<<<<<<< HEAD
 	scoreAfterDiv.innerText = `Score: ${score}`;
 	if(score == bestScore) {
 		highscoreDiv.innerText = `New best score: ${bestScore}`;
 	} else if(score < bestScore){
 		highscoreDiv.innerText = `Best score: ${bestScore}`;
 	}
+=======
+	scoreAfterDiv.innerText = `${score}`;
+	highscoreDiv.innerText = `${bestScore}`;
+
+>>>>>>> 6c145097ad15848eabd6e7b9a58751f56aeb79db
 	document.removeEventListener("keydown", moveUp);
 }
 
@@ -338,6 +344,12 @@ function leadersMenu() {
 	createTable();
 }
 
+function enterGame() {
+	menuBlock.style = "display: none";
+	canvasGame.style = "display: block";
+	afterGame.style =  "display: none";
+}
+
 playNow.addEventListener('click', openMenu);
 menuPlay.addEventListener('click', playMenu);
 menuSkins.addEventListener('click', skinsMenu);
@@ -353,8 +365,3 @@ name.addEventListener('keydown', (e) => {
 });
 
 
-function enterGame() {
-	menuBlock.style = "display: none";
-	canvasGame.style = "display: block";
-	afterGame.style =  "display: none";
-}
