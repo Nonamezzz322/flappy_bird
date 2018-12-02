@@ -62,6 +62,7 @@ getBestScore();
 
 function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
+		fly.currentTime = 0;
 		yPos -= 30;
 		fly.play();
 	}
