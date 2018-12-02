@@ -65,8 +65,9 @@ function moveUp(e) {
 	if (e.keyCode === 32 && yPos > 30) {
 		fly.currentTime = 0;
 		fly.play();
-		let moveUpBird = setInterval(() => yPos -= grav + 2.5 , 1) //плавная анимация птички
+		let moveUpBird = setInterval(() => yPos -= grav + 2.5, 1) //плавная анимация птички
 		setTimeout(() => clearInterval(moveUpBird), 30)
+		
 	}
 	//  else if (e.keyCode === 49) {
 	// 	bird.src = "img/bird.png";
@@ -153,8 +154,11 @@ function gameOver() {  //функция вызываемая после стол
 	canvasGame.style = "display: none";
 	afterGame.style = "display: block";
 	scoreAfterDiv.innerText = `Score: ${score}`;
-	highscoreDiv.innerText = `Best score: ${bestScore}`;
-
+	if(score == bestScore) {
+		highscoreDiv.innerText = `New best score: ${bestScore}`;
+	} else if(score < bestScore){
+		highscoreDiv.innerText = `Best score: ${bestScore}`;
+	}
 	document.removeEventListener("keydown", moveUp);
 }
 
