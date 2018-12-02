@@ -67,7 +67,6 @@ function moveUp(e) {
 		fly.play();
 		let moveUpBird = setInterval(() => yPos -= grav + 1 , 1) //плавная анимация птички
 		setTimeout(() => clearInterval(moveUpBird), 35)	
-		bird.style.transform = "rotate(45deg)";
 
 	}
 	//  else if (e.keyCode === 49) {
