@@ -13,8 +13,9 @@ const menuLeaders = document.getElementById("menu_leaders");
 const menuLeadersTable = document.getElementById("menu_leaders_table");
 const menuExit = document.getElementById("menu_exit");
 const menuEnterGame = document.getElementById("menu_enter_name");
+const menuAccept = document.getElementById("menu_accept");
 const menuBack = document.getElementById("back_menu");
-const name = document.getElementById("name");
+const nickname = document.getElementById('name');
 const afterGame = document.getElementById("after_game");
 const scoreAfterDiv = document.getElementById("score_after");
 const highscoreDiv = document.getElementById("highscore");
@@ -194,14 +195,9 @@ function reload() { //должна перезагружать страницу
 	document.addEventListener("keydown", moveUp);
 }
 
-// таблица лидеров (в работе)
-const nickname = document.getElementById('name');
-nickname.addEventListener("change", pushNick);
-
 function pushNick() { //добавляет ник в LocalStorage 
 	localStorage.setItem('name', nickname.value);
 }
-
 
 function setScoreObj() { //обновляет объект в LocalStorage при изменении счета 
 	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
@@ -314,6 +310,7 @@ function playMenu() {
 		enterGame();
 	} else {
 		menuEnterGame.style = "display: block";
+		menuAccept.style = "display: block";
 		menuBack.style = "display: block";
 	}
 	if(birdLive === false){
@@ -367,6 +364,7 @@ function enterGame() {
 	afterGame.style =  "display: none";
 }
 
+nickname.addEventListener("change", pushNick);
 playNow.addEventListener('click', openMenu);
 menuPlay.addEventListener('click', playMenu);
 menuSkins.addEventListener('click', skinsMenu);
@@ -375,8 +373,8 @@ menuExit.addEventListener('click', exitMenu);
 menuBack.addEventListener('click', backMenu);
 backToMenu.addEventListener('click', backMenu);
 leaveGame.addEventListener('click', gameOver);
-name.addEventListener('keydown', (e) => {
-	if (e.keyCode === 13) {
+menuAccept.addEventListener('click', () => {
+	if (nickname.value) {
 		enterGame();
 		requestAnimationFrame(draw);
 	}
