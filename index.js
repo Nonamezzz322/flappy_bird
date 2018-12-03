@@ -12,6 +12,8 @@ const menuSkins = document.getElementById("menu_skins");
 const menuLeaders = document.getElementById("menu_leaders");
 const menuLeadersTable = document.getElementById("menu_leaders_table");
 const menuExit = document.getElementById("menu_exit");
+const nameChange = document.getElementById("name_change");
+const acceptNameChange = document.getElementById("accept_name_change");
 const menuEnterGame = document.getElementById("menu_enter_name");
 const menuAccept = document.getElementById("menu_accept");
 const menuBack = document.getElementById("back_menu");
@@ -22,7 +24,6 @@ const highscoreDiv = document.getElementById("highscore");
 const tableData = document.getElementById("table_data");
 const backToMenu = document.getElementById("back_to_menu");
 const leaveGame = document.getElementById("leave");
-
 
 let bird = new Image();
 let bg = new Image();
@@ -49,7 +50,6 @@ pipe[0] = {
 	x : cvs.width,
 	y : 0
 }
-
 
 let pause = '';
 let gap = 90;
@@ -90,8 +90,8 @@ function draw() {
 
 		if (pipe[i].x == 115) {
 			pipe.push({
-			x : cvs.width,
-			y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+				x : cvs.width,
+				y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
 			});
 		}
 
@@ -104,7 +104,6 @@ function draw() {
 			// failSound.play();
 			birdLive = false;
 			requestAnimationFrame(gameOver);
-	
 		}
 
 		if (pipe[i].x == 5) {
@@ -165,10 +164,10 @@ function gameOver() {  //функция вызываемая после стол
 	if(score == bestScore) {
 		highscoreDiv.innerText = `New best: 
 		${bestScore}`;
-	} else if(score < bestScore){
+	} else if(score < bestScore) {
 		highscoreDiv.innerText = `Best: 
 		${bestScore}`;
-	}else if(bestScore === 0){
+	} else if(bestScore === 0) {
 		highscoreDiv.innerText = `New best: 
 		${score}`;
 	}
@@ -196,6 +195,7 @@ function reload() { //должна перезагружать страницу
 
 function pushNick() { //добавляет ник в LocalStorage 
 	localStorage.setItem('name', nickname.value);
+	nickname.value = "";
 }
 
 function setScoreObj() { //обновляет объект в LocalStorage при изменении счета 
@@ -274,15 +274,15 @@ function checkLocalStorage() { // проверяет LocalStorage на нали�
 
 function createTable() {
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
-	if(leadArr){	
-		for (let i = 0; i < leadArr.length; i += 1){
+	if(leadArr) {	
+		for (let i = 0; i < leadArr.length; i += 1) {
 			tableData.rows[i+1].cells[0].innerText = leadArr[i].name;
 			tableData.rows[i+1].cells[1].innerText = leadArr[i].score;
 		}
 	}
 }
 
-document.onkeydown = function(e){ // убирает скролл страницы при нажатии на пробел.
+document.onkeydown = function(e) { // убирает скролл страницы при нажатии на пробел.
 	let keyCode = e.keyCode || e.charCode;
 	if (keyCode == 32) 
 	e.preventDefault();
@@ -326,16 +326,19 @@ function skinsMenu() {
 }
 
 function backMenu() {
+	menuEnterGame.style = "display: none";
+	menuBack.style = "display: none";
+	menuLeadersTable.style = "display: none";
+	canvasGame.style = "display: none";
+	afterGame.style = "display: none";
+	menuAccept.style = "display: none";
+	acceptNameChange.style = "display: none";
+	menuBlock.style = "display: block";
 	menuPlay.style = "display: block";
 	menuSkins.style = "display: block";
 	menuLeaders.style = "display: block";
 	menuExit.style = "display: block";
-	menuEnterGame.style = "display: none";
-	menuBack.style = "display: none";
-	menuLeadersTable.style = "display: none";
-	menuBlock.style = "display: block";
-	canvasGame.style = "display: none";
-	afterGame.style =  "display: none";
+	nameChange.style = "display: block";
 }
 
 function leadersMenu() {
@@ -363,7 +366,32 @@ function enterGame() {
 	afterGame.style =  "display: none";
 }
 
-nickname.addEventListener("change", pushNick);
+function acceptName() {
+	if (nickname.value) {
+		pushNick();
+		enterGame();
+		requestAnimationFrame(draw);
+	}
+}
+
+function acceptChangeName() {
+	if (nickname.value) {
+		pushNick();
+		backMenu();
+	}
+}
+
+function changeName() {
+	menuPlay.style = "display: none";
+	menuSkins.style = "display: none";
+	menuLeaders.style = "display: none";
+	menuExit.style = "display: none";
+	nameChange.style = "display: none";
+	menuEnterGame.style = "display: block";
+	acceptNameChange.style = "display: block";
+	menuBack.style = "display: block";	
+}
+
 playNow.addEventListener('click', openMenu);
 menuPlay.addEventListener('click', playMenu);
 menuSkins.addEventListener('click', skinsMenu);
@@ -372,11 +400,7 @@ menuExit.addEventListener('click', exitMenu);
 menuBack.addEventListener('click', backMenu);
 backToMenu.addEventListener('click', backMenu);
 leaveGame.addEventListener('click', gameOver);
-menuAccept.addEventListener('click', () => {
-	if (nickname.value) {
-		enterGame();
-		requestAnimationFrame(draw);
-	}
-});
-
+menuAccept.addEventListener('click', acceptName);
+nameChange.addEventListener('click', changeName);
+acceptNameChange.addEventListener('click', acceptChangeName);
 

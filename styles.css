@@ -312,6 +312,22 @@ a:hover {
 		cursor: pointer;
 	}
 
+	#name_change {
+		position: absolute;
+		width: 4rem;
+		right: 0;
+		bottom: 0;
+		cursor: pointer;
+	}
+
+	#accept_name_change {
+		position: absolute;
+		width: 7.2rem;
+		left: calc(50% - 3.6rem);
+		top: 64%;
+		cursor: pointer;
+	}
+
 	#menu_enter_name {
 		position: absolute;
 		left: calc(50% - 7rem);
