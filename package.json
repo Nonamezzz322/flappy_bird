@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/Nonamezzz322/flappy_bird/issues"
   },
-  "homepage": "https://github.com/Nonamezzz322/flappy_bird#readme"
+  "homepage": "https://github.com/Nonamezzz322/flappy_bird#readme",
+  "dependencies": {
+    "gif-canvas": "^1.0.0"
+  }
 }
