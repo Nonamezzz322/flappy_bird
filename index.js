@@ -35,8 +35,6 @@ let fly = new Audio();
 let score_audio = new Audio();
 let failSound = new Audio();
 
-skinChange();
-
 fly.src = "audio/fly.mp3";
 score_audio.src = "audio/score.mp3";
 failSound.src = "audio/fail.mp3";
@@ -58,6 +56,7 @@ let leadArr = []; // массив лидерборда
 let birdLive = true; //проверяет мертва ли птичка сейчас
 
 getBestScore();
+skinChange();
 
 function moveUp(e) {
 	if(e.type == "touchmove") {
@@ -117,8 +116,8 @@ function draw() {
 	yPos += grav;
 
 	ctx.fillStyle = "#000";
-	ctx.font = "24px Verdana";
-	ctx.strokeText("Score: " + score, 10, cvs.height - 20);
+	ctx.font = "2.5rem Caveat";
+	ctx.fillText("Score: " + score, 10, cvs.height - 20);
 	
 	animations = requestAnimationFrame(draw);
 }
@@ -325,20 +324,20 @@ function skinsMenu() {
 }
 
 function backMenu() {
-	menuEnterGame.style = "display: none";
-	menuBack.style = "display: none";
-	menuLeadersTable.style = "display: none";
-	canvasGame.style = "display: none";
-	afterGame.style = "display: none";
-	menuAccept.style = "display: none";
-	acceptNameChange.style = "display: none";
-	skinsBlock.style = "display: none";
-	menuBlock.style = "display: block";
-	menuPlay.style = "display: block";
-	menuSkins.style = "display: block";
-	menuLeaders.style = "display: block";
-	menuExit.style = "display: block";
-	nameChange.style = "display: block";
+	menuEnterGame.style.display = "none";
+	menuBack.style.display = "none";
+	menuLeadersTable.style.display = "none";
+	canvasGame.style.display = "none";
+	afterGame.style.display = "none";
+	menuAccept.style.display = "none";
+	acceptNameChange.style.display = "none";
+	skinsBlock.style.display = "none";
+	menuBlock.style.display = "block";
+	menuPlay.style.display = "block";
+	menuSkins.style.display = "block";
+	menuLeaders.style.display = "block";
+	menuExit.style.display = "block";
+	nameChange.style.display = "block";
 }
 
 function leadersMenu() {
@@ -419,41 +418,65 @@ function skinChange() {
 		bg.src = "img/bg.png";
 		fg.src = "img/fg.png";
 		pipeUp.src = "img/pipeUp.png";
-		pipeBottom.src = "img/pipeBottom.png";	
+		pipeBottom.src = "img/pipeBottom.png";
+		menuBlock.style.background  = "url('./img/bg.png') no-repeat 50% 50% /cover";
+		afterGame.style.background  = "url('./img/bg.png') no-repeat 50% 50% /cover";
 	} else if (storageSkinKey === 2) {
 		bird.src = "img/birdGray.png";
 		bg.src = "img/bgGray.png";
 		fg.src = "img/fgGray.png";
 		pipeUp.src = "img/pipeUpGray.png";
 		pipeBottom.src = "img/pipeBottomGray.png";
+		menuBlock.style.background  = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
+		afterGame.style.background  = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
 	} else if (storageSkinKey === 3) {
 		bird.src = "img/bird3.png";
 		bg.src = "img/bg3.png";
 		fg.src = "img/fg3.png";
 		pipeUp.src = "img/pipeUpOrange.png";
 		pipeBottom.src = "img/pipeBottomOrange.png";
+		menuBlock.style.background  = "url('./img/bg3.png') no-repeat 50% 50% /cover";
+		afterGame.style.background  = "url('./img/bg3.png') no-repeat 50% 50% /cover";
 	} else if (storageSkinKey === 4) {
 		bird.src = "img/birdCat.png";
 		bg.src = "img/bgSpace.jpg";
 		fg.src = "img/fgRainbow.png";
 		pipeUp.src = "img/pipeUpPink.png";
 		pipeBottom.src = "img/pipeBottomPink.png";
+		menuBlock.style.background  = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
+		afterGame.style.background  = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
 	}	
 }
 
 setSkin1.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 1))
 	skinChange();
+	setSkin2.className = "";
+	setSkin1.className = "active";
+	setSkin3.className = "";
+	setSkin4.className = "";
 });
 setSkin2.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 2))
 	skinChange();
+	setSkin2.className = "active";
+	setSkin1.className = "";
+	setSkin3.className = "";
+	setSkin4.className = "";
 });
 setSkin3.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 3))
 	skinChange();
+	setSkin3.className = "active";
+	setSkin1.className = "";
+	setSkin2.className = "";
+	setSkin4.className = "";
 });
 setSkin4.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 4))
 	skinChange();
+	setSkin4.className = "active";
+	setSkin1.className = "";
+	setSkin2.className = "";
+	setSkin3.className = "";
 });
