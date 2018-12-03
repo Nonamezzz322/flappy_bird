@@ -133,7 +133,7 @@ function draw() {
 	animations = requestAnimationFrame(draw);
 }
 
-canvasGame.addEventListener("keydown", moveUp);
+document.addEventListener("keydown", moveUp);
 canvasGame.addEventListener("touchstart", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
