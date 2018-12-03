@@ -64,6 +64,9 @@ let birdLive = true; //проверяет мертва ли птичка сей�
 getBestScore();
 
 function moveUp(e) {
+	if(e.type == "touchmove") {
+		e.preventDefault();
+	}
 	if ((e.keyCode === 32 || e.type == "touchstart") && yPos > 30) {
 		fly.currentTime = 0;
 		fly.play();
@@ -127,6 +130,7 @@ function draw() {
 
 document.addEventListener("keydown", moveUp);
 canvasGame.addEventListener("touchstart", moveUp);
+canvasGame.addEventListener("touchmove", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
 reloadBtn.addEventListener("click", reload); //reload button
@@ -164,6 +168,9 @@ function gameOver() {  //функция вызываемая после стол
 	} else if(score < bestScore){
 		highscoreDiv.innerText = `Best: 
 		${bestScore}`;
+	}else if(bestScore === 0){
+		highscoreDiv.innerText = `New best: 
+		${score}`;
 	}
 
 	document.removeEventListener("keydown", moveUp);
