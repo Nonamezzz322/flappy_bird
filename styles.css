@@ -265,6 +265,43 @@ a:hover {
 		top: 52%; 
 		cursor: pointer;
 	}
+		#skins {
+			position: absolute;
+			left: calc(50% - 7rem);
+			top: calc(50% - 7rem);
+			width: 14rem;
+			height: 14rem;
+			background: url("./img/table.png") no-repeat 50% 50% /cover;
+		} 
+			#skins > .active {
+				border: 0.4rem solid#5ee270;
+			}
+			#skin_1,
+			#skin_2,
+			#skin_3,
+			#skin_4 {
+				position: absolute;
+				width: 6.4rem;
+				height: 6.4rem;
+				border-radius: 1rem;
+				cursor: pointer;
+			}
+			#skin_1 {
+				left: 0.5rem;
+				top: 0.5rem;
+			}
+			#skin_2 {
+				right: 0.5rem;
+				top: 0.5rem;
+			}
+			#skin_3 {
+				left: 0.5rem;
+				bottom: 0.5rem;
+			}
+			#skin_4 {
+				right: 0.5rem;
+				bottom: 0.5rem;
+			}
 
 	#menu_leaders {
 		position: absolute;

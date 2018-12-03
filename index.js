@@ -9,6 +9,7 @@ const menuBlock = document.getElementById("menu_block");
 const playNow = document.getElementById("play_now");
 const menuPlay = document.getElementById("menu_play");
 const menuSkins = document.getElementById("menu_skins");
+const skinsBlock = document.getElementById("skins");
 const menuLeaders = document.getElementById("menu_leaders");
 const menuLeadersTable = document.getElementById("menu_leaders_table");
 const menuExit = document.getElementById("menu_exit");
@@ -325,6 +326,7 @@ function skinsMenu() {
 	menuExit.style = "display: none";
 	nameChange.style = "display: none";
 	menuBack.style = "display: block";
+	skinsBlock.style = "display: block";
 }
 
 function backMenu() {
@@ -335,6 +337,7 @@ function backMenu() {
 	afterGame.style = "display: none";
 	menuAccept.style = "display: none";
 	acceptNameChange.style = "display: none";
+	skinsBlock.style = "display: none";
 	menuBlock.style = "display: block";
 	menuPlay.style = "display: block";
 	menuSkins.style = "display: block";
@@ -406,3 +409,6 @@ leaveGame.addEventListener('click', gameOver);
 menuAccept.addEventListener('click', acceptName);
 nameChange.addEventListener('click', changeName);
 acceptNameChange.addEventListener('click', acceptChangeName);
+
+///////////////////////////////////////////// SKINS /////////////////////////////////////
+
