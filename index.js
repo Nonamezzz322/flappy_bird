@@ -67,10 +67,10 @@ function moveUp(e) {
 	if ((e.keyCode === 32 || e.type == "touchstart") && yPos > 30) {
 		fly.currentTime = 0;
 		fly.play();
-		if(e.keyCode === 32){
+		if(e.keyCode === 32) {
 			let moveUpBird = setInterval(() => yPos -= grav + 2.5, 1) //плавная анимация птички
 			setTimeout(() => clearInterval(moveUpBird), 30)	
-		} else if (e.type == "touchstart"){
+		} else if (e.type == "touchstart") {
 			yPos -= 30;
 		}	
 	}
