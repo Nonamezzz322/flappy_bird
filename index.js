@@ -25,6 +25,10 @@ const highscoreDiv = document.getElementById("highscore");
 const tableData = document.getElementById("table_data");
 const backToMenu = document.getElementById("back_to_menu");
 const leaveGame = document.getElementById("leave");
+const setSkin1 = document.getElementById("skin_1");
+const setSkin2 = document.getElementById("skin_2");
+const setSkin3 = document.getElementById("skin_3");
+const setSkin4 = document.getElementById("skin_4");
 
 let bird = new Image();
 let bg = new Image();
@@ -408,11 +412,6 @@ acceptNameChange.addEventListener('click', acceptChangeName);
 
 ///////////////////////////////////////////// SKINS /////////////////////////////////////
 
-const setSkin1 = document.getElementById("skin_1");
-const setSkin2 = document.getElementById("skin_2");
-const setSkin3 = document.getElementById("skin_3");
-const setSkin4 = document.getElementById("skin_4");
-
 function skinChange() {
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
 	if (storageSkinKey === 1 || !storageSkinKey) {
@@ -423,6 +422,7 @@ function skinChange() {
 		pipeBottom.src = "img/pipeBottom.png";
 		menuBlock.style.background = "url('./img/bg.png') no-repeat 50% 50% /cover";
 		afterGame.style.background = "url('./img/bg.png') no-repeat 50% 50% /cover";
+		setSkin1.className = "active";
 	} else if (storageSkinKey === 2) {
 		bird.src = "img/birdGray.png";
 		bg.src = "img/bgGray.png";
@@ -431,6 +431,7 @@ function skinChange() {
 		pipeBottom.src = "img/pipeBottomGray.png";
 		menuBlock.style.background = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
 		afterGame.style.background = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
+		setSkin2.className = "active";
 	} else if (storageSkinKey === 3) {
 		bird.src = "img/bird3.png";
 		bg.src = "img/bg3.png";
@@ -439,6 +440,7 @@ function skinChange() {
 		pipeBottom.src = "img/pipeBottomOrange.png";
 		menuBlock.style.background = "url('./img/bg3.png') no-repeat 50% 50% /cover";
 		afterGame.style.background = "url('./img/bg3.png') no-repeat 50% 50% /cover";
+		setSkin3.className = "active";
 	} else if (storageSkinKey === 4) {
 		bird.src = "img/birdCat.png";
 		bg.src = "img/bgSpace.jpg";
@@ -447,38 +449,39 @@ function skinChange() {
 		pipeBottom.src = "img/pipeBottomPink.png";
 		menuBlock.style.background = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
 		afterGame.style.background = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
+		setSkin4.className = "active";
 	}	
 }
 
 setSkin1.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 1));
 	skinChange();
-	setSkin2.className = "";
 	setSkin1.className = "active";
+	setSkin2.className = "";
 	setSkin3.className = "";
 	setSkin4.className = "";
 });
 setSkin2.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 2));
 	skinChange();
-	setSkin2.className = "active";
 	setSkin1.className = "";
+	setSkin2.className = "active";
 	setSkin3.className = "";
 	setSkin4.className = "";
 });
 setSkin3.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 3));
 	skinChange();
-	setSkin3.className = "active";
 	setSkin1.className = "";
 	setSkin2.className = "";
+	setSkin3.className = "active";
 	setSkin4.className = "";
 });
 setSkin4.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 4));
 	skinChange();
-	setSkin4.className = "active";
 	setSkin1.className = "";
 	setSkin2.className = "";
 	setSkin3.className = "";
+	setSkin4.className = "active";
 });
