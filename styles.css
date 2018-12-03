@@ -407,11 +407,19 @@ a:hover {
 	}
 
 #start {
-	display: none;
 	position: absolute;
 	width: 7.6rem;
 	height: 3rem;
 	top: calc(50% - 1.5rem);
+	left: calc(50% - 3.8rem);
+	cursor: pointer;
+}
+
+#leave {
+	position: absolute;
+	width: 7.6rem;
+	height: 3rem;
+	top: 58%;
 	left: calc(50% - 3.8rem);
 	cursor: pointer;
 }

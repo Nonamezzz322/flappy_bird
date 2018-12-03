@@ -20,6 +20,7 @@ const scoreAfterDiv = document.getElementById("score_after");
 const highscoreDiv = document.getElementById("highscore");
 const tableData = document.getElementById("table_data");
 const backToMenu = document.getElementById("back_to_menu");
+const leaveGame = document.getElementById("leave");
 
 
 let bird = new Image();
@@ -139,15 +140,17 @@ reloadBtn.addEventListener("click", reload); //reload button
 
 function sleep() {
 	cancelAnimationFrame(animations);
-	startBtn.style.display = 'block';
-	pauseBtn.style.display = 'none';
+	startBtn.style = "display: block";
+	leaveGame.style = "display: block";
+	pauseBtn.style = "display: none";
 	document.removeEventListener("keydown", moveUp);
 }
 
 function start() {
 	requestAnimationFrame(draw);
-	startBtn.style.display = 'none';
-	pauseBtn.style.display = 'block';
+	startBtn.style = "display: none";
+	leaveGame.style = "display: none";
+	pauseBtn.style = "display: block";
 	document.addEventListener("keydown", moveUp);
 }
 
@@ -157,6 +160,9 @@ function gameOver() {  //функция вызываемая после стол
 		checkLocalStorage();
 	}	
 	canvasGame.style = "display: none";
+	startBtn.style = "display: none";
+	leaveGame.style = "display: none";
+	pauseBtn.style = "display: block";
 	afterGame.style = "display: block";
 	scoreAfterDiv.innerText = `${score}`;
 	if(score == bestScore) {
@@ -347,6 +353,15 @@ function leadersMenu() {
 }
 
 function enterGame() {
+	pipe = [];
+	pipe[0] = {
+		x : cvs.width,
+		y : 0
+	}
+	score = 0;
+	xPos = 10;
+	yPos = 150;
+
 	menuBlock.style = "display: none";
 	canvasGame.style = "display: block";
 	afterGame.style =  "display: none";
@@ -359,6 +374,7 @@ menuLeaders.addEventListener('click', leadersMenu);
 menuExit.addEventListener('click', exitMenu);
 menuBack.addEventListener('click', backMenu);
 backToMenu.addEventListener('click', backMenu);
+leaveGame.addEventListener('click', gameOver);
 name.addEventListener('keydown', (e) => {
 	if (e.keyCode === 13) {
 		enterGame();
