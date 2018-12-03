@@ -302,6 +302,7 @@ function playMenu() {
 	menuSkins.style = "display: none";
 	menuLeaders.style = "display: none";
 	menuExit.style = "display: none";
+	nameChange.style = "display: none";
 	if(localStorage.getItem('name')){
 		if(birdLive === true) {
 			requestAnimationFrame(draw);
@@ -322,6 +323,7 @@ function skinsMenu() {
 	menuSkins.style = "display: none";
 	menuLeaders.style = "display: none";
 	menuExit.style = "display: none";
+	nameChange.style = "display: none";
 	menuBack.style = "display: block";
 }
 
@@ -346,6 +348,7 @@ function leadersMenu() {
 	menuSkins.style = "display: none";
 	menuLeaders.style = "display: none";
 	menuExit.style = "display: none";
+	nameChange.style = "display: none";
 	menuBack.style = "display: block";
 	menuLeadersTable.style = "display: block";
 	createTable();
@@ -403,4 +406,3 @@ leaveGame.addEventListener('click', gameOver);
 menuAccept.addEventListener('click', acceptName);
 nameChange.addEventListener('click', changeName);
 acceptNameChange.addEventListener('click', acceptChangeName);
-
