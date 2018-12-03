@@ -74,14 +74,6 @@ function moveUp(e) {
 			yPos -= 30;
 		}	
 	}
-
-	//  else if (e.keyCode === 49) {
-	// 	bird.src = "img/bird.png";
-	// } else if (e.keyCode === 50) {
-	// 	bird.src = "img/bird2.png";
-	// } else if (e.keyCode === 51) {
-	// 	bird.src = "img/bird3.png";
-	// }
 }
 
 function draw() {
