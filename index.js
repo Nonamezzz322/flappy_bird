@@ -62,7 +62,7 @@ let birdLive = true; //проверяет мертва ли птичка сей�
 getBestScore();
 
 function moveUp(e) {
-	if (e.keyCode === 32 && yPos > 30) {
+	if ((e.keyCode === 32 && yPos > 30) || ('ontouchstart' in window && yPos > 30)) {
 		fly.currentTime = 0;
 		fly.play();
 		let moveUpBird = setInterval(() => yPos -= grav + 2.5, 1) //плавная анимация птички
@@ -128,6 +128,7 @@ function draw() {
 }
 
 document.addEventListener("keydown", moveUp);
+document.addEventListener("ontouchstart", moveUp);
 pauseBtn.addEventListener("click", sleep);
 startBtn.addEventListener("click", start);
 reloadBtn.addEventListener("click", reload); //reload button
