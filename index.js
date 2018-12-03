@@ -30,7 +30,7 @@ let fg = new Image();
 let pipeUp = new Image();
 let pipeBottom = new Image();
 
-bird.src = "img/ezgif.com-optimize.gif";
+bird.src = "img/bird.png";
 bg.src = "img/bg.png";
 fg.src = "img/fg.png";
 pipeUp.src = "img/pipeUp.png";
