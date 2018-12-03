@@ -31,16 +31,11 @@ let bg = new Image();
 let fg = new Image();
 let pipeUp = new Image();
 let pipeBottom = new Image();
-
-bird.src = "img/bird.png";
-bg.src = "img/bg.png";
-fg.src = "img/fg.png";
-pipeUp.src = "img/pipeUp.png";
-pipeBottom.src = "img/pipeBottom.png";
-
 let fly = new Audio();
 let score_audio = new Audio();
 let failSound = new Audio();
+
+skinChange();
 
 fly.src = "audio/fly.mp3";
 score_audio.src = "audio/score.mp3";
@@ -412,3 +407,53 @@ acceptNameChange.addEventListener('click', acceptChangeName);
 
 ///////////////////////////////////////////// SKINS /////////////////////////////////////
 
+const setSkin1 = document.getElementById("skin_1");
+const setSkin2 = document.getElementById("skin_2");
+const setSkin3 = document.getElementById("skin_3");
+const setSkin4 = document.getElementById("skin_4");
+
+function skinChange() {
+	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
+	if (storageSkinKey === 1) {
+		bird.src = "img/bird.png";
+		bg.src = "img/bg.png";
+		fg.src = "img/fg.png";
+		pipeUp.src = "img/pipeUp.png";
+		pipeBottom.src = "img/pipeBottom.png";	
+	} else if (storageSkinKey === 2) {
+		bird.src = "img/birdGray.png";
+		bg.src = "img/bgGray.png";
+		fg.src = "img/fgGray.png";
+		pipeUp.src = "img/pipeUpGray.png";
+		pipeBottom.src = "img/pipeBottomGray.png";
+	} else if (storageSkinKey === 3) {
+		bird.src = "img/bird3.png";
+		bg.src = "img/bg3.png";
+		fg.src = "img/fg3.png";
+		pipeUp.src = "img/pipeUpOrange.png";
+		pipeBottom.src = "img/pipeBottomOrange.png";
+	} else if (storageSkinKey === 4) {
+		bird.src = "img/birdCat.png";
+		bg.src = "img/bgSpace.jpg";
+		fg.src = "img/fgRainbow.png";
+		pipeUp.src = "img/pipeUpPink.png";
+		pipeBottom.src = "img/pipeBottomPink.png";
+	}	
+}
+
+setSkin1.addEventListener("click", () => {
+	JSON.stringify(localStorage.setItem('skinKey', 1))
+	skinChange();
+});
+setSkin2.addEventListener("click", () => {
+	JSON.stringify(localStorage.setItem('skinKey', 2))
+	skinChange();
+});
+setSkin3.addEventListener("click", () => {
+	JSON.stringify(localStorage.setItem('skinKey', 3))
+	skinChange();
+});
+setSkin4.addEventListener("click", () => {
+	JSON.stringify(localStorage.setItem('skinKey', 4))
+	skinChange();
+});
