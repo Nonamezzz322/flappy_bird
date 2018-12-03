@@ -131,30 +131,31 @@ reloadBtn.addEventListener("click", reload); //reload button
 
 function sleep() {
 	cancelAnimationFrame(animations);
-	startBtn.style = "display: block";
-	leaveGame.style = "display: block";
-	pauseBtn.style = "display: none";
+	startBtn.style.display = "block";
+	leaveGame.style.display = "block";
+	pauseBtn.style.display = "none";
 	document.removeEventListener("keydown", moveUp);
 }
 
 function start() {
 	requestAnimationFrame(draw);
-	startBtn.style = "display: none";
-	leaveGame.style = "display: none";
-	pauseBtn.style = "display: block";
+	startBtn.style.display = "none";
+	leaveGame.style.display = "none";
+	pauseBtn.style.display = "block";
 	document.addEventListener("keydown", moveUp);
 }
 
 function gameOver() {  //функция вызываемая после столкновения
 	cancelAnimationFrame(animations);
+	skinChange();
 	if(score > 0){
 		checkLocalStorage();
 	}	
-	canvasGame.style = "display: none";
-	startBtn.style = "display: none";
-	leaveGame.style = "display: none";
-	pauseBtn.style = "display: block";
-	afterGame.style = "display: block";
+	canvasGame.style.display = "none";
+	startBtn.style.display = "none";
+	leaveGame.style.display = "none";
+	pauseBtn.style.display = "block";
+	afterGame.style.display = "block";
 	scoreAfterDiv.innerText = `${score}`;
 	if(score == bestScore) {
 		highscoreDiv.innerText = `New best: 
@@ -180,10 +181,10 @@ function reload() { //должна перезагружать страницу
 	xPos = 10;
 	yPos = 150;
 
-	canvasGame.style = "display: block";
-	afterGame.style = "display: none";
-	pauseBtn.style = "display: block";
-	startBtn.style = "display: none";
+	canvasGame.style.display = "block";
+	afterGame.style.display = "none";
+	pauseBtn.style.display = "block";
+	startBtn.style.display = "none";
 	requestAnimationFrame(draw);
 	document.addEventListener("keydown", moveUp);
 }
@@ -285,28 +286,29 @@ document.onkeydown = function(e) { // убирает скролл страниц
 
 // слушатели на кнопки
 function openMenu() {
-	gameBlock.style = "display: block";
+	gameBlock.style.display = "block";
 }
 
 function exitMenu() {
-	gameBlock.style = "display: none";
+	gameBlock.style.display = "none";
 }
 
 function playMenu() {
-	menuPlay.style = "display: none";
-	menuSkins.style = "display: none";
-	menuLeaders.style = "display: none";
-	menuExit.style = "display: none";
-	nameChange.style = "display: none";
+	skinChange();
+	menuPlay.style.display = "none";
+	menuSkins.style.display = "none";
+	menuLeaders.style.display = "none";
+	menuExit.style.display = "none";
+	nameChange.style.display = "none";
 	if(localStorage.getItem('name')){
 		if(birdLive === true) {
 			requestAnimationFrame(draw);
 		}
 		enterGame();
 	} else {
-		menuEnterGame.style = "display: block";
-		menuAccept.style = "display: block";
-		menuBack.style = "display: block";
+		menuEnterGame.style.display = "block";
+		menuAccept.style.display = "block";
+		menuBack.style.display = "block";
 	}
 	if(birdLive === false){
 		reload();
@@ -314,13 +316,13 @@ function playMenu() {
 }
 
 function skinsMenu() {
-	menuPlay.style = "display: none";
-	menuSkins.style = "display: none";
-	menuLeaders.style = "display: none";
-	menuExit.style = "display: none";
-	nameChange.style = "display: none";
-	menuBack.style = "display: block";
-	skinsBlock.style = "display: block";
+	menuPlay.style.display = "none";
+	menuSkins.style.display = "none";
+	menuLeaders.style.display = "none";
+	menuExit.style.display = "none";
+	nameChange.style.display = "none";
+	menuBack.style.display = "block";
+	skinsBlock.style.display = "block";
 }
 
 function backMenu() {
@@ -341,13 +343,13 @@ function backMenu() {
 }
 
 function leadersMenu() {
-	menuPlay.style = "display: none";
-	menuSkins.style = "display: none";
-	menuLeaders.style = "display: none";
-	menuExit.style = "display: none";
-	nameChange.style = "display: none";
-	menuBack.style = "display: block";
-	menuLeadersTable.style = "display: block";
+	menuPlay.style.display = "none";
+	menuSkins.style.display = "none";
+	menuLeaders.style.display = "none";
+	menuExit.style.display = "none";
+	nameChange.style.display = "none";
+	menuBack.style.display = "block";
+	menuLeadersTable.style.display = "block";
 	createTable();
 }
 
@@ -361,8 +363,8 @@ function enterGame() {
 	xPos = 10;
 	yPos = 150;
 
-	menuBlock.style = "display: none";
-	canvasGame.style = "display: block";
+	menuBlock.style.display = "none";
+	canvasGame.style.display = "block";
 	afterGame.style =  "display: none";
 }
 
@@ -382,14 +384,14 @@ function acceptChangeName() {
 }
 
 function changeName() {
-	menuPlay.style = "display: none";
-	menuSkins.style = "display: none";
-	menuLeaders.style = "display: none";
-	menuExit.style = "display: none";
-	nameChange.style = "display: none";
-	menuEnterGame.style = "display: block";
-	acceptNameChange.style = "display: block";
-	menuBack.style = "display: block";	
+	menuPlay.style.display = "none";
+	menuSkins.style.display = "none";
+	menuLeaders.style.display = "none";
+	menuExit.style.display = "none";
+	nameChange.style.display = "none";
+	menuEnterGame.style.display = "block";
+	acceptNameChange.style.display = "block";
+	menuBack.style.display = "block";	
 }
 
 playNow.addEventListener('click', openMenu);
@@ -413,43 +415,43 @@ const setSkin4 = document.getElementById("skin_4");
 
 function skinChange() {
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
-	if (storageSkinKey === 1) {
+	if (storageSkinKey === 1 || !storageSkinKey) {
 		bird.src = "img/bird.png";
 		bg.src = "img/bg.png";
 		fg.src = "img/fg.png";
 		pipeUp.src = "img/pipeUp.png";
 		pipeBottom.src = "img/pipeBottom.png";
-		menuBlock.style.background  = "url('./img/bg.png') no-repeat 50% 50% /cover";
-		afterGame.style.background  = "url('./img/bg.png') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bg.png') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bg.png') no-repeat 50% 50% /cover";
 	} else if (storageSkinKey === 2) {
 		bird.src = "img/birdGray.png";
 		bg.src = "img/bgGray.png";
 		fg.src = "img/fgGray.png";
 		pipeUp.src = "img/pipeUpGray.png";
 		pipeBottom.src = "img/pipeBottomGray.png";
-		menuBlock.style.background  = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
-		afterGame.style.background  = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
 	} else if (storageSkinKey === 3) {
 		bird.src = "img/bird3.png";
 		bg.src = "img/bg3.png";
 		fg.src = "img/fg3.png";
 		pipeUp.src = "img/pipeUpOrange.png";
 		pipeBottom.src = "img/pipeBottomOrange.png";
-		menuBlock.style.background  = "url('./img/bg3.png') no-repeat 50% 50% /cover";
-		afterGame.style.background  = "url('./img/bg3.png') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bg3.png') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bg3.png') no-repeat 50% 50% /cover";
 	} else if (storageSkinKey === 4) {
 		bird.src = "img/birdCat.png";
 		bg.src = "img/bgSpace.jpg";
 		fg.src = "img/fgRainbow.png";
 		pipeUp.src = "img/pipeUpPink.png";
 		pipeBottom.src = "img/pipeBottomPink.png";
-		menuBlock.style.background  = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
-		afterGame.style.background  = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
 	}	
 }
 
 setSkin1.addEventListener("click", () => {
-	JSON.stringify(localStorage.setItem('skinKey', 1))
+	JSON.stringify(localStorage.setItem('skinKey', 1));
 	skinChange();
 	setSkin2.className = "";
 	setSkin1.className = "active";
@@ -457,7 +459,7 @@ setSkin1.addEventListener("click", () => {
 	setSkin4.className = "";
 });
 setSkin2.addEventListener("click", () => {
-	JSON.stringify(localStorage.setItem('skinKey', 2))
+	JSON.stringify(localStorage.setItem('skinKey', 2));
 	skinChange();
 	setSkin2.className = "active";
 	setSkin1.className = "";
@@ -465,7 +467,7 @@ setSkin2.addEventListener("click", () => {
 	setSkin4.className = "";
 });
 setSkin3.addEventListener("click", () => {
-	JSON.stringify(localStorage.setItem('skinKey', 3))
+	JSON.stringify(localStorage.setItem('skinKey', 3));
 	skinChange();
 	setSkin3.className = "active";
 	setSkin1.className = "";
@@ -473,7 +475,7 @@ setSkin3.addEventListener("click", () => {
 	setSkin4.className = "";
 });
 setSkin4.addEventListener("click", () => {
-	JSON.stringify(localStorage.setItem('skinKey', 4))
+	JSON.stringify(localStorage.setItem('skinKey', 4));
 	skinChange();
 	setSkin4.className = "active";
 	setSkin1.className = "";
