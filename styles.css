@@ -11,7 +11,7 @@ html {
 /* стили для страницы */
 
 .wrapper {
-	font-family: "Karla", sans-serif;
+	font-family: "Caveat", sans-serif;
 	text-align: center;
 }
 
@@ -78,7 +78,7 @@ html {
 
 
 .play_now {
-	font-family: "Karla", sans-serif;
+	font-family: "Caveat", sans-serif;
 	letter-spacing: 0.1rem;
 	font-size: 1.2rem;
 	font-weight: bold;
@@ -163,6 +163,8 @@ a:hover {
 	}
 
 .small_flappy_icon {
+	border-radius: 20%;
+	box-shadow: 0 0.1rem 1rem rgba(0,0,0,0.5);
 	width: 80%; 
 }
 	@media screen and (max-width: 1024px) {
