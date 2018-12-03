@@ -30,7 +30,7 @@ let fg = new Image();
 let pipeUp = new Image();
 let pipeBottom = new Image();
 
-bird.src = "img/bird.png";
+bird.src = "img/ezgif.com-optimize.gif";
 bg.src = "img/bg.png";
 fg.src = "img/fg.png";
 pipeUp.src = "img/pipeUp.png";
@@ -168,6 +168,9 @@ function gameOver() {  //функция вызываемая после стол
 	} else if(score < bestScore){
 		highscoreDiv.innerText = `Best: 
 		${bestScore}`;
+	}else if(bestScore === 0){
+		highscoreDiv.innerText = `New best: 
+		${score}`;
 	}
 
 	document.removeEventListener("keydown", moveUp);
