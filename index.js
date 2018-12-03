@@ -99,7 +99,7 @@ function draw() {
 			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
 			|| yPos + bird.height >= cvs.height - fg.height) {
 
-			// failSound.play();
+			failSound.play();
 			birdLive = false;
 			requestAnimationFrame(gameOver);
 		}
@@ -415,12 +415,12 @@ function skinChange() {
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
 	if (storageSkinKey === 1 || !storageSkinKey) {
 		bird.src = "img/bird.png";
-		bg.src = "img/bg.png";
-		fg.src = "img/fg.png";
+		bg.src = "img/bg.jpg";
+		fg.src = "img/fg.jpg";
 		pipeUp.src = "img/pipeUp.png";
 		pipeBottom.src = "img/pipeBottom.png";
-		menuBlock.style.background = "url('./img/bg.png') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bg.png') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bg.jpg') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bg.jpg') no-repeat 50% 50% /cover";
 		fly.src = "audio/fly.mp3";
 		setSkin1.className = "active";
 		setSkin2.className = "";
@@ -428,12 +428,12 @@ function skinChange() {
 		setSkin4.className = "";
 	} else if (storageSkinKey === 2) {
 		bird.src = "img/birdGray.png";
-		bg.src = "img/bgGray.png";
-		fg.src = "img/fgGray.png";
+		bg.src = "img/bgGray.jpg";
+		fg.src = "img/fgGray.jpg";
 		pipeUp.src = "img/pipeUpGray.png";
 		pipeBottom.src = "img/pipeBottomGray.png";
-		menuBlock.style.background = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bgGray.png') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bgGray.jpg') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bgGray.jpg') no-repeat 50% 50% /cover";
 		fly.src = "audio/fly.mp3";
 		setSkin1.className = "";
 		setSkin2.className = "active";
@@ -441,12 +441,12 @@ function skinChange() {
 		setSkin4.className = "";
 	} else if (storageSkinKey === 3) {
 		bird.src = "img/bird3.png";
-		bg.src = "img/bg3.png";
-		fg.src = "img/fg3.png";
+		bg.src = "img/bg3.jpg";
+		fg.src = "img/fg3.jpg";
 		pipeUp.src = "img/pipeUpOrange.png";
 		pipeBottom.src = "img/pipeBottomOrange.png";
-		menuBlock.style.background = "url('./img/bg3.png') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bg3.png') no-repeat 50% 50% /cover";
+		menuBlock.style.background = "url('./img/bg3.jpg') no-repeat 50% 50% /cover";
+		afterGame.style.background = "url('./img/bg3.jpg') no-repeat 50% 50% /cover";
 		fly.src = "audio/fly.mp3";
 		setSkin1.className = "";
 		setSkin2.className = "";

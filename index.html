@@ -71,7 +71,7 @@
 			href="https://plus.google.com/share?url=http://jasonwalkow.github.io/flappy-bird-clone/build/index.html" -->
 		</footer>
 	</div>
-	<div id="game_block" style="display: block">
+	<div id="game_block" style="display: none">
 		<div id="game_border">
 			<div id="game_content">
 				<div id="menu_block" style="display: block">
@@ -79,10 +79,10 @@
 					<img id="menu_play" src="./img/play.png" alt="">
 					<img id="menu_skins" src="./img/skins.png" alt="">
 					<div id="skins" style="display: none">
-						<img id="skin_1" src="./img/skin_1.png" alt="">
-						<img id="skin_2" src="./img/skin_2.png" alt="">
-						<img id="skin_3" src="./img/skin_3.png" alt="">
-						<img id="skin_4" src="./img/skin_4.png" alt="">
+						<img id="skin_1" src="./img/skin_1.jpg" alt="">
+						<img id="skin_2" src="./img/skin_2.jpg" alt="">
+						<img id="skin_3" src="./img/skin_3.jpg" alt="">
+						<img id="skin_4" src="./img/skin_4.jpg" alt="">
 					</div>
 					<img id="menu_leaders" src="./img/leaders.png" alt="">
 					<img id="menu_exit" src="./img/exit.png" alt="">
@@ -141,5 +141,10 @@
 		</div>
 	</div>
 <script src="./index.js"></script>
+<script>
+	if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+	  navigator.serviceWorker.register('./sw.js', { scope: '/flappy_bird' });
+	};
+  </script>
 </body>
 </html>
