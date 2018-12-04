@@ -20,10 +20,6 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox
  */
 self.__precacheManifest = [
   {
-    "url": "404.html",
-    "revision": "e2eac350f1ed31088bd7a23f3e8ff169"
-  },
-  {
     "url": "accept.946d309e.png",
     "revision": "bc9d8d05e12b39d0ed2874d3fb1d1d23"
   },
@@ -56,8 +52,8 @@ self.__precacheManifest = [
     "revision": "5cadf3e9e44dd3f5d90f920a110f862a"
   },
   {
-    "url": "flappy_bird.de4814ca.js",
-    "revision": "38a2ca396326aaf248fc83e30f0f74e3"
+    "url": "flappy_bird.7fb66502.js",
+    "revision": "45faeb377880924c651b52b7e69de8ae"
   },
   {
     "url": "flappy-background_lg.db223402.png",
@@ -94,14 +90,6 @@ self.__precacheManifest = [
   {
     "url": "icon-192x192.1fc40e13.png",
     "revision": "02405c5df171ce807b04d276aeeb1ef3"
-  },
-  {
-    "url": "icon-384x384.1666e80f.png",
-    "revision": "af4b89ae016a35e789edb7f447ce06ef"
-  },
-  {
-    "url": "icon-512x512.e69d2bef.png",
-    "revision": "b148e3d9fec1b0ea4c0db0f834672903"
   },
   {
     "url": "icon-72x72.a6f06eff.png",
@@ -325,7 +313,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "947ba3af53e3baccae8ad6f684dcdb62"
+    "revision": "ba0019d85e64b884a396949f900b9d18"
   },
   {
     "url": "input.f9f45339.png",
@@ -338,10 +326,6 @@ self.__precacheManifest = [
   {
     "url": "leave.9364070b.png",
     "revision": "e45c34760954e91d8a2aaa179fb878dc"
-  },
-  {
-    "url": "manifest.1637312b.webmanifest",
-    "revision": "e719019915b9bb18c19e94270a466de3"
   },
   {
     "url": "menu.e75e801c.png",
@@ -410,3 +394,5 @@ self.__precacheManifest = [
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerNavigationRoute("index.html");
