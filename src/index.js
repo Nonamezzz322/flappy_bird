@@ -1,34 +1,9 @@
-const cvs = document.getElementById("game");
-const ctx = cvs.getContext("2d");
-const pauseBtn = document.getElementById('pause');
-const startBtn = document.getElementById('start');
-const reloadBtn = document.getElementById('reload');
-const canvasGame = document.getElementById("canvas_game");
-const gameBlock = document.getElementById("game_block");
-const menuBlock = document.getElementById("menu_block");
-const playNow = document.getElementById("play_now");
-const menuPlay = document.getElementById("menu_play");
-const menuSkins = document.getElementById("menu_skins");
-const skinsBlock = document.getElementById("skins");
-const menuLeaders = document.getElementById("menu_leaders");
-const menuLeadersTable = document.getElementById("menu_leaders_table");
-const menuExit = document.getElementById("menu_exit");
-const nameChange = document.getElementById("name_change");
-const acceptNameChange = document.getElementById("accept_name_change");
-const menuEnterGame = document.getElementById("menu_enter_name");
-const menuAccept = document.getElementById("menu_accept");
-const menuBack = document.getElementById("back_menu");
-const nickname = document.getElementById('name');
-const afterGame = document.getElementById("after_game");
-const scoreAfterDiv = document.getElementById("score_after");
-const highscoreDiv = document.getElementById("highscore");
-const tableData = document.getElementById("table_data");
-const backToMenu = document.getElementById("back_to_menu");
-const leaveGame = document.getElementById("leave");
-const setSkin1 = document.getElementById("skin_1");
-const setSkin2 = document.getElementById("skin_2");
-const setSkin3 = document.getElementById("skin_3");
-const setSkin4 = document.getElementById("skin_4");
+import {openMenu, exitMenu, skinsMenu, backMenu, changeName, 
+	reload, sleep, start, gameOver, playMenu, 
+	leadersMenu, acceptName, acceptChangeName} from "./menu";
+import {setScoreObj, setBestScore, getBestScore} from "./lead_table";
+import * as variables from "./variables";
+export {draw, animations, moveUp, skinChange, birdLive};
 
 let bird = new Image();
 let bg = new Image();
@@ -38,24 +13,12 @@ let pipeBottom = new Image();
 let fly = new Audio();
 let score_audio = new Audio();
 let failSound = new Audio();
-
-let pipe = [];//массив игрового мира
-pipe[0] = {
-	x : cvs.width,
-	y : 0
-}
-
-let gap = 90;
-let score = 0;
-let bestScore = 0; //нужна для вывода highScore
-let xPos = 0;
-let yPos = 150;
-let grav = 1.5;
-let leadArr = []; // массив лидерборда
-let birdLive = true; //проверяет мертва ли птичка сейчас
+let animations;
 
 score_audio.src = require('../assets/audio/score.mp3');
 failSound.src =  require('../assets/audio//fail.mp3');
+
+let birdLive = true; //проверяет мертва ли птичка сейчас
 
 getBestScore();
 skinChange();
@@ -65,51 +28,51 @@ function moveUp(e) {
 	if(e.type == "touchmove" || e.scale >= 1 ){
 		e.preventDefault();
 	}
-	if ((e.keyCode === 32 || e.type == "touchstart") && yPos > 30) {
+	if ((e.keyCode === 32 || e.type == "touchstart") && variables.yPos > 30) {
 		fly.currentTime = 0;
 		fly.play();
 		if(e.keyCode === 32) {
-			let moveUpBird = setInterval(() => yPos -= grav + 2.5, 1) //плавная анимация птички
+			let moveUpBird = setInterval(() => variables.yPos -= variables.grav + 2.5, 1) //плавная анимация птички
 			setTimeout(() => clearInterval(moveUpBird), 30)	
 		} else if (e.type == "touchstart") {
-			yPos -= 30;
+			variables.yPos -= 30;
 		} else if (e.type == "click") {
 
 			e.preventDefault();
-			yPos -= 30;
+			variables.yPos -= 30;
 		}	
 	}
 }
 
 function draw() {
-	ctx.drawImage(bg, 0, 0);
+	variables.ctx.drawImage(bg, 0, 0);
 
-	for (let i = 0; i < pipe.length; i += 1) {
-		ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
-		ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
+	for (let i = 0; i < variables.pipe.length; i += 1) {
+		variables.ctx.drawImage(pipeUp, variables.pipe[i].x, variables.pipe[i].y);
+		variables.ctx.drawImage(pipeBottom, variables.pipe[i].x, variables.pipe[i].y + pipeUp.height + variables.gap);
 
-		pipe[i].x -= 1;
+		variables.pipe[i].x -= 1;
 
-		if (pipe[i].x == 105) {
-			pipe.push({
-				x : cvs.width,
+		if (variables.pipe[i].x == 105) {
+			variables.pipe.push({
+				x : variables.cvs.width,
 				y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
 			});
 		}
 
-		if (xPos + bird.width >= pipe[i].x
-			&& xPos <= pipe[i].x + pipeUp.width
-			&& (yPos <= pipe[i].y + pipeUp.height
-			|| yPos + bird.height >= pipe[i].y + pipeUp.height + gap) 
-			|| yPos + bird.height >= cvs.height - fg.height) {
+		if (variables.xPos + bird.width >= variables.pipe[i].x
+			&& variables.xPos <= variables.pipe[i].x + pipeUp.width
+			&& (variables.yPos <= variables.pipe[i].y + pipeUp.height
+			|| variables.yPos + bird.height >= variables.pipe[i].y + pipeUp.height + variables.gap) 
+			|| variables.yPos + bird.height >= variables.cvs.height - fg.height) {
 
 			failSound.play();
 			birdLive = false;
 			requestAnimationFrame(gameOver);
 		}
 
-		if (pipe[i].x == 5) {
-			score += 1;
+		if (variables.pipe[i].x == 5) {
+			variables.score += 1;
 			setScoreObj()
 			setBestScore()
 			getBestScore()
@@ -117,309 +80,17 @@ function draw() {
 		}
 	}
 
-	ctx.drawImage(fg, 0, cvs.height - fg.height);
-	ctx.drawImage(bird, xPos, yPos);
+	variables.ctx.drawImage(fg, 0, variables.cvs.height - fg.height);
+	variables.ctx.drawImage(bird, variables.xPos, variables.yPos);
 
-	yPos += grav;
+	variables.yPos += variables.grav;
 
-	ctx.fillStyle = "#000";
-	ctx.font = "2.5rem Caveat";
-	ctx.fillText("Score: " + score, 10, cvs.height - 20);
+	variables.ctx.fillStyle = "#000";
+	variables.ctx.font = "2.5rem Caveat";
+	variables.ctx.fillText("Score: " + variables.score, 10, variables.cvs.height - 20);
 	
 	animations = requestAnimationFrame(draw);
 }
-
-
-document.addEventListener("keydown", moveUp);
-canvasGame.addEventListener("touchstart", moveUp);
-canvasGame.addEventListener("touchmove", moveUp);
-pauseBtn.addEventListener("click", sleep);
-startBtn.addEventListener("click", start);
-reloadBtn.addEventListener("click", reload); //reload button
-
-function sleep() {
-	cancelAnimationFrame(animations);
-	startBtn.style.display = "block";
-	leaveGame.style.display = "block";
-	pauseBtn.style.display = "none";
-	document.removeEventListener("keydown", moveUp);
-}
-
-function start() {
-	requestAnimationFrame(draw);
-	startBtn.style.display = "none";
-	leaveGame.style.display = "none";
-	pauseBtn.style.display = "block";
-	document.addEventListener("keydown", moveUp);
-}
-
-function gameOver() {  //функция вызываемая после столкновения
-	cancelAnimationFrame(animations);
-	skinChange();
-	if(score > 0){
-		checkLocalStorage();
-	}	
-	canvasGame.style.display = "none";
-	startBtn.style.display = "none";
-	leaveGame.style.display = "none";
-	pauseBtn.style.display = "block";
-	afterGame.style.display = "block";
-	scoreAfterDiv.innerText = `${score}`;
-	if(score == bestScore) {
-		highscoreDiv.innerText = `New best: 
-		${bestScore}`;
-	} else if(score < bestScore) {
-		highscoreDiv.innerText = `Best: 
-		${bestScore}`;
-	} else if(bestScore === 0) {
-		highscoreDiv.innerText = `New best: 
-		${score}`;
-	}
-
-	document.removeEventListener("keydown", moveUp);
-}
-
-function reload() { //должна перезагружать страницу
-	pipe = [];
-	pipe[0] = {
-		x : cvs.width,
-		y : 0
-	}
-	score = 0;
-	xPos = 10;
-	yPos = 150;
-
-	canvasGame.style.display = "block";
-	afterGame.style.display = "none";
-	pauseBtn.style.display = "block";
-	startBtn.style.display = "none";
-	requestAnimationFrame(draw);
-	document.addEventListener("keydown", moveUp);
-}
-
-function pushNick() { //добавляет ник в LocalStorage 
-	localStorage.setItem('name', nickname.value);
-	nickname.value = "";
-}
-
-function setScoreObj() { //обновляет объект в LocalStorage при изменении счета 
-	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	let promise = new Promise(function(res,rej){
-		res(scoreObj)
-	}) 
-		.then(res => JSON.stringify(res))
-		.then(res => localStorage.setItem('scoreObj', res));
-}
-
-function setBestScore() { // добавляет highScore
-	let storage = localStorage.getItem("highScore");
-	if (storage) {
-		if (score > storage) {
-			localStorage.setItem("highScore", score);
-		}
-	} else {
-			localStorage.setItem("highScore", 0);
-	}
-}	
-
-function getBestScore() { //выводит счетчик highScore
-	let storage = localStorage.getItem("highScore");
-    if (storage) {
-      bestScore = storage;
-    } else {
-      bestScore = 0;
-    }
-}
-
-function leadTablePush() {  // если в LocalStorage есть ключ 'leadArr' - выполняет пуш
-	sortArray(leadArr);
-
-	leadArr = JSON.parse(localStorage.getItem('leadArr'));
-	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	if(score > 0 && leadArr.length <= 4){
-		leadArr.push(scoreObj)
-		localStorage.setItem('leadArr', JSON.stringify(leadArr))
-	} else if (score > leadArr[4].score && leadArr.length > 4 ){
-		leadArr.splice(4, 1, scoreObj)
-		localStorage.setItem('leadArr', JSON.stringify(leadArr))
-	} else {
-		return console.log('you are not worthy to get on the leaderboard')
-	}
-	sortArray();
-}
-
-
-function sortArray(leadArr) {  //сортировщик по значению
-	leadArr = JSON.parse(localStorage.getItem('leadArr'));
-	leadArr.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0))
-	let leadTableArr = leadArr.reverse();
-	localStorage.setItem('leadArr', JSON.stringify(leadTableArr))
-}
-
-
-function leadTableNew() { // если в LocalStorage нет ключа 'leadArr' - создает его с текущими данными
-	let scoreObj = {'name': localStorage.getItem('name', nickname.value), 'score': score};
-	leadArr.push(scoreObj)
-	let promise = new Promise(function(res, rej) {
-		res(leadArr)
-	}) 
-		.then(res => JSON.stringify(res))
-		.then(res => localStorage.setItem('leadArr', res))
-}
-
-function checkLocalStorage() { // проверяет LocalStorage на наличие нужного ключа.
-	if (localStorage.getItem('leadArr') !== null) {
-		leadTablePush();
-	} else {
-		leadTableNew();
-	}
-}
-
-
-function createTable() {
-	leadArr = JSON.parse(localStorage.getItem('leadArr'));
-	if(leadArr) {	
-		for (let i = 0; i < leadArr.length; i += 1) {
-			tableData.rows[i+1].cells[0].innerText = leadArr[i].name;
-			tableData.rows[i+1].cells[1].innerText = leadArr[i].score;
-		}
-	}
-}
-
-document.onkeydown = function(e) { // убирает скролл страницы при нажатии на пробел.
-	let keyCode = e.keyCode || e.charCode;
-	if (keyCode == 32) 
-	e.preventDefault();
-}
-
-// слушатели на кнопки
-function openMenu() {
-	gameBlock.style.display = "block";
-	document.body.style.overflow = "hidden";
-	document.body.style.height = "100%";
-	document.body.touchAction = "manipulation";
-}
-
-function exitMenu() {
-	gameBlock.style.display = "none";
-	document.body.style.overflow = "auto";
-	document.body.touchAction = "auto";
-}
-
-function playMenu() {
-	skinChange();
-	menuPlay.style.display = "none";
-	menuSkins.style.display = "none";
-	menuLeaders.style.display = "none";
-	menuExit.style.display = "none";
-	nameChange.style.display = "none";
-	if(localStorage.getItem('name')){
-		if(birdLive === true) {
-			requestAnimationFrame(draw);
-		}
-		enterGame();
-	} else {
-		menuEnterGame.style.display = "block";
-		menuAccept.style.display = "block";
-		menuBack.style.display = "block";
-	}
-	if(birdLive === false){
-		reload();
-	}
-}
-
-function skinsMenu() {
-	menuPlay.style.display = "none";
-	menuSkins.style.display = "none";
-	menuLeaders.style.display = "none";
-	menuExit.style.display = "none";
-	nameChange.style.display = "none";
-	menuBack.style.display = "block";
-	skinsBlock.style.display = "block";
-}
-
-function backMenu() {
-	menuEnterGame.style.display = "none";
-	menuBack.style.display = "none";
-	menuLeadersTable.style.display = "none";
-	canvasGame.style.display = "none";
-	afterGame.style.display = "none";
-	menuAccept.style.display = "none";
-	acceptNameChange.style.display = "none";
-	skinsBlock.style.display = "none";
-	menuBlock.style.display = "block";
-	menuPlay.style.display = "block";
-	menuSkins.style.display = "block";
-	menuLeaders.style.display = "block";
-	menuExit.style.display = "block";
-	nameChange.style.display = "block";
-}
-
-function leadersMenu() {
-	menuPlay.style.display = "none";
-	menuSkins.style.display = "none";
-	menuLeaders.style.display = "none";
-	menuExit.style.display = "none";
-	nameChange.style.display = "none";
-	menuBack.style.display = "block";
-	menuLeadersTable.style.display = "block";
-	createTable();
-}
-
-function enterGame() {
-	pipe = [];
-	pipe[0] = {
-		x : cvs.width,
-		y : 0
-	}
-	score = 0;
-	xPos = 10;
-	yPos = 150;
-
-	menuBlock.style.display = "none";
-	canvasGame.style.display = "block";
-	afterGame.style =  "display: none";
-}
-
-function acceptName() {
-	if (nickname.value) {
-		pushNick();
-		enterGame();
-		requestAnimationFrame(draw);
-	}
-}
-
-function acceptChangeName() {
-	if (nickname.value) {
-		pushNick();
-		backMenu();
-	}
-}
-
-function changeName() {
-	menuPlay.style.display = "none";
-	menuSkins.style.display = "none";
-	menuLeaders.style.display = "none";
-	menuExit.style.display = "none";
-	nameChange.style.display = "none";
-	menuEnterGame.style.display = "block";
-	acceptNameChange.style.display = "block";
-	menuBack.style.display = "block";	
-}
-
-playNow.addEventListener('click', openMenu);
-menuPlay.addEventListener('click', playMenu);
-menuSkins.addEventListener('click', skinsMenu);
-menuLeaders.addEventListener('click', leadersMenu);
-menuExit.addEventListener('click', exitMenu);
-menuBack.addEventListener('click', backMenu);
-backToMenu.addEventListener('click', backMenu);
-leaveGame.addEventListener('click', gameOver);
-menuAccept.addEventListener('click', acceptName);
-nameChange.addEventListener('click', changeName);
-acceptNameChange.addEventListener('click', acceptChangeName);
-
-///////////////////////////////////////////// SKINS /////////////////////////////////////
 
 function skinChange() {
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
@@ -429,68 +100,95 @@ function skinChange() {
 		fg.src = require('../assets/img/fg.jpg');
 		pipeUp.src = require('../assets/img/pipeUp.png');
 		pipeBottom.src = require('../assets/img/pipeBottom.png');
-		menuBlock.style.background = `url(${require('../assets/img/bg.jpg')}`;
-		afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
+		variables.menuBlock.style.background = `url(${require('../assets/img/bg.jpg')}`;
+		variables.afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
 		fly.src = require('../assets/audio/fly.mp3');
-		setSkin1.className = "active";
-		setSkin2.className = "";
-		setSkin3.className = "";
-		setSkin4.className = "";
+		variables.setSkin1.className = "active";
+		variables.setSkin2.className = "";
+		variables.setSkin3.className = "";
+		variables.setSkin4.className = "";
 	} else if (storageSkinKey === 2) {
 		bird.src = require('../assets/img/birdGray.png');
 		bg.src = require('../assets/img/bgGray.jpg');
 		fg.src = require('../assets/img/fgGray.jpg');
 		pipeUp.src = require('../assets/img/pipeUpGray.png');
 		pipeBottom.src = require('../assets//img/pipeBottomGray.png');
-		menuBlock.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
-		afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
+		variables.menuBlock.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
+		variables.afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
 		fly.src = require('../assets//audio/fly.mp3');
-		setSkin1.className = "";
-		setSkin2.className = "active";
-		setSkin3.className = "";
-		setSkin4.className = "";
+		variables.setSkin1.className = "";
+		variables.setSkin2.className = "active";
+		variables.setSkin3.className = "";
+		variables.setSkin4.className = "";
 	} else if (storageSkinKey === 3) {
 		bird.src = require('../assets/img/bird3.png');
 		bg.src = require('../assets/img/bg3.jpg');
 		fg.src = require('../assets/img/fg3.jpg');
 		pipeUp.src = require('../assets/img/pipeUpOrange.png');
 		pipeBottom.src = require('../assets/img/pipeBottomOrange.png');
-		menuBlock.style.background = `url(${require('../assets/img/bg3.jpg')}`;
-		afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
+		variables.menuBlock.style.background = `url(${require('../assets/img/bg3.jpg')}`;
+		variables.afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
 		fly.src = require('../assets/audio/fly.mp3');
-		setSkin1.className = "";
-		setSkin2.className = "";
-		setSkin3.className = "active";
-		setSkin4.className = "";
+		variables.setSkin1.className = "";
+		variables.setSkin2.className = "";
+		variables.setSkin3.className = "active";
+		variables.setSkin4.className = "";
 	} else if (storageSkinKey === 4) {
 		bird.src = require('../assets/img/birdCat.png');
 		bg.src = require('../assets/img/bgSpace.jpg');
 		fg.src = require('../assets/img/fgRainbow.png');
 		pipeUp.src = require('../assets/img/pipeUpPink.png');
 		pipeBottom.src = require('../assets/img/pipeBottomPink.png');
-		menuBlock.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
-		afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
+		variables.menuBlock.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
+		variables.afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
 		fly.src = require('../assets/audio/skin_4.mp3');
-		setSkin1.className = "";
-		setSkin2.className = "";
-		setSkin3.className = "";
-		setSkin4.className = "active";
+		variables.setSkin1.className = "";
+		variables.setSkin2.className = "";
+		variables.setSkin3.className = "";
+		variables.setSkin4.className = "active";
 	}	
 }
 
-setSkin1.addEventListener("click", () => {
+
+document.onkeydown = function(e) { // убирает скролл страницы при нажатии на пробел.
+	let keyCode = e.keyCode || e.charCode;
+	if (keyCode == 32) 
+	e.preventDefault();
+}
+
+document.addEventListener("keydown", moveUp);
+variables.canvasGame.addEventListener("touchstart", moveUp);
+variables.canvasGame.addEventListener("touchmove", moveUp);
+variables.pauseBtn.addEventListener("click", sleep);
+variables.startBtn.addEventListener("click", start);
+variables.reloadBtn.addEventListener("click", reload);
+variables.playNow.addEventListener('click', openMenu);
+variables.menuPlay.addEventListener('click', playMenu);
+variables.menuSkins.addEventListener('click', skinsMenu);
+variables.menuLeaders.addEventListener('click', leadersMenu);
+variables.menuExit.addEventListener('click', exitMenu);
+variables.menuBack.addEventListener('click', backMenu);
+variables.backToMenu.addEventListener('click', backMenu);
+variables.leaveGame.addEventListener('click', gameOver);
+variables.menuAccept.addEventListener('click', acceptName);
+variables.nameChange.addEventListener('click', changeName);
+variables.acceptNameChange.addEventListener('click', acceptChangeName);
+
+variables.setSkin1.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 1));
 	skinChange();
 });
-setSkin2.addEventListener("click", () => {
+variables.setSkin2.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 2));
 	skinChange();
 });
-setSkin3.addEventListener("click", () => {
+variables.setSkin3.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 3));
 	skinChange();
 });
-setSkin4.addEventListener("click", () => {
+variables.setSkin4.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 4));
 	skinChange();
 });
+
+
