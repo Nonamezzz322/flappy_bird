@@ -1,11 +1,12 @@
 import {openMenu, exitMenu, skinsMenu, backMenu, changeName, 
 	reload, sleep, start, gameOver, playMenu, 
-	leadersMenu, acceptName, acceptChangeName} from "./menu";
+	leadersMenu, acceptName, acceptChangeName, checkNameButtonActive, whereNameInput} from "./menu";
 import {setScoreObj, setBestScore, getBestScore} from "./lead_table";
 import * as variables from "./variables";
 export {draw, animations, moveUp, skinChange, birdLive};
 
 let bird = new Image();
+let rainbowCat = new Image();
 let bg = new Image();
 let fg = new Image();
 let pipeUp = new Image();
@@ -14,14 +15,15 @@ let fly = new Audio();
 let score_audio = new Audio();
 let failSound = new Audio();
 let animations;
+let birdLive = true; //проверяет мертва ли птичка сейчас
 
 score_audio.src = require('../assets/audio/score.mp3');
 failSound.src =  require('../assets/audio//fail.mp3');
 
-let birdLive = true; //проверяет мертва ли птичка сейчас
 
 getBestScore();
 skinChange();
+checkNameButtonActive();
 
 function moveUp(e) {
 	e = e.originalEvent || e;
@@ -80,9 +82,14 @@ function draw() {
 		}
 	}
 
+	if(JSON.parse(localStorage.getItem('skinKey')) === 4) {
+		variables.ctx.drawImage(rainbowCat, variables.xPos - 39, variables.yPos - 2);
+	}
+
 	variables.ctx.drawImage(fg, 0, variables.cvs.height - fg.height);
 	variables.ctx.drawImage(bird, variables.xPos, variables.yPos);
 
+	
 	variables.yPos += variables.grav;
 
 	variables.ctx.fillStyle = "#000";
@@ -135,6 +142,7 @@ function skinChange() {
 		variables.setSkin4.className = "";
 	} else if (storageSkinKey === 4) {
 		bird.src = require('../assets/img/birdCat.png');
+		rainbowCat.src = require('../assets/img/rainbow_cat.png');
 		bg.src = require('../assets/img/bgSpace.jpg');
 		fg.src = require('../assets/img/fgRainbow.png');
 		pipeUp.src = require('../assets/img/pipeUpPink.png');
@@ -173,6 +181,7 @@ variables.leaveGame.addEventListener('click', gameOver);
 variables.menuAccept.addEventListener('click', acceptName);
 variables.nameChange.addEventListener('click', changeName);
 variables.acceptNameChange.addEventListener('click', acceptChangeName);
+variables.nickname.addEventListener('keydown', whereNameInput);
 
 variables.setSkin1.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 1));

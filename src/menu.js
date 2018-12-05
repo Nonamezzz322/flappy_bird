@@ -3,7 +3,7 @@ import {draw, animations, moveUp, skinChange, birdLive} from "./index";
 import {checkLocalStorage, createTable, pushNick} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
-  leadersMenu, acceptName, acceptChangeName};
+  leadersMenu, acceptName, acceptChangeName, checkNameButtonActive, whereNameInput};
 
 function openMenu() {
 	variables.gameBlock.style.display = "block";
@@ -42,7 +42,7 @@ function backMenu() {
 	variables.menuSkins.style.display = "block";
 	variables.menuLeaders.style.display = "block";
 	variables.menuExit.style.display = "block";
-	variables.nameChange.style.display = "block";
+	checkNameButtonActive();
 }
 
 function enterGame() {
@@ -126,6 +126,9 @@ function gameOver() {  //функция вызываемая после стол
 	} else if(variables.bestScore === 0) {
 		variables.highscoreDiv.innerText = `New best: 
 		${variables.score}`;
+	} else if(variables.score === 1) {
+		variables.highscoreDiv.innerText = `New best: 
+		${variables.score}`;
 	}
 	document.removeEventListener("keydown", moveUp);
 }
@@ -175,5 +178,21 @@ function acceptChangeName() {
 	if (variables.nickname.value) {
 		pushNick();
 		backMenu();
+	}
+}
+
+function checkNameButtonActive() {
+	if (localStorage.getItem("name")) {
+		variables.nameChange.style.display = "block";
+	} else {
+		variables.nameChange.style.display = "none";
+	}
+}
+
+function whereNameInput(e){
+	if (e.keyCode === 13 && localStorage.getItem("name")){
+		acceptChangeName();
+	} else if (e.keyCode === 13 && !localStorage.getItem("name")) {
+		acceptName();
 	}
 }
