@@ -200,4 +200,87 @@ variables.setSkin4.addEventListener("click", () => {
 	skinChange();
 });
 
+//ТЕСТОВОЕ ПОЛЕ//
 
+// function draw() {
+// 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+// 		variables.ctx.drawImage(bg, 0, 0, variables.cvs.width, variables.cvs.height);
+// 	} else {
+// 		variables.ctx.drawImage(bg, 0, 0);
+// 	}
+
+// 	for (let i = 0; i < variables.pipe.length; i += 1) {
+// 		variables.ctx.drawImage(pipeUp, variables.pipe[i].x, variables.pipe[i].y);
+// 		variables.ctx.drawImage(pipeBottom, variables.pipe[i].x, variables.pipe[i].y + pipeUp.height + variables.gap);
+
+// 		variables.pipe[i].x -= 1;
+// 		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+// 			if (variables.pipe[i].x == 195) {
+// 				variables.pipe.push({
+// 					x : variables.cvs.width,
+// 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+// 				});
+// 			}
+// 		} else {
+// 			if (variables.pipe[i].x == 105) {
+// 				variables.pipe.push({
+// 					x : variables.cvs.width,
+// 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+// 				});
+// 			}
+// 		}
+		
+// 		if (variables.xPos + bird.width >= variables.pipe[i].x
+// 			&& variables.xPos <= variables.pipe[i].x + pipeUp.width
+// 			&& (variables.yPos <= variables.pipe[i].y + pipeUp.height
+// 			|| variables.yPos + bird.height >= variables.pipe[i].y + pipeUp.height + variables.gap) 
+// 			|| variables.yPos + bird.height >= variables.cvs.height - fg.height) {
+			
+// 			failSound.play();
+// 			birdLive = false;
+// 			requestAnimationFrame(gameOver);
+// 		}
+
+// 		if (variables.pipe[i].x == 5) {
+// 			variables.score += 1;
+// 			setScoreObj()
+// 			setBestScore()
+// 			getBestScore()
+// 			score_audio.play();
+// 		}
+// 	}
+
+// 	if(JSON.parse(localStorage.getItem('skinKey')) === 4) {
+// 		variables.ctx.drawImage(rainbowCat, variables.xPos - 38, variables.yPos - 2);
+// 	}
+
+
+// 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+// 		variables.ctx.drawImage(fg, 0, variables.cvs.height - fg.height, variables.cvs.width, 118);
+// 	} else {
+// 		variables.ctx.drawImage(fg, 0, variables.cvs.height - fg.height);
+// 	}
+
+// 	variables.ctx.drawImage(bird, variables.xPos, variables.yPos);
+
+	
+// 	variables.yPos += variables.grav;
+
+// 	variables.ctx.fillStyle = "#000";
+// 	variables.ctx.font = "2.5rem Caveat";
+// 	variables.ctx.fillText("Score: " + variables.score, 10, variables.cvs.height - 20);
+	
+// 	animations = requestAnimationFrame(draw);
+// }
+
+
+
+// function canvasWidth() {
+// 	if (/Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) { // определение мобильного браузера
+// 		  variables.cvs.width = innerWidth;
+// 		  variables.gameBorder.style.display = "none";
+// 		  variables.gameContent.style.left = "0";
+// 		  variables.gameContent.style.top = "0";
+// 		  variables.gameContent.style.borderTop = "";
+// 	}
+// }
