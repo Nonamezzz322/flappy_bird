@@ -18,7 +18,7 @@ html {
 /* первый блок */
 
 .header {
-	background: url("./img/flappy-background_lg.png") no-repeat 50% 50% /cover;
+	background: url("../assets/img/flappy-background_lg.png") no-repeat 50% 50% /cover;
 	padding: 10% 0;
 }
 	@media screen and (max-width: 567px) {
@@ -225,7 +225,7 @@ a:hover {
 	top: calc(50% - 337px);
 	width: 328px;
 	height: 674px;
-	background: url('./img/phone.png') no-repeat 50% 50%;
+	background: url('../assets/img/phone.png') no-repeat 50% 50%;
 }
 
 #game_content {
@@ -242,7 +242,6 @@ a:hover {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	/* background: url('./img/bg.png') no-repeat 50% 50% /cover; */
 }
 	#menu_logo {
 		position: absolute;
@@ -272,7 +271,7 @@ a:hover {
 			top: calc(50% - 7rem);
 			width: 14rem;
 			height: 14rem;
-			background: url("./img/table.png") no-repeat 50% 50% /cover;
+			background: url("../assets/img/table.png") no-repeat 50% 50% /cover;
 		} 
 			#skins > .active {
 				border: 0.4rem solid#5ee270;
@@ -317,7 +316,7 @@ a:hover {
 			top: 25%;
 			width: 14rem;
 			height: 14rem;
-			background: url('./img/table.png') no-repeat 50% 50% /cover;
+			background: url('../assets/img/table.png') no-repeat 50% 50% /cover;
 			color: #675353;
 			font-family: "Caveat";
 			font-size: 1.5rem;
@@ -370,7 +369,7 @@ a:hover {
 		position: absolute;
 		left: calc(50% - 7rem);
 		top: 50%;
-		background: url('./img/input.png') no-repeat 50% 50%;
+		background: url('../assets/img/input.png') no-repeat 50% 50%;
 		width: 14rem;
 		height: 3rem;
 		padding: 0.5rem 1rem;
@@ -404,7 +403,6 @@ a:hover {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: url('./img/bg.png') no-repeat 50% 50% /cover;
 }
 	#score_block {
 		position: absolute;
@@ -412,7 +410,7 @@ a:hover {
 		top: 30%;
 		width: 8rem;
 		height: 8rem;
-		background: url('./img/table.png') no-repeat 50% 50% /cover;
+		background: url('../assets/img/table.png') no-repeat 50% 50% /cover;
 		font-size: 2rem;
 		color: #675353; 
 		font-family: "Caveat";

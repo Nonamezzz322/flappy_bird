@@ -39,30 +39,30 @@ let fly = new Audio();
 let score_audio = new Audio();
 let failSound = new Audio();
 
-score_audio.src = "audio/score.mp3";
-failSound.src = "audio/fail.mp3";
-
-let pipe = [];
+let pipe = [];//массив игрового мира
 pipe[0] = {
 	x : cvs.width,
 	y : 0
 }
 
-let pause = '';
 let gap = 90;
 let score = 0;
 let bestScore = 0; //нужна для вывода highScore
-let xPos = 10;
+let xPos = 0;
 let yPos = 150;
 let grav = 1.5;
 let leadArr = []; // массив лидерборда
 let birdLive = true; //проверяет мертва ли птичка сейчас
 
+score_audio.src = require('../assets/audio/score.mp3');
+failSound.src =  require('../assets/audio//fail.mp3');
+
 getBestScore();
 skinChange();
 
 function moveUp(e) {
-	if(e.type == "touchmove") {
+	e = e.originalEvent || e;
+	if(e.type == "touchmove" || e.scale >= 1 ){
 		e.preventDefault();
 	}
 	if ((e.keyCode === 32 || e.type == "touchstart") && yPos > 30) {
@@ -72,6 +72,10 @@ function moveUp(e) {
 			let moveUpBird = setInterval(() => yPos -= grav + 2.5, 1) //плавная анимация птички
 			setTimeout(() => clearInterval(moveUpBird), 30)	
 		} else if (e.type == "touchstart") {
+			yPos -= 30;
+		} else if (e.type == "click") {
+
+			e.preventDefault();
 			yPos -= 30;
 		}	
 	}
@@ -86,7 +90,7 @@ function draw() {
 
 		pipe[i].x -= 1;
 
-		if (pipe[i].x == 115) {
+		if (pipe[i].x == 105) {
 			pipe.push({
 				x : cvs.width,
 				y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -124,6 +128,7 @@ function draw() {
 	
 	animations = requestAnimationFrame(draw);
 }
+
 
 document.addEventListener("keydown", moveUp);
 canvasGame.addEventListener("touchstart", moveUp);
@@ -290,10 +295,15 @@ document.onkeydown = function(e) { // убирает скролл страниц
 // слушатели на кнопки
 function openMenu() {
 	gameBlock.style.display = "block";
+	document.body.style.overflow = "hidden";
+	document.body.style.height = "100%";
+	document.body.touchAction = "manipulation";
 }
 
 function exitMenu() {
 	gameBlock.style.display = "none";
+	document.body.style.overflow = "auto";
+	document.body.touchAction = "auto";
 }
 
 function playMenu() {
@@ -414,53 +424,53 @@ acceptNameChange.addEventListener('click', acceptChangeName);
 function skinChange() {
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
 	if (storageSkinKey === 1 || !storageSkinKey) {
-		bird.src = "img/bird.png";
-		bg.src = "img/bg.jpg";
-		fg.src = "img/fg.jpg";
-		pipeUp.src = "img/pipeUp.png";
-		pipeBottom.src = "img/pipeBottom.png";
-		menuBlock.style.background = "url('./img/bg.jpg') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bg.jpg') no-repeat 50% 50% /cover";
-		fly.src = "audio/fly.mp3";
+		bird.src = require('../assets/img/bird.png');
+		bg.src = require('../assets/img/bg.jpg');
+		fg.src = require('../assets/img/fg.jpg');
+		pipeUp.src = require('../assets/img/pipeUp.png');
+		pipeBottom.src = require('../assets/img/pipeBottom.png');
+		menuBlock.style.background = `url(${require('../assets/img/bg.jpg')}`;
+		afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
+		fly.src = require('../assets/audio/fly.mp3');
 		setSkin1.className = "active";
 		setSkin2.className = "";
 		setSkin3.className = "";
 		setSkin4.className = "";
 	} else if (storageSkinKey === 2) {
-		bird.src = "img/birdGray.png";
-		bg.src = "img/bgGray.jpg";
-		fg.src = "img/fgGray.jpg";
-		pipeUp.src = "img/pipeUpGray.png";
-		pipeBottom.src = "img/pipeBottomGray.png";
-		menuBlock.style.background = "url('./img/bgGray.jpg') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bgGray.jpg') no-repeat 50% 50% /cover";
-		fly.src = "audio/fly.mp3";
+		bird.src = require('../assets/img/birdGray.png');
+		bg.src = require('../assets/img/bgGray.jpg');
+		fg.src = require('../assets/img/fgGray.jpg');
+		pipeUp.src = require('../assets/img/pipeUpGray.png');
+		pipeBottom.src = require('../assets//img/pipeBottomGray.png');
+		menuBlock.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
+		afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
+		fly.src = require('../assets//audio/fly.mp3');
 		setSkin1.className = "";
 		setSkin2.className = "active";
 		setSkin3.className = "";
 		setSkin4.className = "";
 	} else if (storageSkinKey === 3) {
-		bird.src = "img/bird3.png";
-		bg.src = "img/bg3.jpg";
-		fg.src = "img/fg3.jpg";
-		pipeUp.src = "img/pipeUpOrange.png";
-		pipeBottom.src = "img/pipeBottomOrange.png";
-		menuBlock.style.background = "url('./img/bg3.jpg') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bg3.jpg') no-repeat 50% 50% /cover";
-		fly.src = "audio/fly.mp3";
+		bird.src = require('../assets/img/bird3.png');
+		bg.src = require('../assets/img/bg3.jpg');
+		fg.src = require('../assets/img/fg3.jpg');
+		pipeUp.src = require('../assets/img/pipeUpOrange.png');
+		pipeBottom.src = require('../assets/img/pipeBottomOrange.png');
+		menuBlock.style.background = `url(${require('../assets/img/bg3.jpg')}`;
+		afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
+		fly.src = require('../assets/audio/fly.mp3');
 		setSkin1.className = "";
 		setSkin2.className = "";
 		setSkin3.className = "active";
 		setSkin4.className = "";
 	} else if (storageSkinKey === 4) {
-		bird.src = "img/birdCat.png";
-		bg.src = "img/bgSpace.jpg";
-		fg.src = "img/fgRainbow.png";
-		pipeUp.src = "img/pipeUpPink.png";
-		pipeBottom.src = "img/pipeBottomPink.png";
-		menuBlock.style.background = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
-		afterGame.style.background = "url('./img/bgSpace.jpg') no-repeat 50% 50% /cover";
-		fly.src = "audio/skin_4.mp3";
+		bird.src = require('../assets/img/birdCat.png');
+		bg.src = require('../assets/img/bgSpace.jpg');
+		fg.src = require('../assets/img/fgRainbow.png');
+		pipeUp.src = require('../assets/img/pipeUpPink.png');
+		pipeBottom.src = require('../assets/img/pipeBottomPink.png');
+		menuBlock.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
+		afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
+		fly.src = require('../assets/audio/skin_4.mp3');
 		setSkin1.className = "";
 		setSkin2.className = "";
 		setSkin3.className = "";

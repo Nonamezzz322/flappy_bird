@@ -9,17 +9,33 @@
 	<link rel="icon" href="img/flappy_fav.ico" type="image/x-icon"> -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Karla:400,700,400italic,700italic" rel="stylesheet" type="text/css"> -->
 	<link href="https://fonts.googleapis.com/css?family=Caveat&amp;subset=cyrillic" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="./styles.css">
+	<link rel="stylesheet" type="text/css" href="../src/styles.css">
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/icon-72x72.png">
+ 	<link rel="apple-touch-icon" sizes="96x96" href="../assets/icons/icon-96x96.png">
+	<link rel="apple-touch-icon" sizes="128x128" href="../assets/icons/icon-128x128.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="192x192" href="../assets/icons/icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="72x72" href="../assets/icons/icon-72x72.png">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130407406-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-130407406-1');
+	</script>
 	<title>Lappy Bird</title>
 </head>
 <body>
 	<div class="wrapper">
 		<header  class="header">
 			<div>
-				<img src="img/flappy-icon.png" alt="Flappy Bird Icon" class="flappy_icon">
+				<img src="../assets/img/flappy-icon.png" alt="Flappy Bird Icon" class="flappy_icon">
 			</div>
 			<div>
-				<img src="img/flappy-bird-logo.png" alt="Flappy Bird Logo" class="flappy_logo">
+				<img src="../assets/img/flappy-bird-logo.png" alt="Flappy Bird Logo" class="flappy_logo">
 			</div>
 			<p class="by_line">"The most addictive game of the 21st century!"</p>
 			<div>
@@ -33,17 +49,17 @@
 			<h2 class="features_title">What Can Lappy Bird Do?</h2>
 			<div class="features_items">
 				<div class="features_element">
-					<img src="./img/skin_1.jpg" alt="Flappy Bird Icon" class="small_flappy_icon" >
+					<img src="../assets/img/skin_1.jpg" alt="Flappy Bird Icon" class="small_flappy_icon" >
 					<h2 class="sub_title">Fly around!</h2>
 					<p class="sub_description">Dodge with Lappy Bird using easy controls.</p>
 				</div>
 				<div class="features_element">
-					<img src="./img/score-icon.jpg" alt="Flappy Bird Icon" class="small_flappy_icon">
+					<img src="../assets/img/score-icon.jpg" alt="Flappy Bird Icon" class="small_flappy_icon">
 					<h2 class="sub_title">Get a high score!</h2>
 					<p class="sub_description">Play and play and play to master the game.</p>
 				</div>
 				<div class="features_element">
-					<img src="./img/skins-icon.jpg" alt="Flappy Bird Icon" class="small_flappy_icon">
+					<img src="../assets/img/skins-icon.jpg" alt="Flappy Bird Icon" class="small_flappy_icon">
 					<h2 class="sub_title">Сhoose your style!</h2>
 					<p class="sub_description">Сhoose one of the many skins that best suits you.</p>
 				</div>
@@ -54,13 +70,13 @@
 				<h4>Share Lappy Bird on Social Media!</h4>
 				<div class="social_icons">
 					<a class="blank" href="https://twitter.com/share?url=https://nonamezzz322.github.io/flappy_bird/index.html&amp;text=Flappy%20Bird%20Clone&amp;hashtags=flappybird">
-						<img class="blank_image" src="./img/twitter.png" alt="Share twitter">
+						<img class="blank_image" src="../assets/img/twitter.png" alt="Share twitter">
 					</a>
 					<a class="blank" href="https://plus.google.com/share?url=https://nonamezzz322.github.io/flappy_bird/index.html">
-						<img class="blank_image" src="./img/google.png" alt="Share google">
+						<img class="blank_image" src="../assets/img/google.png" alt="Share google">
 					</a>
 					<a class="blank" href="http://www.facebook.com/sharer.php?u=https://nonamezzz322.github.io/flappy_bird/index.html">
-						<img class="blank_image" src="./img/facebook.png" alt="Share facebook">
+						<img class="blank_image" src="../assets/img/facebook.png" alt="Share facebook">
 					</a>
 				</div>
 			</div>
@@ -72,24 +88,24 @@
 		<div id="game_border">
 			<div id="game_content">
 				<div id="menu_block" style="display: block">
-					<img id="menu_logo" src="./img/flappy-bird-logo.png" alt="">
-					<img id="menu_play" src="./img/play.png" alt="">
-					<img id="menu_skins" src="./img/skins.png" alt="">
+					<img id="menu_logo" src="../assets/img/flappy-bird-logo.png" alt="">
+					<img id="menu_play" src="../assets/img/play.png" alt="">
+					<img id="menu_skins" src="../assets/img/skins.png" alt="">
 					<div id="skins" style="display: none">
-						<img id="skin_1" src="./img/skin_1.jpg" alt="">
-						<img id="skin_2" src="./img/skin_2.jpg" alt="">
-						<img id="skin_3" src="./img/skin_3.jpg" alt="">
-						<img id="skin_4" src="./img/skin_4.jpg" alt="">
+						<img id="skin_1" src="../assets/img/skin_1.jpg" alt="">
+						<img id="skin_2" src="../assets/img/skin_2.jpg" alt="">
+						<img id="skin_3" src="../assets/img/skin_3.jpg" alt="">
+						<img id="skin_4" src="../assets/img/skin_4.jpg" alt="">
 					</div>
-					<img id="menu_leaders" src="./img/leaders.png" alt="">
-					<img id="menu_exit" src="./img/exit.png" alt="">
-					<img id="name_change" src="./img/name.png" alt="">
-					<img id="accept_name_change" src="./img/accept.png" alt="" style="display: none">
+					<img id="menu_leaders" src="../assets/img/leaders.png" alt="">
+					<img id="menu_exit" src="../assets/img/exit.png" alt="">
+					<img id="name_change" src="../assets/img/name.png" alt="">
+					<img id="accept_name_change" src="../assets/img/accept.png" alt="" style="display: none">
 					<div id="menu_enter_name" style="display: none">
 						<input type="text" id="name" placeholder="Enter your nickname">
 					</div>
-					<img id="menu_accept" src="./img/accept.png" alt="" style="display: none">
-					<img id="back_menu" src="./img/back.png" style="display: none">
+					<img id="menu_accept" src="../assets/img/accept.png" alt="" style="display: none">
+					<img id="back_menu" src="../assets/img/back.png" style="display: none">
 					<table id="menu_leaders_table" style="display: none">
 						<tbody id="table_data">
 							<tr>
@@ -121,14 +137,14 @@
 				</div>
 				<div id="canvas_game" style="display: none">
 					<canvas id="game" width="288" height="512"></canvas>
-					<img id="start" src="./img/play.png" alt="" style="display: none">
-					<img id="leave" src="./img/leave.png" alt="" style="display: none">
-					<img id="pause" src="./img/pause.png" alt="">
+					<img id="start" src="../assets/img/play.png" alt="" style="display: none">
+					<img id="leave" src="../assets/img/leave.png" alt="" style="display: none">
+					<img id="pause" src="../assets/img/pause.png" alt="">
 				</div>
 				<div id="after_game" style="display: none">
-					<img id="reload" src="./img/restart.png" alt="">
-					<img id="back_to_menu" src="./img/menu.png" alt="">
-					<img id="game_over" src="./img/game-over.png" alt="">
+					<img id="reload" src="../assets/img/restart.png" alt="">
+					<img id="back_to_menu" src="../assets/img/menu.png" alt="">
+					<img id="game_over" src="../assets/img/game-over.png" alt="">
 					<div id="score_block">
 						<div id="score_after"></div>
 						<div id="highscore"></div>
@@ -137,11 +153,11 @@
 			</div>
 		</div>
 	</div>
-<script src="./index.js"></script>
-<!-- <script>
+<script src="../src/index.js"></script>
+<script>
 	if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
 	  navigator.serviceWorker.register('./sw.js', { scope: '/flappy_bird' });
 	};
-  </script> -->
+  </script>
 </body>
 </html>

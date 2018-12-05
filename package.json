@@ -4,8 +4,8 @@
   "description": "This is clone FlappyBird game!",
   "main": "index.js",
   "scripts": {
-    "start": "parcel ./index.html",
-    "build": "parcel build ./index.html --public-url /flappy_bird && workbox generateSW workbox-config.js && cp dist/index.html dist/404.html",
+    "start": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html --public-url /flappy_bird && workbox wizard && cp dist/index.html dist/404.html",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/Nonamezzz322/flappy_bird#readme",
   "dependencies": {
-    "gif-canvas": "^1.0.0"
+    "audio": "^1.2.0",
+    "gif-canvas": "^1.0.0",
+    "img": "^3.0.3"
   }
 }
