@@ -1,6 +1,6 @@
 import * as variables from "./variables";
-import {draw, animations, moveUp, skinChange, birdLive, canvasWidth} from "./index";
-import {checkLocalStorage, createTable, pushNick, getBestScore} from "./lead_table";
+import {draw, animations, moveUp, skinChange, birdLive, canvasWidth} from "./app";
+import {checkLocalStorage, createTable, pushNick, getBestScore, setScoreObj} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
   leadersMenu, acceptName, acceptChangeName, checkNameButtonActive, whereNameInput};
@@ -72,7 +72,8 @@ function changeName() {
 	variables.nameChange.style.display = "none";
 	variables.menuEnterGame.style.display = "block";
 	variables.acceptNameChange.style.display = "block";
-	variables.menuBack.style.display = "block";	
+	variables.menuBack.style.display = "block";
+	variables.nickname.value = localStorage.getItem('name');
 }
 
 function reload() { //должна перезагружать страницу
