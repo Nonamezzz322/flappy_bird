@@ -1,6 +1,6 @@
 import * as variables from "./variables";
-import {draw, animations, moveUp, skinChange, birdLive} from "./index";
-import {checkLocalStorage, createTable, pushNick} from "./lead_table";
+import {draw, animations, moveUp, skinChange, birdLive, canvasWidth} from "./index";
+import {checkLocalStorage, createTable, pushNick, getBestScore} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
   leadersMenu, acceptName, acceptChangeName, checkNameButtonActive, whereNameInput};
@@ -10,6 +10,10 @@ function openMenu() {
 	document.body.style.overflow = "hidden";
 	document.body.style.height = "100%";
 	document.body.touchAction = "manipulation";
+	getBestScore();
+	skinChange();
+	checkNameButtonActive();
+	canvasWidth();
 }
 
 function exitMenu() {

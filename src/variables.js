@@ -18,6 +18,8 @@ export {
   acceptNameChange,
   menuEnterGame,
   menuAccept,
+  gameBorder,
+  gameContent,
   menuBack,
   nickname,
   afterGame,
@@ -59,6 +61,8 @@ const acceptNameChange = document.getElementById("accept_name_change");
 const menuEnterGame = document.getElementById("menu_enter_name");
 const menuAccept = document.getElementById("menu_accept");
 const menuBack = document.getElementById("back_menu");
+const gameBorder = document.getElementById("game_border");
+const gameContent = document.getElementById("game_content")
 const nickname = document.getElementById('name');
 const afterGame = document.getElementById("after_game");
 const scoreAfterDiv = document.getElementById("score_after");
