@@ -412,38 +412,30 @@ exports.animations = animations;
 var birdLive = true; //проверяет мертва ли птичка сейчас
 
 exports.birdLive = birdLive;
+var upFrames = 0;
 scoreAudio.src = require('../assets/audio/score.mp3');
 failSound.src = require('../assets/audio//fail.mp3');
 
 function moveUp(e) {
   e = e.originalEvent || e;
 
-  if (e.type == "touchmove" || e.scale >= 1) {
+  if ((e.type == "touchmove" || e.scale >= 1) && e.target.id !== 'pause') {
     e.preventDefault();
   }
 
   if ((e.keyCode === 32 || e.type == "touchstart") && vars.yPos > 30) {
+    upFrames = 4;
     fly.currentTime = 0;
     fly.play();
-
-    if (e.keyCode === 32) {
-      var moveUpBird = setInterval(function () {
-        return vars.yPos -= vars.grav + 2.5;
-      }, 1); //плавная анимация птички
-
-      setTimeout(function () {
-        return clearInterval(moveUpBird);
-      }, 30);
-    } else if (e.type == "touchstart") {
-      vars.yPos -= 30;
-    } else if (e.type == "click") {
-      e.preventDefault();
-      vars.yPos -= 30;
-    }
   }
 }
 
 function draw() {
+  if (upFrames > 0) {
+    vars.yPos -= 30 / 4 + 1.5;
+    upFrames -= 1;
+  }
+
   if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     vars.ctx.drawImage(bg, 0, 0, vars.cvs.width, vars.cvs.height);
   } else {
@@ -456,7 +448,7 @@ function draw() {
     vars.pipe[i].x -= 1;
 
     if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      if (vars.pipe[i].x == 170) {
+      if (vars.pipe[i].x == 120) {
         vars.pipe.push({
           x: vars.cvs.width,
           y: Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -496,7 +488,16 @@ function draw() {
     vars.ctx.drawImage(fg, 0, vars.cvs.height - fg.height);
   }
 
+  vars.ctx.save();
+
+  if (upFrames > 0) {
+    vars.ctx.translate(vars.xPos, vars.yPos);
+    vars.ctx.rotate(-25 * upFrames / 4 / 180 * Math.PI);
+    vars.ctx.translate(-vars.xPos, -vars.yPos);
+  }
+
   vars.ctx.drawImage(bird, vars.xPos, vars.yPos);
+  vars.ctx.restore();
   vars.yPos += vars.grav;
   vars.ctx.fillStyle = "#000";
   vars.ctx.font = "2.5rem Caveat";
@@ -889,7 +890,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62026" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64492" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
