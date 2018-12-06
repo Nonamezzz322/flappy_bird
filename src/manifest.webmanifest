@@ -5,7 +5,7 @@
   "start_url": "flappy-bird",
   "display": "standalone",
   "background_color": "blue",
-  "thene_color": "blue",
+  "theme_color": "blue",
   "description": "The most addictive game of the 21st century!",
   "icons": [
     {
