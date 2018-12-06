@@ -1,6 +1,6 @@
 import * as vars from "./variables";
 import {draw, animations, moveUp, skinChange, birdLive, canvasWidth} from "./app";
-import {checkLocalStorage, createTable, pushNick, getBestScore, setScoreObj} from "./lead_table";
+import {checkLocalStorage, createTable, pushNick, getBestScore} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
   leadersMenu, acceptName, acceptChangeName, checkNameButtonActive, whereNameInput};

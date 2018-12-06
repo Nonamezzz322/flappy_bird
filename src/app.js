@@ -1,7 +1,7 @@
 import {gameOver} from "./menu";
 import {setScoreObj, setBestScore, getBestScore} from "./lead_table";
 import * as vars from "./variables";
-export {step, draw, animations, moveUp, skinChange, birdLive, canvasWidth};
+export {draw, animations, moveUp, skinChange, birdLive, canvasWidth};
 
 let bird = new Image();
 let rainbowCat = new Image();
@@ -39,16 +39,6 @@ function moveUp(e) {
 		}	
 	}
 }
-
-var fps = 60;
-
-function step() {
-    setTimeout(function() {
-        requestAnimationFrame(step);
-        requestAnimationFrame(draw);
-    }, 1000 / fps);
-}
-
 
 function draw() {
 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
