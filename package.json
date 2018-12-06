@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html --public-url /flappy_bird/ && workbox wizard && cp dist/index.html dist/404.html",
+    "build": "parcel build ./src/index.html --public-url /flappy_bird && workbox generateSW workbox-config.js && cp dist/index.html dist/404.html",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {

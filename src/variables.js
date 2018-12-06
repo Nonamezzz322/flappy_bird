@@ -43,8 +43,10 @@ let bestScore = 0; //нужна для вывода highScore
 let xPos = 0;
 let yPos = 150;
 let grav = 1.5;
+let birdLive = true; //проверяет мертва ли птичка сейчас
 
 export {
+  birdLive,
   cvs, 
   ctx, 
   pauseBtn,

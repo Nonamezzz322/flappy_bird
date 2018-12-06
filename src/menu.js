@@ -1,5 +1,5 @@
 import * as vars from "./variables";
-import {draw, animations, moveUp, skinChange, birdLive, canvasWidth} from "./app";
+import {draw, animations, moveUp, skinChange, canvasWidth} from "./app";
 import {checkLocalStorage, createTable, pushNick, getBestScore} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
@@ -47,6 +47,10 @@ function backMenu() {
 	vars.menuLeaders.style.display = "block";
 	vars.menuExit.style.display = "block";
 	checkNameButtonActive();
+	if(vars.score > 0){
+		checkLocalStorage();
+	}
+	vars.score = 0;
 }
 
 function enterGame() {
@@ -77,6 +81,9 @@ function changeName() {
 }
 
 function reload() { //должна перезагружать страницу
+	if(vars.score > 0){
+		checkLocalStorage();
+	}
 	vars.pipe = [];
 	vars.pipe[0] = {
 		x : vars.cvs.width,
@@ -85,7 +92,6 @@ function reload() { //должна перезагружать страницу
 	vars.score = 0;
 	vars.xPos = 10;
 	vars.yPos = 150;
-
 	vars.canvasGame.style.display = "block";
 	vars.afterGame.style.display = "none";
 	vars.pauseBtn.style.display = "block";
@@ -112,12 +118,10 @@ function start() {
 
 function gameOver() {  //функция вызываемая после столкновения
 	cancelAnimationFrame(animations);
+	vars.birdLive = true;
+	vars.grav = 1.5;
 	document.removeEventListener("keydown", moveUp);
-	skinChange();
-	setTimeout(() => {
-		if(vars.score > 0){
-			checkLocalStorage();
-		}	
+	skinChange();	
 		vars.canvasGame.style.display = "none";
 		vars.startBtn.style.display = "none";
 		vars.leaveGame.style.display = "none";
@@ -134,7 +138,6 @@ function gameOver() {  //функция вызываемая после стол
 			vars.highscoreDiv.innerText = `New best: 
 			${vars.score}`;
 		}
-	}, 500);
 }
 
 function playMenu() {
@@ -145,7 +148,7 @@ function playMenu() {
 	vars.menuExit.style.display = "none";
 	vars.nameChange.style.display = "none";
 	if(localStorage.getItem('name')){
-		if(birdLive === true) {
+		if(vars.birdLive === true) {
 			requestAnimationFrame(draw);
 		}
 		enterGame();
@@ -154,7 +157,7 @@ function playMenu() {
 		vars.menuAccept.style.display = "block";
 		vars.menuBack.style.display = "block";
 	}
-	if(birdLive === false){
+	if(vars.birdLive === false){
 		reload();
 	}
 }

@@ -1,9 +1,10 @@
 import {gameOver} from "./menu";
 import {setScoreObj, setBestScore, getBestScore} from "./lead_table";
 import * as vars from "./variables";
-export {draw, animations, moveUp, skinChange, birdLive, canvasWidth};
+export {draw, animations, moveUp, skinChange, canvasWidth};
 
 let bird = new Image();
+let rip = new Image();
 let rainbowCat = new Image();
 let bg = new Image();
 let fg = new Image();
@@ -13,34 +14,33 @@ let fly = new Audio();
 let scoreAudio = new Audio();
 let failSound = new Audio();
 let animations;
-let birdLive = true; //проверяет мертва ли птичка сейчас
+let upFrames = 0;
 
 scoreAudio.src = require('../assets/audio/score.mp3');
 failSound.src =  require('../assets/audio//fail.mp3');
+rip.src = require('../assets/img/rip.png');
 
 
 function moveUp(e) {
 	e = e.originalEvent || e;
-	if(e.type == "touchmove" || e.scale >= 1 ){
+	if((e.type == "touchmove" || e.scale >= 1) && e.target.id !== 'pause'){
 		e.preventDefault();
 	}
 	if ((e.keyCode === 32 || e.type == "touchstart") && vars.yPos > 30) {
+		upFrames = 8;
 		fly.currentTime = 0;
 		fly.play();
-		if(e.keyCode === 32) {
-			let moveUpBird = setInterval(() => vars.yPos -= vars.grav + 2.5, 1) //плавная анимация птички
-			setTimeout(() => clearInterval(moveUpBird), 30)	
-		} else if (e.type == "touchstart") {
-			vars.yPos -= 30;
-		} else if (e.type == "click") {
-
-			e.preventDefault();
-			vars.yPos -= 30;
-		}	
-	}
+	} else if (e.type == "click") {
+		upFrames = 8;
+		e.preventDefault();
+	}	
 }
 
 function draw() {
+	if (upFrames > 0) {
+		vars.yPos -= 15 / 4 + 1.5;
+		upFrames -= 1;
+	}
 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		vars.ctx.drawImage(bg, 0, 0, vars.cvs.width, vars.cvs.height);
 	} else {
@@ -53,7 +53,7 @@ function draw() {
 
 		vars.pipe[i].x -= 1;
 		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			if (vars.pipe[i].x == 170) {
+			if (vars.pipe[i].x == 120) {
 				vars.pipe.push({
 					x : vars.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -73,10 +73,13 @@ function draw() {
 			&& (vars.yPos <= vars.pipe[i].y + pipeUp.height
 			|| vars.yPos + bird.height >= vars.pipe[i].y + pipeUp.height + vars.gap) 
 			|| vars.yPos + bird.height >= vars.cvs.height - fg.height) {
-			
+
 			failSound.play();
-			birdLive = false;
-			requestAnimationFrame(gameOver);
+			vars.birdLive = false;
+			setTimeout(() =>{
+				requestAnimationFrame(gameOver);
+			}, 400)
+			
 		}
 
 		if (vars.pipe[i].x == 5) {
@@ -98,8 +101,24 @@ function draw() {
 	} else {
 		vars.ctx.drawImage(fg, 0, vars.cvs.height - fg.height);
 	}
+ 
+	vars.ctx.save();
+	if (upFrames > 0) {
+		vars.ctx.translate(vars.xPos, vars.yPos);
+		vars.ctx.rotate((-45 * upFrames / 8) / 180 * Math.PI);
+		vars.ctx.translate(-vars.xPos, -vars.yPos);
+	}
+	if(vars.birdLive === false) {
+		vars.ctx.drawImage(rip, vars.xPos, vars.yPos);
+		vars.grav = 4;
+	} else{
+		vars.ctx.drawImage(bird, vars.xPos, vars.yPos);
+	}
 
-	vars.ctx.drawImage(bird, vars.xPos, vars.yPos);
+	if(JSON.parse(localStorage.getItem('skinKey')) === 4) {
+		vars.ctx.drawImage(rainbowCat, vars.xPos - 38, vars.yPos - 2);
+	}
+	vars.ctx.restore();
 
 	
 	vars.yPos += vars.grav;
@@ -179,13 +198,15 @@ function skinChange() {
 
 function canvasWidth() {
 	if (/Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) { // определение мобильного браузера
-		  vars.cvs.width = innerWidth;
-		  vars.gameBorder.style.width = "100%";
-		  vars.gameBorder.style.height = "100%";
-		  vars.gameBorder.style.left = "0";
-		  vars.gameBorder.style.top = "0";
-		  vars.gameBorder.style.background = "black";
-		  vars.gameContent.style.left = "0";
-		  vars.gameContent.style.width = "100%";
+		vars.cvs.width = innerWidth;	
+			// vars.cvs.width = vars.cvs.width * window.devicePixelRatio;
+			// vars.cvs.height = vars.cvs.height * window.devicePixelRatio;
+		vars.gameBorder.style.width = "100%";
+		vars.gameBorder.style.height = "100%";
+		vars.gameBorder.style.left = "0";
+		vars.gameBorder.style.top = "0";
+		vars.gameBorder.style.background = "black";
+		vars.gameContent.style.left = "0";
+		vars.gameContent.style.width = "100%";
 	}
 }
