@@ -1,7 +1,7 @@
 import {openMenu, exitMenu, skinsMenu, backMenu, changeName, 
 	reload, sleep, start, gameOver, playMenu, 
 	leadersMenu, acceptName, acceptChangeName, whereNameInput} from "./menu";
-import * as variables from "./variables";
+import * as vars from "./variables";
 import {moveUp, skinChange} from "./app";
 
 document.onkeydown = function(e) { // убирает скролл страницы при нажатии на пробел.
@@ -11,37 +11,37 @@ document.onkeydown = function(e) { // убирает скролл страниц
 }
 
 document.addEventListener("keydown", moveUp);
-variables.canvasGame.addEventListener("touchstart", moveUp);
-variables.canvasGame.addEventListener("touchmove", moveUp);
-variables.pauseBtn.addEventListener("click", sleep);
-variables.startBtn.addEventListener("click", start);
-variables.reloadBtn.addEventListener("click", reload);
-variables.playNow.addEventListener('click', openMenu);
-variables.menuPlay.addEventListener('click', playMenu);
-variables.menuSkins.addEventListener('click', skinsMenu);
-variables.menuLeaders.addEventListener('click', leadersMenu);
-variables.menuExit.addEventListener('click', exitMenu);
-variables.menuBack.addEventListener('click', backMenu);
-variables.backToMenu.addEventListener('click', backMenu);
-variables.leaveGame.addEventListener('click', gameOver);
-variables.menuAccept.addEventListener('click', acceptName);
-variables.nameChange.addEventListener('click', changeName);
-variables.acceptNameChange.addEventListener('click', acceptChangeName);
-variables.nickname.addEventListener('keydown', whereNameInput);
+vars.canvasGame.addEventListener("touchstart", moveUp);
+vars.canvasGame.addEventListener("touchmove", moveUp);
+vars.pauseBtn.addEventListener("click", sleep);
+vars.startBtn.addEventListener("click", start);
+vars.reloadBtn.addEventListener("click", reload);
+vars.playNow.addEventListener('click', openMenu);
+vars.menuPlay.addEventListener('click', playMenu);
+vars.menuSkins.addEventListener('click', skinsMenu);
+vars.menuLeaders.addEventListener('click', leadersMenu);
+vars.menuExit.addEventListener('click', exitMenu);
+vars.menuBack.addEventListener('click', backMenu);
+vars.backToMenu.addEventListener('click', backMenu);
+vars.leaveGame.addEventListener('click', gameOver);
+vars.menuAccept.addEventListener('click', acceptName);
+vars.nameChange.addEventListener('click', changeName);
+vars.acceptNameChange.addEventListener('click', acceptChangeName);
+vars.nickname.addEventListener('keydown', whereNameInput);
 
-variables.setSkin1.addEventListener("click", () => {
+vars.setSkin1.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 1));
 	skinChange();
 });
-variables.setSkin2.addEventListener("click", () => {
+vars.setSkin2.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 2));
 	skinChange();
 });
-variables.setSkin3.addEventListener("click", () => {
+vars.setSkin3.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 3));
 	skinChange();
 });
-variables.setSkin4.addEventListener("click", () => {
+vars.setSkin4.addEventListener("click", () => {
 	JSON.stringify(localStorage.setItem('skinKey', 4));
 	skinChange();
 });

@@ -1,15 +1,15 @@
-import * as variables from "./variables";
+import * as vars from "./variables";
 export {pushNick, setScoreObj, setBestScore, getBestScore, createTable, checkLocalStorage};
 
 let leadArr = []; // массив лидерборда
 
 function pushNick() { //добавляет ник в LocalStorage 
-	localStorage.setItem('name', variables.nickname.value);
-	variables.nickname.value = "";
+	localStorage.setItem('name', vars.nickname.value);
+	vars.nickname.value = "";
 }
 
 function setScoreObj() { //обновляет объект в LocalStorage при изменении счета 
-	let scoreObj = {'name': localStorage.getItem('name', variables.nickname.value), 'score': variables.score};
+	let scoreObj = {'name': localStorage.getItem('name', vars.nickname.value), 'score': vars.score};
 	let promise = new Promise(function(res, rej){
 		res(scoreObj)
 	}) 
@@ -20,20 +20,20 @@ function setScoreObj() { //обновляет объект в LocalStorage пр�
 function setBestScore() { // добавляет highScore
 	let storage = localStorage.getItem("highScore");
 	if (storage) {
-		if (variables.score > storage) {
-			localStorage.setItem("highScore", variables.score);
+		if (vars.score > storage) {
+			localStorage.setItem("highScore", vars.score);
 		}
 	} else {
-			localStorage.setItem("highScore", 0);
+			localStorage.setItem("highScore", 1);
 	}
 }	
 
 function getBestScore() { //выводит счетчик highScore
 	let storage = localStorage.getItem("highScore");
     if (storage) {
-      variables.bestScore = storage;
+      vars.bestScore = storage;
     } else {
-      variables.bestScore = 0;
+      vars.bestScore = 0;
     }
 }
 
@@ -41,11 +41,11 @@ function leadTablePush() {  // если в LocalStorage есть ключ 'leadA
 	sortArray(leadArr);
 
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
-	let scoreObj = {'name': localStorage.getItem('name', variables.nickname.value), 'score': variables.score};
-	if(variables.score > 0 && leadArr.length <= 4){
+	let scoreObj = {'name': localStorage.getItem('name', vars.nickname.value), 'score': vars.score};
+	if(vars.score > 0 && leadArr.length <= 4){
 		leadArr.push(scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
-	} else if (variables.score > leadArr[4].score && leadArr.length > 4 ){
+	} else if (vars.score > leadArr[4].score && leadArr.length > 4 ){
 		leadArr.splice(4, 1, scoreObj)
 		localStorage.setItem('leadArr', JSON.stringify(leadArr))
 	} else {
@@ -63,7 +63,7 @@ function sortArray(leadArr) {  //сортировщик по значению
 }
 
 function leadTableNew() { // если в LocalStorage нет ключа 'leadArr' - создает его с текущими данными
-	let scoreObj = {'name': localStorage.getItem('name', variables.nickname.value), 'score': variables.score};
+	let scoreObj = {'name': localStorage.getItem('name', vars.nickname.value), 'score': vars.score};
 	leadArr.push(scoreObj)
 	let promise = new Promise(function(res, rej) {
 		res(leadArr)
@@ -84,8 +84,8 @@ function createTable() {
 	leadArr = JSON.parse(localStorage.getItem('leadArr'));
 	if(leadArr) {	
 		for (let i = 0; i < leadArr.length; i += 1) {
-			variables.tableData.rows[i+1].cells[0].innerText = leadArr[i].name;
-			variables.tableData.rows[i+1].cells[1].innerText = leadArr[i].score;
+			vars.tableData.rows[i+1].cells[0].innerText = leadArr[i].name;
+			vars.tableData.rows[i+1].cells[1].innerText = leadArr[i].score;
 		}
 	}
 }

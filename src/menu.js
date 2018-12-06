@@ -1,4 +1,4 @@
-import * as variables from "./variables";
+import * as vars from "./variables";
 import {draw, animations, moveUp, skinChange, birdLive, canvasWidth} from "./app";
 import {checkLocalStorage, createTable, pushNick, getBestScore, setScoreObj} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
@@ -6,7 +6,7 @@ export {openMenu, exitMenu, skinsMenu, backMenu,
   leadersMenu, acceptName, acceptChangeName, checkNameButtonActive, whereNameInput};
 
 function openMenu() {
-	variables.gameBlock.style.display = "block";
+	vars.gameBlock.style.display = "block";
 	document.body.style.overflow = "hidden";
 	document.body.style.height = "100%";
 	document.body.touchAction = "manipulation";
@@ -17,96 +17,96 @@ function openMenu() {
 }
 
 function exitMenu() {
-	variables.gameBlock.style.display = "none";
+	vars.gameBlock.style.display = "none";
 	document.body.style.overflow = "auto";
 	document.body.touchAction = "auto";
 }
 
 function skinsMenu() {
-	variables.menuPlay.style.display = "none";
-	variables.menuSkins.style.display = "none";
-	variables.menuLeaders.style.display = "none";
-	variables.menuExit.style.display = "none";
-	variables.nameChange.style.display = "none";
-	variables.menuBack.style.display = "block";
-	variables.skinsBlock.style.display = "block";
+	vars.menuPlay.style.display = "none";
+	vars.menuSkins.style.display = "none";
+	vars.menuLeaders.style.display = "none";
+	vars.menuExit.style.display = "none";
+	vars.nameChange.style.display = "none";
+	vars.menuBack.style.display = "block";
+	vars.skinsBlock.style.display = "block";
 }
 
 function backMenu() {
-	variables.menuEnterGame.style.display = "none";
-	variables.menuBack.style.display = "none";
-	variables.menuLeadersTable.style.display = "none";
-	variables.canvasGame.style.display = "none";
-	variables.afterGame.style.display = "none";
-	variables.menuAccept.style.display = "none";
-	variables.acceptNameChange.style.display = "none";
-	variables.skinsBlock.style.display = "none";
-	variables.menuBlock.style.display = "block";
-	variables.menuPlay.style.display = "block";
-	variables.menuSkins.style.display = "block";
-	variables.menuLeaders.style.display = "block";
-	variables.menuExit.style.display = "block";
+	vars.menuEnterGame.style.display = "none";
+	vars.menuBack.style.display = "none";
+	vars.menuLeadersTable.style.display = "none";
+	vars.canvasGame.style.display = "none";
+	vars.afterGame.style.display = "none";
+	vars.menuAccept.style.display = "none";
+	vars.acceptNameChange.style.display = "none";
+	vars.skinsBlock.style.display = "none";
+	vars.menuBlock.style.display = "block";
+	vars.menuPlay.style.display = "block";
+	vars.menuSkins.style.display = "block";
+	vars.menuLeaders.style.display = "block";
+	vars.menuExit.style.display = "block";
 	checkNameButtonActive();
 }
 
 function enterGame() {
-	variables.pipe = [];
-	variables.pipe[0] = {
-		x : variables.cvs.width,
+	vars.pipe = [];
+	vars.pipe[0] = {
+		x : vars.cvs.width,
 		y : 0
 	}
-	variables.score = 0;
-	variables.xPos = 10;
-	variables.yPos = 150;
+	vars.score = 0;
+	vars.xPos = 10;
+	vars.yPos = 150;
 
-	variables.menuBlock.style.display = "none";
-	variables.canvasGame.style.display = "block";
-	variables.afterGame.style.display = "none";
+	vars.menuBlock.style.display = "none";
+	vars.canvasGame.style.display = "block";
+	vars.afterGame.style.display = "none";
 }
 
 function changeName() {
-	variables.menuPlay.style.display = "none";
-	variables.menuSkins.style.display = "none";
-	variables.menuLeaders.style.display = "none";
-	variables.menuExit.style.display = "none";
-	variables.nameChange.style.display = "none";
-	variables.menuEnterGame.style.display = "block";
-	variables.acceptNameChange.style.display = "block";
-	variables.menuBack.style.display = "block";
-	variables.nickname.value = localStorage.getItem('name');
+	vars.menuPlay.style.display = "none";
+	vars.menuSkins.style.display = "none";
+	vars.menuLeaders.style.display = "none";
+	vars.menuExit.style.display = "none";
+	vars.nameChange.style.display = "none";
+	vars.menuEnterGame.style.display = "block";
+	vars.acceptNameChange.style.display = "block";
+	vars.menuBack.style.display = "block";
+	vars.nickname.value = localStorage.getItem('name');
 }
 
 function reload() { //должна перезагружать страницу
-	variables.pipe = [];
-	variables.pipe[0] = {
-		x : variables.cvs.width,
+	vars.pipe = [];
+	vars.pipe[0] = {
+		x : vars.cvs.width,
 		y : 0
 	}
-	variables.score = 0;
-	variables.xPos = 10;
-	variables.yPos = 150;
+	vars.score = 0;
+	vars.xPos = 10;
+	vars.yPos = 150;
 
-	variables.canvasGame.style.display = "block";
-	variables.afterGame.style.display = "none";
-	variables.pauseBtn.style.display = "block";
-	variables.startBtn.style.display = "none";
+	vars.canvasGame.style.display = "block";
+	vars.afterGame.style.display = "none";
+	vars.pauseBtn.style.display = "block";
+	vars.startBtn.style.display = "none";
 	requestAnimationFrame(draw);
 	document.addEventListener("keydown", moveUp);
 }
 
 function sleep() {
 	cancelAnimationFrame(animations);
-	variables.startBtn.style.display = "block";
-	variables.leaveGame.style.display = "block";
-	variables.pauseBtn.style.display = "none";
+	vars.startBtn.style.display = "block";
+	vars.leaveGame.style.display = "block";
+	vars.pauseBtn.style.display = "none";
 	document.removeEventListener("keydown", moveUp);
 }
 
 function start() {
 	requestAnimationFrame(draw);
-	variables.startBtn.style.display = "none";
-	variables.leaveGame.style.display = "none";
-	variables.pauseBtn.style.display = "block";
+	vars.startBtn.style.display = "none";
+	vars.leaveGame.style.display = "none";
+	vars.pauseBtn.style.display = "block";
 	document.addEventListener("keydown", moveUp);
 }
 
@@ -115,47 +115,44 @@ function gameOver() {  //функция вызываемая после стол
 	document.removeEventListener("keydown", moveUp);
 	skinChange();
 	setTimeout(() => {
-		if(variables.score > 0){
+		if(vars.score > 0){
 			checkLocalStorage();
 		}	
-		variables.canvasGame.style.display = "none";
-		variables.startBtn.style.display = "none";
-		variables.leaveGame.style.display = "none";
-		variables.pauseBtn.style.display = "block";
-		variables.afterGame.style.display = "block";
-		variables.scoreAfterDiv.innerText = `${variables.score}`;
-		if(variables.score == variables.bestScore) {
-			variables.highscoreDiv.innerText = `New best: 
-			${variables.bestScore}`;
-		} else if(variables.score < variables.bestScore) {
-			variables.highscoreDiv.innerText = `Best: 
-			${variables.bestScore}`;
-		} else if(variables.bestScore === 0) {
-			variables.highscoreDiv.innerText = `New best: 
-			${variables.score}`;
-		} else if(variables.score === 1) {
-			variables.highscoreDiv.innerText = `New best: 
-			${variables.score}`;
+		vars.canvasGame.style.display = "none";
+		vars.startBtn.style.display = "none";
+		vars.leaveGame.style.display = "none";
+		vars.pauseBtn.style.display = "block";
+		vars.afterGame.style.display = "block";
+		vars.scoreAfterDiv.innerText = `${vars.score}`;
+		if(vars.score == vars.bestScore) {
+			vars.highscoreDiv.innerText = `New best: 
+			${vars.bestScore}`;
+		} else if(vars.score < vars.bestScore) {
+			vars.highscoreDiv.innerText = `Best: 
+			${vars.bestScore}`;
+		} else if(vars.bestScore === 0) {
+			vars.highscoreDiv.innerText = `New best: 
+			${vars.score}`;
 		}
 	}, 500);
 }
 
 function playMenu() {
 	skinChange();
-	variables.menuPlay.style.display = "none";
-	variables.menuSkins.style.display = "none";
-	variables.menuLeaders.style.display = "none";
-	variables.menuExit.style.display = "none";
-	variables.nameChange.style.display = "none";
+	vars.menuPlay.style.display = "none";
+	vars.menuSkins.style.display = "none";
+	vars.menuLeaders.style.display = "none";
+	vars.menuExit.style.display = "none";
+	vars.nameChange.style.display = "none";
 	if(localStorage.getItem('name')){
 		if(birdLive === true) {
 			requestAnimationFrame(draw);
 		}
 		enterGame();
 	} else {
-		variables.menuEnterGame.style.display = "block";
-		variables.menuAccept.style.display = "block";
-		variables.menuBack.style.display = "block";
+		vars.menuEnterGame.style.display = "block";
+		vars.menuAccept.style.display = "block";
+		vars.menuBack.style.display = "block";
 	}
 	if(birdLive === false){
 		reload();
@@ -163,18 +160,18 @@ function playMenu() {
 }
 
 function leadersMenu() {
-	variables.menuPlay.style.display = "none";
-	variables.menuSkins.style.display = "none";
-	variables.menuLeaders.style.display = "none";
-	variables.menuExit.style.display = "none";
-	variables.nameChange.style.display = "none";
-	variables.menuBack.style.display = "block";
-	variables.menuLeadersTable.style.display = "block";
+	vars.menuPlay.style.display = "none";
+	vars.menuSkins.style.display = "none";
+	vars.menuLeaders.style.display = "none";
+	vars.menuExit.style.display = "none";
+	vars.nameChange.style.display = "none";
+	vars.menuBack.style.display = "block";
+	vars.menuLeadersTable.style.display = "block";
 	createTable();
 }
 
 function acceptName() {
-	if (variables.nickname.value) {
+	if (vars.nickname.value) {
 		pushNick();
 		enterGame();
 		requestAnimationFrame(draw);
@@ -182,7 +179,7 @@ function acceptName() {
 }
 
 function acceptChangeName() {
-	if (variables.nickname.value) {
+	if (vars.nickname.value) {
 		pushNick();
 		backMenu();
 	}
@@ -190,9 +187,9 @@ function acceptChangeName() {
 
 function checkNameButtonActive() {
 	if (localStorage.getItem("name")) {
-		variables.nameChange.style.display = "block";
+		vars.nameChange.style.display = "block";
 	} else {
-		variables.nameChange.style.display = "none";
+		vars.nameChange.style.display = "none";
 	}
 }
 

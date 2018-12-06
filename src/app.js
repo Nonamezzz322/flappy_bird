@@ -1,7 +1,7 @@
 import {gameOver} from "./menu";
 import {setScoreObj, setBestScore, getBestScore} from "./lead_table";
-import * as variables from "./variables";
-export {draw, animations, moveUp, skinChange, birdLive, canvasWidth};
+import * as vars from "./variables";
+export {step, draw, animations, moveUp, skinChange, birdLive, canvasWidth};
 
 let bird = new Image();
 let rainbowCat = new Image();
@@ -10,12 +10,12 @@ let fg = new Image();
 let pipeUp = new Image();
 let pipeBottom = new Image();
 let fly = new Audio();
-let score_audio = new Audio();
+let scoreAudio = new Audio();
 let failSound = new Audio();
 let animations;
 let birdLive = true; //проверяет мертва ли птичка сейчас
 
-score_audio.src = require('../assets/audio/score.mp3');
+scoreAudio.src = require('../assets/audio/score.mp3');
 failSound.src =  require('../assets/audio//fail.mp3');
 
 
@@ -24,89 +24,99 @@ function moveUp(e) {
 	if(e.type == "touchmove" || e.scale >= 1 ){
 		e.preventDefault();
 	}
-	if ((e.keyCode === 32 || e.type == "touchstart") && variables.yPos > 30) {
+	if ((e.keyCode === 32 || e.type == "touchstart") && vars.yPos > 30) {
 		fly.currentTime = 0;
 		fly.play();
 		if(e.keyCode === 32) {
-			let moveUpBird = setInterval(() => variables.yPos -= variables.grav + 2.5, 1) //плавная анимация птички
+			let moveUpBird = setInterval(() => vars.yPos -= vars.grav + 2.5, 1) //плавная анимация птички
 			setTimeout(() => clearInterval(moveUpBird), 30)	
 		} else if (e.type == "touchstart") {
-			variables.yPos -= 30;
+			vars.yPos -= 30;
 		} else if (e.type == "click") {
 
 			e.preventDefault();
-			variables.yPos -= 30;
+			vars.yPos -= 30;
 		}	
 	}
 }
 
+var fps = 60;
+
+function step() {
+    setTimeout(function() {
+        requestAnimationFrame(step);
+        requestAnimationFrame(draw);
+    }, 1000 / fps);
+}
+
+
 function draw() {
 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-		variables.ctx.drawImage(bg, 0, 0, variables.cvs.width, variables.cvs.height);
+		vars.ctx.drawImage(bg, 0, 0, vars.cvs.width, vars.cvs.height);
 	} else {
-		variables.ctx.drawImage(bg, 0, 0);
+		vars.ctx.drawImage(bg, 0, 0);
 	}
 
-	for (let i = 0; i < variables.pipe.length; i += 1) {
-		variables.ctx.drawImage(pipeUp, variables.pipe[i].x, variables.pipe[i].y);
-		variables.ctx.drawImage(pipeBottom, variables.pipe[i].x, variables.pipe[i].y + pipeUp.height + variables.gap);
+	for (let i = 0; i < vars.pipe.length; i += 1) {
+		vars.ctx.drawImage(pipeUp, vars.pipe[i].x, vars.pipe[i].y);
+		vars.ctx.drawImage(pipeBottom, vars.pipe[i].x, vars.pipe[i].y + pipeUp.height + vars.gap);
 
-		variables.pipe[i].x -= 1;
+		vars.pipe[i].x -= 1;
 		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			if (variables.pipe[i].x == 170) {
-				variables.pipe.push({
-					x : variables.cvs.width,
+			if (vars.pipe[i].x == 170) {
+				vars.pipe.push({
+					x : vars.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
 				});
 			}
 		} else {
-			if (variables.pipe[i].x == 105) {
-				variables.pipe.push({
-					x : variables.cvs.width,
+			if (vars.pipe[i].x == 105) {
+				vars.pipe.push({
+					x : vars.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
 				});
 			}
 		}
 		
-		if (variables.xPos + bird.width >= variables.pipe[i].x
-			&& variables.xPos <= variables.pipe[i].x + pipeUp.width
-			&& (variables.yPos <= variables.pipe[i].y + pipeUp.height
-			|| variables.yPos + bird.height >= variables.pipe[i].y + pipeUp.height + variables.gap) 
-			|| variables.yPos + bird.height >= variables.cvs.height - fg.height) {
+		if (vars.xPos + bird.width >= vars.pipe[i].x
+			&& vars.xPos <= vars.pipe[i].x + pipeUp.width
+			&& (vars.yPos <= vars.pipe[i].y + pipeUp.height
+			|| vars.yPos + bird.height >= vars.pipe[i].y + pipeUp.height + vars.gap) 
+			|| vars.yPos + bird.height >= vars.cvs.height - fg.height) {
 			
 			failSound.play();
 			birdLive = false;
 			requestAnimationFrame(gameOver);
 		}
 
-		if (variables.pipe[i].x == 5) {
-			variables.score += 1;
+		if (vars.pipe[i].x == 5) {
+			vars.score += 1;
 			setScoreObj()
 			setBestScore()
 			getBestScore()
-			score_audio.play();
+			scoreAudio.play();
 		}
 	}
 
 	if(JSON.parse(localStorage.getItem('skinKey')) === 4) {
-		variables.ctx.drawImage(rainbowCat, variables.xPos - 38, variables.yPos - 2);
+		vars.ctx.drawImage(rainbowCat, vars.xPos - 38, vars.yPos - 2);
 	}
 
 
 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-		variables.ctx.drawImage(fg, 0, variables.cvs.height - fg.height, variables.cvs.width, 118);
+		vars.ctx.drawImage(fg, 0, vars.cvs.height - fg.height, vars.cvs.width, 118);
 	} else {
-		variables.ctx.drawImage(fg, 0, variables.cvs.height - fg.height);
+		vars.ctx.drawImage(fg, 0, vars.cvs.height - fg.height);
 	}
 
-	variables.ctx.drawImage(bird, variables.xPos, variables.yPos);
+	vars.ctx.drawImage(bird, vars.xPos, vars.yPos);
 
 	
-	variables.yPos += variables.grav;
+	vars.yPos += vars.grav;
 
-	variables.ctx.fillStyle = "#000";
-	variables.ctx.font = "2.5rem Caveat";
-	variables.ctx.fillText("Score: " + variables.score, 10, variables.cvs.height - 20);
+	vars.ctx.fillStyle = "#000";
+	vars.ctx.font = "2.5rem Caveat";
+	vars.ctx.fillText("Score: " + vars.score, 10, vars.cvs.height - 20);
 	
 	animations = requestAnimationFrame(draw);
 }
@@ -119,45 +129,45 @@ function skinChange() {
 		fg.src = require('../assets/img/fg.jpg');
 		pipeUp.src = require('../assets/img/pipeUp.png');
 		pipeBottom.src = require('../assets/img/pipeBottom.png');
-		variables.menuBlock.style.background = `url(${require('../assets/img/bg.jpg')}`;
-		variables.afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
-		variables.menuBlock.style.backgroundSize = "cover";
-		variables.afterGame.style.backgroundSize = "cover";
+		vars.menuBlock.style.background = `url(${require('../assets/img/bg.jpg')}`;
+		vars.afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
+		vars.menuBlock.style.backgroundSize = "cover";
+		vars.afterGame.style.backgroundSize = "cover";
 		fly.src = require('../assets/audio/fly.mp3');
-		variables.setSkin1.className = "active";
-		variables.setSkin2.className = "";
-		variables.setSkin3.className = "";
-		variables.setSkin4.className = "";
+		vars.setSkin1.className = "active";
+		vars.setSkin2.className = "";
+		vars.setSkin3.className = "";
+		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 2) {
 		bird.src = require('../assets/img/birdGray.png');
 		bg.src = require('../assets/img/bgGray.jpg');
 		fg.src = require('../assets/img/fgGray.jpg');
 		pipeUp.src = require('../assets/img/pipeUpGray.png');
 		pipeBottom.src = require('../assets//img/pipeBottomGray.png');
-		variables.menuBlock.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
-		variables.afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
-		variables.menuBlock.style.backgroundSize = "cover";
-		variables.afterGame.style.backgroundSize = "cover";
+		vars.menuBlock.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
+		vars.afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
+		vars.menuBlock.style.backgroundSize = "cover";
+		vars.afterGame.style.backgroundSize = "cover";
 		fly.src = require('../assets//audio/fly.mp3');
-		variables.setSkin1.className = "";
-		variables.setSkin2.className = "active";
-		variables.setSkin3.className = "";
-		variables.setSkin4.className = "";
+		vars.setSkin1.className = "";
+		vars.setSkin2.className = "active";
+		vars.setSkin3.className = "";
+		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 3) {
 		bird.src = require('../assets/img/bird3.png');
 		bg.src = require('../assets/img/bg3.jpg');
 		fg.src = require('../assets/img/fg3.jpg');
 		pipeUp.src = require('../assets/img/pipeUpOrange.png');
 		pipeBottom.src = require('../assets/img/pipeBottomOrange.png');
-		variables.menuBlock.style.background = `url(${require('../assets/img/bg3.jpg')}`;
-		variables.afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
-		variables.menuBlock.style.backgroundSize = "cover";
-		variables.afterGame.style.backgroundSize = "cover";
+		vars.menuBlock.style.background = `url(${require('../assets/img/bg3.jpg')}`;
+		vars.afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
+		vars.menuBlock.style.backgroundSize = "cover";
+		vars.afterGame.style.backgroundSize = "cover";
 		fly.src = require('../assets/audio/fly.mp3');
-		variables.setSkin1.className = "";
-		variables.setSkin2.className = "";
-		variables.setSkin3.className = "active";
-		variables.setSkin4.className = "";
+		vars.setSkin1.className = "";
+		vars.setSkin2.className = "";
+		vars.setSkin3.className = "active";
+		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 4) {
 		bird.src = require('../assets/img/birdCat.png');
 		rainbowCat.src = require('../assets/img/rainbow_cat.png');
@@ -165,27 +175,27 @@ function skinChange() {
 		fg.src = require('../assets/img/fgRainbow.png');
 		pipeUp.src = require('../assets/img/pipeUpPink.png');
 		pipeBottom.src = require('../assets/img/pipeBottomPink.png');
-		variables.menuBlock.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
-		variables.afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
-		variables.menuBlock.style.backgroundSize = "cover";
-		variables.afterGame.style.backgroundSize = "cover";
+		vars.menuBlock.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
+		vars.afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
+		vars.menuBlock.style.backgroundSize = "cover";
+		vars.afterGame.style.backgroundSize = "cover";
 		fly.src = require('../assets/audio/skin_4.mp3');
-		variables.setSkin1.className = "";
-		variables.setSkin2.className = "";
-		variables.setSkin3.className = "";
-		variables.setSkin4.className = "active";
+		vars.setSkin1.className = "";
+		vars.setSkin2.className = "";
+		vars.setSkin3.className = "";
+		vars.setSkin4.className = "active";
 	}	
 }
 
 function canvasWidth() {
 	if (/Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) { // определение мобильного браузера
-		  variables.cvs.width = innerWidth;
-		  variables.gameBorder.style.width = "100%";
-		  variables.gameBorder.style.height = "100%";
-		  variables.gameBorder.style.left = "0";
-		  variables.gameBorder.style.top = "0";
-		  variables.gameBorder.style.background = "black";
-		  variables.gameContent.style.left = "0";
-		  variables.gameContent.style.width = "100%";
+		  vars.cvs.width = innerWidth;
+		  vars.gameBorder.style.width = "100%";
+		  vars.gameBorder.style.height = "100%";
+		  vars.gameBorder.style.left = "0";
+		  vars.gameBorder.style.top = "0";
+		  vars.gameBorder.style.background = "black";
+		  vars.gameContent.style.left = "0";
+		  vars.gameContent.style.width = "100%";
 	}
 }
