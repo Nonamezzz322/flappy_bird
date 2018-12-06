@@ -55,7 +55,7 @@ function draw() {
 
 		variables.pipe[i].x -= 1;
 		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			if (variables.pipe[i].x == 187) {
+			if (variables.pipe[i].x == 180) {
 				variables.pipe.push({
 					x : variables.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -227,12 +227,16 @@ variables.setSkin4.addEventListener("click", () => {
 function canvasWidth() {
 	if (/Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) { // определение мобильного браузера
 		  variables.cvs.width = innerWidth;
-		  variables.cvs.height = innerHeight;
+		//   variables.cvs.height = innerHeight;
 		  variables.gameBorder.style.width = "100%";
+		  variables.gameBorder.style.height = "100%";
+		  variables.gameBorder.style.left = "0";
+		  variables.gameBorder.style.top = "0";
+		  variables.gameBorder.style.background = "black";
 		  variables.gameContent.style.left = "0";
-		  variables.gameContent.style.top = "0";
+		//   variables.gameContent.style.top = "0";
 		  variables.gameContent.style.width = "100%";
-		  variables.gameContent.style.height = "100%";
+		//   variables.gameContent.style.height = "100%";
 
 	}
 }
