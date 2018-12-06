@@ -55,7 +55,7 @@ function draw() {
 
 		variables.pipe[i].x -= 1;
 		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			if (variables.pipe[i].x == 180) {
+			if (variables.pipe[i].x == 170) {
 				variables.pipe.push({
 					x : variables.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height

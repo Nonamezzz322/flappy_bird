@@ -111,30 +111,32 @@ function start() {
 
 function gameOver() {  //функция вызываемая после столкновения
 	cancelAnimationFrame(animations);
-	skinChange();
-	if(variables.score > 0){
-		checkLocalStorage();
-	}	
-	variables.canvasGame.style.display = "none";
-	variables.startBtn.style.display = "none";
-	variables.leaveGame.style.display = "none";
-	variables.pauseBtn.style.display = "block";
-	variables.afterGame.style.display = "block";
-	variables.scoreAfterDiv.innerText = `${variables.score}`;
-	if(variables.score == variables.bestScore) {
-		variables.highscoreDiv.innerText = `New best: 
-		${variables.bestScore}`;
-	} else if(variables.score < variables.bestScore) {
-		variables.highscoreDiv.innerText = `Best: 
-		${variables.bestScore}`;
-	} else if(variables.bestScore === 0) {
-		variables.highscoreDiv.innerText = `New best: 
-		${variables.score}`;
-	} else if(variables.score === 1) {
-		variables.highscoreDiv.innerText = `New best: 
-		${variables.score}`;
-	}
 	document.removeEventListener("keydown", moveUp);
+	skinChange();
+	setTimeout(() => {
+		if(variables.score > 0){
+			checkLocalStorage();
+		}	
+		variables.canvasGame.style.display = "none";
+		variables.startBtn.style.display = "none";
+		variables.leaveGame.style.display = "none";
+		variables.pauseBtn.style.display = "block";
+		variables.afterGame.style.display = "block";
+		variables.scoreAfterDiv.innerText = `${variables.score}`;
+		if(variables.score == variables.bestScore) {
+			variables.highscoreDiv.innerText = `New best: 
+			${variables.bestScore}`;
+		} else if(variables.score < variables.bestScore) {
+			variables.highscoreDiv.innerText = `Best: 
+			${variables.bestScore}`;
+		} else if(variables.bestScore === 0) {
+			variables.highscoreDiv.innerText = `New best: 
+			${variables.score}`;
+		} else if(variables.score === 1) {
+			variables.highscoreDiv.innerText = `New best: 
+			${variables.score}`;
+		}
+	}, 500);
 }
 
 function playMenu() {
