@@ -2,7 +2,7 @@
   "name": "Lappy Bird",
   "short_name": "Lappy Bird",
   "lang": "en-US",
-  "start_url": "/flappy-bird/",
+  "start_url": "flappy_bird",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#03cdd7",
