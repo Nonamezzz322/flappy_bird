@@ -1,10 +1,7 @@
 # This is clone FlappyBird game!
+  ![game screenshot](http://prntscr.com/lry5ii)
 
-Get started
-clone this repository;
-npm install;
-npm start;
-open http://localhost:1234 in your browser.
-
-Github page of our game:
-https://nonamezzz322.github.io/flappy_bird/
+## Get started
+* clone this repository;
+* npm start;
+* open http://localhost:1234 in your browser.
