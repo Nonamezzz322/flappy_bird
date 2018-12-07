@@ -76,6 +76,7 @@ function draw() {
 			|| vars.yPos + bird.height >= vars.cvs.height - fg.height) {
 			
 			document.removeEventListener("keydown", moveUp);
+			vars.canvasGame.removeEventListener("touchstart", moveUp);
 			failSound.play();
 			vars.birdLive = false;
 			setTimeout(() => {
