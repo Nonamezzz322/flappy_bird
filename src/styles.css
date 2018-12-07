@@ -242,6 +242,7 @@ a:hover {
 	top: 0;
 	width: 100%;
 	height: 100%;
+	background-size: cover;
 }
 	#menu_logo {
 		position: absolute;
@@ -403,6 +404,7 @@ a:hover {
 	top: 0;
 	width: 100%;
 	height: 100%;
+	background-size: cover;
 }
 	#score_block {
 		position: absolute;

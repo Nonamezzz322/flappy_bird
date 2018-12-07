@@ -1,5 +1,5 @@
 import * as vars from "./variables";
-import {draw, animations, moveUp, skinChange, canvasWidth} from "./app";
+import {draw, animations, moveUp, skinChange, canvasWidth, ghost} from "./app";
 import {checkLocalStorage, createTable, pushNick, getBestScore} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
@@ -183,6 +183,9 @@ function acceptName() {
 		requestAnimationFrame(draw);
 	}
 	easterEgg();
+	if(localStorage.getItem('name') == "WorldThirteen"){
+		ghost.play();
+	}
 }
 
 function acceptChangeName() {
@@ -191,6 +194,9 @@ function acceptChangeName() {
 		backMenu();
 	}
 	easterEgg();
+	if(localStorage.getItem('name') == "WorldThirteen"){
+		ghost.play();
+	}
 }
 
 function checkNameButtonActive() {
@@ -200,6 +206,8 @@ function checkNameButtonActive() {
 		vars.nameChange.style.display = "none";
 	}
 }
+
+
 
 function whereNameInput(e){
 	if (e.keyCode === 13 && localStorage.getItem("name")){

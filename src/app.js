@@ -1,7 +1,7 @@
 import {gameOver} from "./menu";
 import {setScoreObj, setBestScore, getBestScore} from "./lead_table";
 import * as vars from "./variables";
-export {draw, animations, moveUp, skinChange, canvasWidth};
+export {draw, animations, moveUp, skinChange, canvasWidth, ghost};
 
 let bird = new Image();
 let rip = new Image();
@@ -12,13 +12,20 @@ let pipeUp = new Image();
 let pipeBottom = new Image();
 let fly = new Audio();
 let scoreAudio = new Audio();
+let ghost = new Audio();
 let failSound = new Audio();
 let animations;
 let upFrames = 0;
 
+scoreAudio.volume=0.5;
+fly.volume = 0.5;
+failSound.volume = 0.5;
 scoreAudio.src = require('../assets/audio/score.mp3');
-failSound.src =  require('../assets/audio//fail.mp3');
+failSound.src =  require('../assets/audio/fail.mp3');
+ghost.src = require('../assets/audio/smeh-prividenija.mp3');
 rip.src = require('../assets/img/rip.png');
+
+
 
 
 function moveUp(e) {
@@ -136,8 +143,6 @@ function skinChange() {
 		pipeBottom.src = require('../assets/img/pipeBottom.png');
 		vars.menuBlock.style.background = `url(${require('../assets/img/bg.jpg')}`;
 		vars.afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
-		vars.menuBlock.style.backgroundSize = "cover";
-		vars.afterGame.style.backgroundSize = "cover";
 		vars.setSkin1.className = "active";
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "";
@@ -155,8 +160,6 @@ function skinChange() {
 		pipeBottom.src = require('../assets//img/pipeBottomGray.png');
 		vars.menuBlock.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
 		vars.afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
-		vars.menuBlock.style.backgroundSize = "cover";
-		vars.afterGame.style.backgroundSize = "cover";
 		vars.setSkin1.className = "";
 		vars.setSkin2.className = "active";
 		vars.setSkin3.className = "";
@@ -174,9 +177,6 @@ function skinChange() {
 		pipeBottom.src = require('../assets/img/pipeBottomOrange.png');
 		vars.menuBlock.style.background = `url(${require('../assets/img/bg3.jpg')}`;
 		vars.afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
-		vars.menuBlock.style.backgroundSize = "cover";
-		vars.afterGame.style.backgroundSize = "cover";
-
 		vars.setSkin1.className = "";
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "active";
@@ -195,8 +195,6 @@ function skinChange() {
 		pipeBottom.src = require('../assets/img/pipeBottomPink.png');
 		vars.menuBlock.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
 		vars.afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
-		vars.menuBlock.style.backgroundSize = "cover";
-		vars.afterGame.style.backgroundSize = "cover";
 		vars.setSkin1.className = "";
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "";
