@@ -98,6 +98,8 @@ function reload() { //должна перезагружать страницу
 	vars.startBtn.style.display = "none";
 	requestAnimationFrame(draw);
 	document.addEventListener("keydown", moveUp);
+	vars.canvasGame.addEventListener("touchstart", moveUp);
+	
 }
 
 function sleep() {
@@ -106,6 +108,7 @@ function sleep() {
 	vars.leaveGame.style.display = "block";
 	vars.pauseBtn.style.display = "none";
 	document.removeEventListener("keydown", moveUp);
+	vars.canvasGame.removeEventListener("touchstart", moveUp);
 }
 
 function start() {
@@ -114,6 +117,7 @@ function start() {
 	vars.leaveGame.style.display = "none";
 	vars.pauseBtn.style.display = "block";
 	document.addEventListener("keydown", moveUp);
+	vars.canvasGame.addEventListener("touchstart", moveUp);
 }
 
 function gameOver() {  //функция вызываемая после столкновения
@@ -160,6 +164,8 @@ function playMenu() {
 	if(vars.birdLive === false){
 		reload();
 	}
+	document.addEventListener("keydown", moveUp);
+	vars.canvasGame.addEventListener("touchstart", moveUp);
 }
 
 function leadersMenu() {
@@ -175,7 +181,6 @@ function leadersMenu() {
 
 function acceptName() {
 	if (vars.nickname.value) {
-		console.log(vars.nickname.value)
 		pushNick();
 		enterGame();
 		requestAnimationFrame(draw);
@@ -185,7 +190,6 @@ function acceptName() {
 
 function acceptChangeName() {
 	if (vars.nickname.value) {
-		console.log(vars.nickname.value)
 		pushNick();
 		backMenu();
 	}
