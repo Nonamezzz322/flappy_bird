@@ -37,7 +37,7 @@ pipe[0] = {
 	x : cvs.width,
 	y : 0
 }
-let gap = 90;
+let gap = 100;
 let score = 0;
 let bestScore = 0; //нужна для вывода highScore
 let xPos = 0;

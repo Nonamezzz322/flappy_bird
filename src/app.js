@@ -38,7 +38,7 @@ function moveUp(e) {
 
 function draw() {
 	if (upFrames > 0) {
-		vars.yPos -= 15 / 4 + 1.5;
+		vars.yPos -= 30 / 8 + 1.5;
 		upFrames -= 1;
 	}
 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -54,6 +54,7 @@ function draw() {
 		vars.pipe[i].x -= 1;
 		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 			if (vars.pipe[i].x == 120) {
+				gapReduction();
 				vars.pipe.push({
 					x : vars.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -61,6 +62,7 @@ function draw() {
 			}
 		} else {
 			if (vars.pipe[i].x == 105) {
+				gapReduction();
 				vars.pipe.push({
 					x : vars.cvs.width,
 					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
@@ -73,28 +75,24 @@ function draw() {
 			&& (vars.yPos <= vars.pipe[i].y + pipeUp.height
 			|| vars.yPos + bird.height >= vars.pipe[i].y + pipeUp.height + vars.gap) 
 			|| vars.yPos + bird.height >= vars.cvs.height - fg.height) {
-
+			
+			document.removeEventListener("keydown", moveUp);
 			failSound.play();
 			vars.birdLive = false;
 			setTimeout(() =>{
 				requestAnimationFrame(gameOver);
-			}, 400)
+			}, 700)
 			
 		}
 
-		if (vars.pipe[i].x == 5) {
-			vars.score += 1;
+		if (vars.pipe[i].x == 5 && vars.birdLive === true)  {
+			vars.score += 1;	
 			setScoreObj()
 			setBestScore()
 			getBestScore()
 			scoreAudio.play();
 		}
 	}
-
-	if(JSON.parse(localStorage.getItem('skinKey')) === 4) {
-		vars.ctx.drawImage(rainbowCat, vars.xPos - 38, vars.yPos - 2);
-	}
-
 
 	if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 		vars.ctx.drawImage(fg, 0, vars.cvs.height - fg.height, vars.cvs.width, 118);
@@ -115,7 +113,7 @@ function draw() {
 		vars.ctx.drawImage(bird, vars.xPos, vars.yPos);
 	}
 
-	if(JSON.parse(localStorage.getItem('skinKey')) === 4) {
+	if(JSON.parse(localStorage.getItem('skinKey')) === 4 && vars.birdLive === true) {
 		vars.ctx.drawImage(rainbowCat, vars.xPos - 38, vars.yPos - 2);
 	}
 	vars.ctx.restore();
@@ -133,7 +131,11 @@ function draw() {
 function skinChange() {
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
 	if (storageSkinKey === 1 || !storageSkinKey) {
-		bird.src = require('../assets/img/bird.png');
+		// if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
+		// 	changeEastEgg();
+		// } else {
+			bird.src = require('../assets/img/bird.png');	
+		// }
 		bg.src = require('../assets/img/bg.jpg');
 		fg.src = require('../assets/img/fg.jpg');
 		pipeUp.src = require('../assets/img/pipeUp.png');
@@ -148,7 +150,11 @@ function skinChange() {
 		vars.setSkin3.className = "";
 		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 2) {
-		bird.src = require('../assets/img/birdGray.png');
+		// if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
+		// 	changeEastEgg();
+		// } else {
+			bird.src = require('../assets/img/birdGray.png');	
+		// }
 		bg.src = require('../assets/img/bgGray.jpg');
 		fg.src = require('../assets/img/fgGray.jpg');
 		pipeUp.src = require('../assets/img/pipeUpGray.png');
@@ -163,7 +169,11 @@ function skinChange() {
 		vars.setSkin3.className = "";
 		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 3) {
-		bird.src = require('../assets/img/bird3.png');
+		// if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
+		// 	changeEastEgg();		
+		// } else {
+			bird.src = require('../assets/img/bird3.png');	
+		// }
 		bg.src = require('../assets/img/bg3.jpg');
 		fg.src = require('../assets/img/fg3.jpg');
 		pipeUp.src = require('../assets/img/pipeUpOrange.png');
@@ -178,7 +188,11 @@ function skinChange() {
 		vars.setSkin3.className = "active";
 		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 4) {
-		bird.src = require('../assets/img/birdCat.png');
+		// if (localStorage.getItem('name') === "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
+		// 	changeEastEgg();
+		// } else {
+			bird.src = require('../assets/img/birdCat.png');	
+		// }
 		rainbowCat.src = require('../assets/img/rainbow_cat.png');
 		bg.src = require('../assets/img/bgSpace.jpg');
 		fg.src = require('../assets/img/fgRainbow.png');
@@ -193,7 +207,7 @@ function skinChange() {
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "";
 		vars.setSkin4.className = "active";
-	}	
+	} 
 }
 
 function canvasWidth() {
@@ -210,3 +224,19 @@ function canvasWidth() {
 		vars.gameContent.style.width = "100%";
 	}
 }
+
+function gapReduction() {//умньшает зазор до 30-й трубы
+	if(vars.score <= 30){
+		vars.gap -= 1;
+	}
+}
+
+// function changeEastEgg() {
+// 	if (localStorage.getItem('name') == "Nonamezzz") {
+// 		bird.src = require('../assets/img/bird.png');	
+// 	} else if (localStorage.getItem('name') == "Antonster") {
+// 		bird.src = require('../assets/img/birdGray.png');	
+// 	} if (localStorage.getItem('name') == "WorldThirteen") {
+// 		bird.src = require('../assets/img/bird3.png');	
+// 	}
+// }

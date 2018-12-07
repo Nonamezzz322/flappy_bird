@@ -120,7 +120,7 @@ function gameOver() {  //функция вызываемая после стол
 	cancelAnimationFrame(animations);
 	vars.birdLive = true;
 	vars.grav = 1.5;
-	document.removeEventListener("keydown", moveUp);
+	vars.gap = 100;
 	skinChange();	
 		vars.canvasGame.style.display = "none";
 		vars.startBtn.style.display = "none";
@@ -175,17 +175,21 @@ function leadersMenu() {
 
 function acceptName() {
 	if (vars.nickname.value) {
+		console.log(vars.nickname.value)
 		pushNick();
 		enterGame();
 		requestAnimationFrame(draw);
 	}
+	// easterEgg();
 }
 
 function acceptChangeName() {
 	if (vars.nickname.value) {
+		console.log(vars.nickname.value)
 		pushNick();
 		backMenu();
 	}
+	// easterEgg();
 }
 
 function checkNameButtonActive() {
@@ -203,3 +207,9 @@ function whereNameInput(e){
 		acceptName();
 	}
 }
+
+// function easterEgg() {
+// 	if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
+// 		skinChange();
+// 	}
+// }
