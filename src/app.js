@@ -214,7 +214,7 @@ function canvasWidth() {
 		vars.gameBorder.style.height = "100%";
 		vars.gameBorder.style.left = "0";
 		vars.gameBorder.style.top = "0";
-		vars.gameBorder.style.background = "black";
+		vars.gameBorder.style.background = "#2d2d2d";
 		vars.gameContent.style.left = "0";
 		vars.gameContent.style.width = "100%";
 	}
