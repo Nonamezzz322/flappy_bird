@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "18bb8b7059b7c05b8e178d23a9fd3610"
+    "revision": "d8b8b5af322645589287a63a3d2c163e"
   },
   {
     "url": "input.f9f45339.png",
@@ -280,12 +280,16 @@ self.__precacheManifest = [
     "revision": "d43dbb644d432b3a4b8cba3313c0fdcb"
   },
   {
-    "url": "src.9d1db8fd.js",
-    "revision": "0366ed1139dcb4b3e67b38ed19619a73"
+    "url": "smeh-prividenija.4dcfbd69.mp3",
+    "revision": "834c507e9d02430721ada5ae8ed3d21a"
   },
   {
-    "url": "styles.78152145.css",
-    "revision": "eea61a6ac02f7becfaae3d473c7838f8"
+    "url": "src.7645ed98.js",
+    "revision": "90d075d6a361b7720d8e887fd540240c"
+  },
+  {
+    "url": "styles.c779566a.css",
+    "revision": "57d181e2938f9c155c0aa053f96523c9"
   },
   {
     "url": "sword.14ee1961.mp3",
