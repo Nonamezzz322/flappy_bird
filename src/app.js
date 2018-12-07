@@ -37,6 +37,7 @@ function moveUp(e) {
 }
 
 function draw() {
+	const stName = localStorage.getItem('name');
 	if (upFrames > 0) {
 		vars.yPos -= 30 / 8 + 1.5;
 		upFrames -= 1;
@@ -52,22 +53,13 @@ function draw() {
 		vars.ctx.drawImage(pipeBottom, vars.pipe[i].x, vars.pipe[i].y + pipeUp.height + vars.gap);
 
 		vars.pipe[i].x -= 1;
-		if (/Android|webOS|iPhone|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			if (vars.pipe[i].x == 120) {
-				gapReduction();
-				vars.pipe.push({
-					x : vars.cvs.width,
-					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
-				});
-			}
-		} else {
-			if (vars.pipe[i].x == 105) {
-				gapReduction();
-				vars.pipe.push({
-					x : vars.cvs.width,
-					y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
-				});
-			}
+
+		if (vars.pipe[i].x == vars.cvs.width - 200) {
+			gapReduction();
+			vars.pipe.push({
+				x : vars.cvs.width,
+				y : Math.floor(Math.random() * pipeUp.height) - pipeUp.height
+			});
 		}
 		
 		if (vars.xPos + bird.width >= vars.pipe[i].x
@@ -79,10 +71,7 @@ function draw() {
 			document.removeEventListener("keydown", moveUp);
 			failSound.play();
 			vars.birdLive = false;
-			setTimeout(() =>{
-				requestAnimationFrame(gameOver);
-			}, 700)
-			
+			requestAnimationFrame(gameOver);
 		}
 
 		if (vars.pipe[i].x == 5 && vars.birdLive === true)  {
@@ -101,7 +90,7 @@ function draw() {
 	}
  
 	vars.ctx.save();
-	if (upFrames > 0) {
+	if (upFrames > 0 && stName != "Nonamezzz" && stName != "Antonster") {
 		vars.ctx.translate(vars.xPos, vars.yPos);
 		vars.ctx.rotate((-45 * upFrames / 8) / 180 * Math.PI);
 		vars.ctx.translate(-vars.xPos, -vars.yPos);
@@ -113,7 +102,8 @@ function draw() {
 		vars.ctx.drawImage(bird, vars.xPos, vars.yPos);
 	}
 
-	if(JSON.parse(localStorage.getItem('skinKey')) === 4 && vars.birdLive === true) {
+	if(JSON.parse(localStorage.getItem('skinKey')) === 4 && vars.birdLive === true 
+	&& stName != "Nonamezzz" && stName != "Antonster" && stName != "WorldThirteen")  {
 		vars.ctx.drawImage(rainbowCat, vars.xPos - 38, vars.yPos - 2);
 	}
 	vars.ctx.restore();
@@ -129,13 +119,15 @@ function draw() {
 }
 
 function skinChange() {
+	const stName = localStorage.getItem('name');
 	const storageSkinKey = JSON.parse(localStorage.getItem('skinKey'));
 	if (storageSkinKey === 1 || !storageSkinKey) {
-		// if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
-		// 	changeEastEgg();
-		// } else {
-			bird.src = require('../assets/img/bird.png');	
-		// }
+		if (stName == "Nonamezzz" || stName == "Antonster" || stName == "WorldThirteen") {
+			eastEgg();
+		} else {
+			bird.src = require('../assets/img/bird.png');
+			fly.src = require('../assets/audio/fly.mp3');		
+		}
 		bg.src = require('../assets/img/bg.jpg');
 		fg.src = require('../assets/img/fg.jpg');
 		pipeUp.src = require('../assets/img/pipeUp.png');
@@ -144,17 +136,17 @@ function skinChange() {
 		vars.afterGame.style.background = `url(${require('../assets/img/bg.jpg')} `;
 		vars.menuBlock.style.backgroundSize = "cover";
 		vars.afterGame.style.backgroundSize = "cover";
-		fly.src = require('../assets/audio/fly.mp3');
 		vars.setSkin1.className = "active";
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "";
 		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 2) {
-		// if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
-		// 	changeEastEgg();
-		// } else {
-			bird.src = require('../assets/img/birdGray.png');	
-		// }
+		if (stName == "Nonamezzz" || stName == "Antonster" || stName == "WorldThirteen") {
+			eastEgg();
+		} else {
+			bird.src = require('../assets/img/birdGray.png');
+			fly.src = require('../assets/audio/fly.mp3');	
+		}		
 		bg.src = require('../assets/img/bgGray.jpg');
 		fg.src = require('../assets/img/fgGray.jpg');
 		pipeUp.src = require('../assets/img/pipeUpGray.png');
@@ -163,17 +155,17 @@ function skinChange() {
 		vars.afterGame.style.background = `url(${require('../assets/img/bgGray.jpg')}`;
 		vars.menuBlock.style.backgroundSize = "cover";
 		vars.afterGame.style.backgroundSize = "cover";
-		fly.src = require('../assets//audio/fly.mp3');
 		vars.setSkin1.className = "";
 		vars.setSkin2.className = "active";
 		vars.setSkin3.className = "";
 		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 3) {
-		// if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
-		// 	changeEastEgg();		
-		// } else {
-			bird.src = require('../assets/img/bird3.png');	
-		// }
+		if (stName == "Nonamezzz" 	|| stName == "Antonster" || stName == "WorldThirteen") {
+				eastEgg();
+			} else {
+				bird.src = require('../assets/img/bird3.png');
+				fly.src = require('../assets/audio/fly.mp3');		
+			}
 		bg.src = require('../assets/img/bg3.jpg');
 		fg.src = require('../assets/img/fg3.jpg');
 		pipeUp.src = require('../assets/img/pipeUpOrange.png');
@@ -182,17 +174,18 @@ function skinChange() {
 		vars.afterGame.style.background = `url(${require('../assets/img/bg3.jpg')}`;
 		vars.menuBlock.style.backgroundSize = "cover";
 		vars.afterGame.style.backgroundSize = "cover";
-		fly.src = require('../assets/audio/fly.mp3');
+
 		vars.setSkin1.className = "";
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "active";
 		vars.setSkin4.className = "";
 	} else if (storageSkinKey === 4) {
-		// if (localStorage.getItem('name') === "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
-		// 	changeEastEgg();
-		// } else {
-			bird.src = require('../assets/img/birdCat.png');	
-		// }
+		if (stName == "Nonamezzz" || stName == "Antonster" || stName == "WorldThirteen") {
+				eastEgg();
+			} else {
+				bird.src = require('../assets/img/birdCat.png');
+				fly.src = require('../assets/audio/skin_4.mp3');
+			}
 		rainbowCat.src = require('../assets/img/rainbow_cat.png');
 		bg.src = require('../assets/img/bgSpace.jpg');
 		fg.src = require('../assets/img/fgRainbow.png');
@@ -202,7 +195,6 @@ function skinChange() {
 		vars.afterGame.style.background = `url(${require('../assets/img/bgSpace.jpg')}`;
 		vars.menuBlock.style.backgroundSize = "cover";
 		vars.afterGame.style.backgroundSize = "cover";
-		fly.src = require('../assets/audio/skin_4.mp3');
 		vars.setSkin1.className = "";
 		vars.setSkin2.className = "";
 		vars.setSkin3.className = "";
@@ -231,12 +223,15 @@ function gapReduction() {//умньшает зазор до 30-й трубы
 	}
 }
 
-// function changeEastEgg() {
-// 	if (localStorage.getItem('name') == "Nonamezzz") {
-// 		bird.src = require('../assets/img/bird.png');	
-// 	} else if (localStorage.getItem('name') == "Antonster") {
-// 		bird.src = require('../assets/img/birdGray.png');	
-// 	} if (localStorage.getItem('name') == "WorldThirteen") {
-// 		bird.src = require('../assets/img/bird3.png');	
-// 	}
-// }
+function eastEgg() {
+	if (localStorage.getItem('name') == "Nonamezzz") {
+		bird.src = require('../assets/img/chack.png');
+		fly.src = require('../assets/audio/punch.mp3');
+	} else if (localStorage.getItem('name') == "Antonster") {
+		bird.src = require('../assets/img/anton.png');
+		fly.src = require('../assets/audio/horse.mp3');
+	} if (localStorage.getItem('name') == "WorldThirteen") {
+		bird.src = require('../assets/img/ghost.png');
+		fly.src = require('../assets/audio/fly.mp3');
+	}
+}

@@ -185,7 +185,7 @@ function acceptName() {
 		enterGame();
 		requestAnimationFrame(draw);
 	}
-	// easterEgg();
+	skinChange();
 }
 
 function acceptChangeName() {
@@ -193,7 +193,7 @@ function acceptChangeName() {
 		pushNick();
 		backMenu();
 	}
-	// easterEgg();
+	skinChange();
 }
 
 function checkNameButtonActive() {
@@ -211,9 +211,3 @@ function whereNameInput(e){
 		acceptName();
 	}
 }
-
-// function easterEgg() {
-// 	if (localStorage.getItem('name') == "Nonamezzz"|| "Antonster"|| "WorldThirteen") {
-// 		skinChange();
-// 	}
-// }
