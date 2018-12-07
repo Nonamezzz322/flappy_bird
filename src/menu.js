@@ -1,5 +1,5 @@
 import * as vars from "./variables";
-import {draw, animations, moveUp, skinChange, canvasWidth} from "./app";
+import {draw, animations, moveUp, skinChange, canvasWidth, ghost} from "./app";
 import {checkLocalStorage, createTable, pushNick, getBestScore} from "./lead_table";
 export {openMenu, exitMenu, skinsMenu, backMenu,
   changeName, reload, sleep, start, gameOver, playMenu, 
@@ -214,5 +214,8 @@ function whereNameInput(e){
 function easterEgg() {
 	if (localStorage.getItem('name') == "Nonamezzz" || "Antonster"|| "WorldThirteen") {
 		skinChange();
+		if (localStorage.getItem('name') == "WorldThirteen") {
+			ghost.play();
+		}
 	}
 }

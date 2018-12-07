@@ -38,6 +38,8 @@ function moveUp(e) {
 		fly.currentTime = 0;
 		fly.play();
 	} else if (e.type == "click") {
+		fly.currentTime = 0;
+		fly.play();
 		upFrames = 8;
 		e.preventDefault();
 	}	
