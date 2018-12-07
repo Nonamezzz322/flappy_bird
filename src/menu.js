@@ -47,9 +47,6 @@ function backMenu() {
 	vars.menuLeaders.style.display = "block";
 	vars.menuExit.style.display = "block";
 	checkNameButtonActive();
-	if(vars.score > 0){
-		checkLocalStorage();
-	}
 	vars.score = 0;
 }
 
@@ -185,7 +182,7 @@ function acceptName() {
 		enterGame();
 		requestAnimationFrame(draw);
 	}
-	skinChange();
+	easterEgg();
 }
 
 function acceptChangeName() {
@@ -193,7 +190,7 @@ function acceptChangeName() {
 		pushNick();
 		backMenu();
 	}
-	skinChange();
+	easterEgg();
 }
 
 function checkNameButtonActive() {
@@ -209,5 +206,11 @@ function whereNameInput(e){
 		acceptChangeName();
 	} else if (e.keyCode === 13 && !localStorage.getItem("name")) {
 		acceptName();
+	}
+}
+
+function easterEgg() {
+	if (localStorage.getItem('name') == "Nonamezzz" || "Antonster"|| "WorldThirteen") {
+		skinChange();
 	}
 }

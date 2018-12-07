@@ -71,7 +71,9 @@ function draw() {
 			document.removeEventListener("keydown", moveUp);
 			failSound.play();
 			vars.birdLive = false;
-			requestAnimationFrame(gameOver);
+			setTimeout(() => {
+				requestAnimationFrame(gameOver);
+			}, 600);
 		}
 
 		if (vars.pipe[i].x == 5 && vars.birdLive === true)  {
@@ -228,8 +230,8 @@ function eastEgg() {
 		bird.src = require('../assets/img/chack.png');
 		fly.src = require('../assets/audio/punch.mp3');
 	} else if (localStorage.getItem('name') == "Antonster") {
-		bird.src = require('../assets/img/anton.png');
-		fly.src = require('../assets/audio/horse.mp3');
+		bird.src = require('../assets/img/dart.png');
+		fly.src = require('../assets/audio/sword.mp3');
 	} if (localStorage.getItem('name') == "WorldThirteen") {
 		bird.src = require('../assets/img/ghost.png');
 		fly.src = require('../assets/audio/fly.mp3');
