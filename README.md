@@ -6,7 +6,3 @@
 * open console;
 * npm start;
 * open http://localhost:1234 in your browser.
-
-
-### Scan the QR-code to open the game on your phone: 
- ![qr-code](http://i.piccy.info/i9/a4f6fbd8a3723bbed5d83061be58926b/1544199254/3306/1287292/Fb_game.png)
